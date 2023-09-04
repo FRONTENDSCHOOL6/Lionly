@@ -10,7 +10,7 @@
 
 멋쟁이 사자처럼 프론트엔드 스쿨 6기와 이듬을 위한 SNS
 
-### 📕 기획 자료
+## 📕 기획 자료
 
 **[기획 자료 보기](https://www.canva.com/design/DAFtceXRQ3k/agEdG97Q74KYvxY_aIWNsg/view?utm_content=DAFtceXRQ3k&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink#1)**
 
