@@ -18,7 +18,7 @@ function NicknameInput({ type, name = null, label, placeholder }) {
             id={id}
             name={name}
             placeholder={placeholder}
-            className="h-9 w-[200px] rounded-md border border-lionly-gray-4 bg-lionly-gray-4 px-10 py-3 text-lionly-sm outline-none placeholder:text-lionly-gray-2"
+            className="h-9 w-[200px] rounded-md border border-lionly-gray-4 bg-lionly-gray-4 px-8 py-3 text-lionly-sm outline-none placeholder:text-lionly-gray-2"
           />
         </fieldset>
       </form>
