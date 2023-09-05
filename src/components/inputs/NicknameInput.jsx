@@ -9,7 +9,7 @@ function NicknameInput({ type, name = null, label, placeholder }) {
         <fieldset className="bg-lionly-primary-color">
           <label
             htmlFor={id}
-            className="block text-lionly-sm-bold text-lionly-white"
+            className="sr-only block text-lionly-sm-bold text-lionly-white"
           >
             {label}
           </label>
