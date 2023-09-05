@@ -1,6 +1,6 @@
 import { oneOf, string, func } from 'prop-types';
 import { useRef, useId, useState } from 'react';
-import { nameReg, idReg, nickNameReg, pwReg } from '@/utils/validation';
+import { nameReg, idReg, nickNameReg, passWordReg } from '@/utils/validation';
 
 function FormInput({
   type,
@@ -31,10 +31,10 @@ function FormInput({
         isValid = idReg(inputValue);
         break;
       case 'userPassWord':
-        isValid = pwReg(inputValue);
+        isValid = passWordReg(inputValue);
         break;
       case 'userPasswordCheck':
-        isValid = pwReg(inputValue);
+        isValid = passWordReg(inputValue);
         break;
       case 'userNickName':
         isValid = nickNameReg(inputValue);
@@ -47,10 +47,10 @@ function FormInput({
     }
 
     if (isValid || inputValue === '') {
-      console.log(`유효한 ${type}입니다.`, inputValue);
+      console.log(`유효한 ${name}입니다.`, inputValue);
       setIsErrorShow(false);
     } else {
-      console.error(`유효하지 않은 ${type}입니다.`, inputValue);
+      console.error(`유효하지 않은 ${name}입니다.`, inputValue);
       setIsErrorShow(true);
     }
   };
