@@ -5,7 +5,7 @@ function FormInput({ type, name = null, label, placeholder }) {
   const id = useId();
   const inputRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleInput = (e) => {
     e.preventDefault();
     const inputValue = inputRef.current.value;
     console.log(inputValue);
@@ -13,7 +13,7 @@ function FormInput({ type, name = null, label, placeholder }) {
 
   return (
     <div>
-      <form action="/" method="post" onSubmit={handleSubmit}>
+      <form action="/" method="post" onSubmit={handleInput}>
         <fieldset className="bg-lionly-primary-color">
           <label
             htmlFor={id}
