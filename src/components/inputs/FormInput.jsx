@@ -4,11 +4,16 @@ import { useRef, useId } from 'react';
 function FormInput({ type, name = null, label, placeholder }) {
   const id = useId();
   const inputRef = useRef(null);
-  console.log(inputRef.current.value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const inputValue = inputRef.current.value;
+    console.log(inputValue);
+  };
 
   return (
     <div>
-      <form action="/" method="post">
+      <form action="/" method="post" onSubmit={handleSubmit}>
         <fieldset className="bg-lionly-primary-color">
           <label
             htmlFor={id}
@@ -23,6 +28,7 @@ function FormInput({ type, name = null, label, placeholder }) {
             placeholder={placeholder}
             className="h-11 w-[250px] rounded border border-lionly-white bg-transparent py-3 pl-5 text-lionly-sm outline-none placeholder:text-lionly-white"
             ref={inputRef}
+            autoComplete="off"
           />
         </fieldset>
       </form>
@@ -36,5 +42,4 @@ FormInput.propTypes = {
   label: string.isRequired,
   placeholder: string.isRequired,
 };
-
 export default FormInput;
