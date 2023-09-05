@@ -26,7 +26,7 @@ function FormInput({ type, name = null, label, placeholder }) {
             id={id}
             name={name}
             placeholder={placeholder}
-            className="h-11 w-[250px] rounded border border-lionly-white bg-transparent py-3 pl-5 text-lionly-sm outline-none placeholder:text-lionly-white"
+            className="h-11 w-[250px] rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
             ref={inputRef}
             autoComplete="off"
           />
