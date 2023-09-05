@@ -1,5 +1,5 @@
-import ChannelButtonList from './components/ChannelButtonList';
-import InsertProfileButton from './components/InsertProfileButton';
+import ChannelButtonList from './components/Button/ChannelButtonList';
+import InsertProfileButton from './components/Button/InsertProfileButton';
 
 function App() {
   return (
