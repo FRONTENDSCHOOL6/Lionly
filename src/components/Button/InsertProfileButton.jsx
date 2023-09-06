@@ -19,6 +19,7 @@ function InsertProfileButton() {
       <ProfileImage handleInputClick={handleInputClick}>
         <ProfilePencilSVG className="absolute bottom-0 right-0" />
       </ProfileImage>
+      <ProfileImage small={true} />
       <ProfileImage />
 
       <input

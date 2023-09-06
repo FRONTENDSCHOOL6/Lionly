@@ -1,20 +1,25 @@
 import { ReactComponent as CameraIconSVG } from '@/assets/camera_myProfile.svg';
 import useProfileImage from '@/hooks/useProfileImage';
-import { func, node } from 'prop-types';
+import { bool, func, node } from 'prop-types';
 
-function ProfileImage({ handleInputClick, children }) {
+/* small을 전달 받으면 작은 프로필 아이콘으로 구현됩니다.
+handleInputClick 함수를 전달 받으면 프로필 변경 버튼으로,
+전달 받지 않으면 일반 프로필 아이콘으로 구현됩니다. */
+function ProfileImage({ small = false, handleInputClick, children }) {
   const { profileImageURL } = useProfileImage();
 
   return (
     <div
-      className="relative h-[70px] w-[70px]"
+      className={`relative ${small ? 'h-10 w-10' : 'h-[70px] w-[70px]'}`}
       onClick={handleInputClick}
       tabIndex={0}
     >
       <img
         src={profileImageURL}
         alt="프로필 이미지"
-        className="hover: h-full w-full rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat"
+        className="
+          h-full w-full
+        rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat"
       />
 
       {handleInputClick ? (
@@ -32,6 +37,7 @@ function ProfileImage({ handleInputClick, children }) {
 }
 
 ProfileImage.propTypes = {
+  small: bool,
   handleInputClick: func,
   children: node,
 };
