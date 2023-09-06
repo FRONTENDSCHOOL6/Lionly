@@ -11,7 +11,7 @@ function App() {
         placeholder="이름을 입력해주세요."
         errorMessage="한글 2~5자로 입력해주세요."
         minLength="2"
-        maxLength="4"
+        maxLength="5"
       />
       <FormInput
         type="email"
@@ -27,7 +27,7 @@ function App() {
         placeholder="닉네임을 입력해주세요."
         errorMessage="한글 3~8자로 입력해주세요."
         minLength="3"
-        maxLength="7"
+        maxLength="8"
       />
       <FormInput
         type="password"
@@ -36,7 +36,7 @@ function App() {
         placeholder="비밀번호를 입력해주세요."
         errorMessage="영문, 숫자, 특수문자를 포함한 8~16자로 입력해주세요."
         minLength="8"
-        maxLength="15"
+        maxLength="16"
       />
       <FormInput
         type="password"
@@ -45,7 +45,7 @@ function App() {
         placeholder="비밀번호를 다시 입력해주세요."
         errorMessage="비밀번호가 일치하지 않습니다"
         minLength="8"
-        maxLength="15"
+        maxLength="16"
       />
       <FormInput
         type="text"
@@ -61,7 +61,7 @@ function App() {
         placeholder="변경할 닉네임을 입력하세요."
         errorMessage="한글 3~8자로 입력해주세요."
         minLength="3"
-        maxLength="7"
+        maxLength="8"
       />
     </div>
   );
