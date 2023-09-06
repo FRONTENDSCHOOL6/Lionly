@@ -1,8 +1,7 @@
-import { node } from 'prop-types';
-import { string } from 'prop-types';
-import { useState } from 'react';
-import { createContext } from 'react';
 import { channelData } from '@/components/Button/ChannelButtonList';
+import getNodeIndex from '@/utils/getNodeIndex';
+import { node, string } from 'prop-types';
+import { createContext, useState } from 'react';
 
 export const ChannelContext = createContext({});
 
@@ -11,10 +10,13 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
   const falseArray = Array(channelData.length - 1).fill(false);
   const initialState = [...trueArray, ...falseArray];
 
-  const [select, setSelect] = useState([initialState]);
-
+  const [select, setSelect] = useState(initialState);
   const handleChangeChannel = (e) => {
-    console.log(e.target);
+    const targetIndex = getNodeIndex(e.target.parentNode);
+    const clickedState = initialState.map((item, index) => {
+      return index === targetIndex ? true : false;
+    });
+    setSelect(clickedState);
   };
 
   return (
