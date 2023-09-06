@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateFeed from '@/components/CreateFeed';
+import Home from '@/pages/Home';
 
 function App() {
   return (
     <div>
-      <CreateFeed />
+      <Home />
     </div>
   );
 }
