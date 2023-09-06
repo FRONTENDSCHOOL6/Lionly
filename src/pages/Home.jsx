@@ -1,9 +1,9 @@
-import FeedList from './FeedList';
+import FeedItem from './FeedItem';
 
 function Home() {
   return (
     <div>
-      <FeedList
+      <FeedItem
         item={{
           author: 'sas1tr538k9cbwo',
           collectionId: 'xxe6ozpcn0ther2',
