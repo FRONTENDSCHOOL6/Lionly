@@ -1,6 +1,6 @@
-import { ReactComponent as ProfilePencil } from '@/assets/profilePencil_myProfile.svg';
-import { useRef } from 'react';
+import { ReactComponent as ProfilePencilSVG } from '@/assets/profilePencil_myProfile.svg';
 import useProfileImage from '@/hooks/useProfileImage';
+import { useRef } from 'react';
 import ProfileImage from './ProfileImage';
 
 function InsertProfileButton() {
@@ -17,7 +17,7 @@ function InsertProfileButton() {
       </label>
 
       <ProfileImage handleInputClick={handleInputClick}>
-        <ProfilePencil className="absolute bottom-0 right-0" />
+        <ProfilePencilSVG className="absolute bottom-0 right-0" />
       </ProfileImage>
       <ProfileImage />
 
