@@ -1,13 +1,7 @@
-import ChannelButtonList from './components/Button/ChannelButtonList';
-import InsertProfileButton from './components/Button/InsertProfileButton';
+import React from 'react';
 
 function App() {
-  return (
-    <>
-      <ChannelButtonList />
-      <InsertProfileButton />
-    </>
-  );
+  return <div>App</div>;
 }
 
 export default App;
