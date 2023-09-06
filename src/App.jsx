@@ -1,5 +1,5 @@
-import FormInput from '@/components/inputs/FormInput';
-import NicknameInput from '@/components/inputs/NicknameInput';
+import FormInput from '@/components/input/FormInput';
+import NicknameInput from '@/components/input/NicknameInput';
 
 function App() {
   return (
