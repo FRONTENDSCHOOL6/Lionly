@@ -1,4 +1,5 @@
 import useChannel from '@/hooks/useChannel';
+import handleKeyboardArrowControl from '@/utils/handleTabArrowControl';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const channelData = [
@@ -29,6 +30,7 @@ function ChannelButtonList() {
               <button
                 type="button"
                 role="tab"
+                tabIndex={select[index] === true ? -1 : 0}
                 aria-selected={select[index] === true ? true : false}
                 aria-controls={item.channelName}
                 className={`rounded-[4px] border border-lionly-secondary-color px-[9px] py-1 text-lionly-sm-bold outline-4 outline-lionly-black ${
@@ -37,6 +39,7 @@ function ChannelButtonList() {
                     : 'bg-lionly-white'
                 }`}
                 onClick={handleChangeChannel}
+                onKeyDown={handleKeyboardArrowControl}
               >
                 {item.channelName}
               </button>
