@@ -1,4 +1,4 @@
-import { channelData } from '@/components/Button/ChannelButtonList';
+import { channelData } from '@/components/button/ChannelButtonList';
 import getNodeIndex from '@/utils/getNodeIndex';
 import { node, string } from 'prop-types';
 import { createContext, useState } from 'react';

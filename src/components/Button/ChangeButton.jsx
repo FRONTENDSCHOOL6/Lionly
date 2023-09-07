@@ -1,14 +1,11 @@
-
-function ChangeButton(){
+function ChangeButton() {
   return (
-    <button 
-    className={`w-[200px] h-[34px]  bg-lionly-primary-color text-lionly-white  rounded-lg text-lionly-md`}
+    <button
+      className={`h-[34px] w-[200px]  rounded-lg bg-lionly-primary-color  text-lionly-md text-lionly-white`}
     >
-    변경하기
+      변경하기
     </button>
-  )
+  );
 }
 
-
-
-export default ChangeButton
+export default ChangeButton;
