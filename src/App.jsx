@@ -1,9 +1,7 @@
 import ProfileImageProvider from './contexts/ProfileImage.jsx';
 import ChannelProvider from './contexts/Channel.jsx';
-import {  RouterProvider } from 'react-router-dom';
-import  router  from './routes.jsx';
-
-
+import { RouterProvider } from 'react-router-dom';
+import router from './routes.jsx';
 
 function App() {
   return (
