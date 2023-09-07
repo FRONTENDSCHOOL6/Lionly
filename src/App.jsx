@@ -1,5 +1,6 @@
 import FormInput from '@/components/input/FormInput';
 import NicknameInput from '@/components/input/NicknameInput';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
         minLength="3"
         maxLength="8"
       />
+      <Home/>
     </div>
   );
 }
