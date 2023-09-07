@@ -1,6 +1,6 @@
 import feedImg from '@/assets/feed_Header.svg';
-import WritingButton from '../components/button/WritingButton';
-import LogoutButton from '../components/button/LogoutButton';
+import WritingButton from '../button/WritingButton';
+import LogoutButton from '../button/LogoutButton';
 import PocketBase from 'pocketbase';
 import { useState } from 'react';
 
