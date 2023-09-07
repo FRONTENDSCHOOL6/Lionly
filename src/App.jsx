@@ -32,7 +32,7 @@ function App() {
       <FormInput
         type="password"
         label="비밀번호"
-        name="userPassWord"
+        name="userPassword"
         placeholder="비밀번호를 입력해주세요."
         errorMessage="영문, 숫자, 특수문자를 포함한 8~16자로 입력해주세요."
         minLength="8"
@@ -50,7 +50,7 @@ function App() {
       <FormInput
         type="text"
         label="범쌤과 닮은 캐릭터의 이름은?"
-        name="ansWer"
+        name="answer"
         placeholder="정답을 입력해주세요."
         errorMessage="정답이 일치하지 않습니다."
       />

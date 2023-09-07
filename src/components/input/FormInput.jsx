@@ -1,6 +1,7 @@
 import { oneOf, string, func } from 'prop-types';
 import { useRef, useId, useState } from 'react';
 import { nameReg, idReg, nickNameReg, passWordReg } from '@/utils/validation';
+import { maxLengthCheck } from '@/utils/maxLengthCheck';
 
 function FormInput({
   type,
@@ -16,10 +17,20 @@ function FormInput({
 
   const [isErrorShow, setIsErrorShow] = useState(false);
 
+  let password;
+
+  if (name === 'userPasswordCheck') {
+    password = document.querySelector('[name="userPassword"]')?.value;
+  }
+
   const handleInput = (e) => {
     e.preventDefault();
     const inputValue = inputRef.current.value;
     console.log(inputValue);
+
+    if (maxLength) {
+      maxLengthCheck(inputRef.current);
+    }
 
     let isValid = false;
 
@@ -30,16 +41,16 @@ function FormInput({
       case 'userId':
         isValid = idReg(inputValue);
         break;
-      case 'userPassWord':
+      case 'userPassword':
         isValid = passWordReg(inputValue);
         break;
       case 'userPasswordCheck':
-        isValid = passWordReg(inputValue);
+        isValid = password === inputValue;
         break;
       case 'userNickName':
         isValid = nickNameReg(inputValue);
         break;
-      case 'ansWer':
+      case 'answer':
         isValid = inputValue === '카레빵맨';
         break;
       default:
