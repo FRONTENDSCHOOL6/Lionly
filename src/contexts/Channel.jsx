@@ -24,6 +24,7 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     onSuccess: (channels) => {
       setChannels(channels);
     },
+    retry: 2,
   });
 
   console.log(status);

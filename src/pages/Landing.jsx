@@ -1,9 +1,9 @@
-import ChannelTab from '@/components/button/ChannelTab';
+import ProfileImage from '@/components/button/ProfileImage';
 
 function Landing() {
   return (
     <div>
-      <ChannelTab />
+      <ProfileImage />
     </div>
   );
 }
