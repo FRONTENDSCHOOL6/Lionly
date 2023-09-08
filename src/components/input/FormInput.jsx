@@ -26,7 +26,7 @@ function FormInput({
   const handleInput = (e) => {
     e.preventDefault();
     const inputValue = inputRef.current.value;
-    console.log(inputValue);
+    // console.log(inputValue);
 
     if (maxLength) {
       maxLengthCheck(inputRef.current);
@@ -58,26 +58,27 @@ function FormInput({
     }
 
     if (isValid || inputValue === '') {
-      console.log(`유효한 ${name}입니다.`, inputValue);
+      // console.log(`유효한 ${name}입니다.`, inputValue);
       setIsErrorShow(false);
     } else {
-      console.error(`유효하지 않은 ${name}입니다.`, inputValue);
+      // console.error(`유효하지 않은 ${name}입니다.`, inputValue);
       setIsErrorShow(true);
     }
   };
 
   return (
-    <div className="bg-lionly-primary-color">
+    <div>
       <form
         action="/"
         method="post"
         onSubmit={handleInput}
         onChange={handleInput}
+        className="max-w-[720px]"
       >
         <fieldset>
           <label
             htmlFor={id}
-            className="block text-lionly-sm-bold text-lionly-white"
+            className="mb-1 block text-lionly-sm-bold text-lionly-white"
           >
             {label}
           </label>
@@ -86,7 +87,7 @@ function FormInput({
             id={id}
             name={name}
             placeholder={placeholder}
-            className="h-11 w-[250px] rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
+            className="mb-2 h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
             ref={inputRef}
             autoComplete="off"
             minLength={minLength}
@@ -95,7 +96,7 @@ function FormInput({
         </fieldset>
       </form>
       <span
-        className={`text-lionly-xs text-lionly-red ${
+        className={`mb-1 text-lionly-xs  text-lionly-red ${
           isErrorShow ? 'block' : 'hidden'
         }`}
       >
