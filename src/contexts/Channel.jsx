@@ -1,7 +1,8 @@
 import getChannelList from '@/api/getChannelList';
 import getNodeIndex from '@/utils/getNodeIndex';
+import { useQuery } from '@tanstack/react-query';
 import { node, string } from 'prop-types';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export const ChannelContext = createContext({});
 
@@ -17,13 +18,15 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     setSelect(clickedState);
   };
 
-  useEffect(() => {
-    async function channels() {
-      const channelList = await getChannelList();
-      setChannels(channelList);
-    }
-    channels();
-  }, []);
+  const { status } = useQuery({
+    queryKey: ['channels'],
+    queryFn: getChannelList,
+    onSuccess: (channels) => {
+      setChannels(channels);
+    },
+  });
+
+  console.log(status);
 
   return (
     <ChannelContext.Provider
