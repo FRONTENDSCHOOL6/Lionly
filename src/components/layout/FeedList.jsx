@@ -1,10 +1,21 @@
 import { getPbImageURL } from '@/utils/getPbImageURL';
 import { ReactComponent as KebabButtonSVG } from '@/assets/KebabMenuButton_FeedList.svg';
 import { shape, string } from 'prop-types';
-import useFeedList from '@/hooks/useFeedList';
+import { useQuery } from '@tanstack/react-query';
+import getFeedText from '@/api/getFeedText';
 
 function Feed() {
-  const { data, isLoading } = useFeedList();
+  const { status, isLoading, data } = useQuery({
+    queryKey: ['text'],
+    queryFn: getFeedText,
+    retry: 3,
+    cacheTime: 5 * 60 * 1000,
+    staleTime: 3 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+  });
+  console.log(status);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -15,9 +26,7 @@ function Feed() {
       <>
         <h2>전체 게시글</h2>
         <ul className="m-auto w-72">
-          {data.items?.map((item) => (
-            <FeedItem key={item.id} item={item} />
-          ))}
+          {data && data.map((item) => <FeedItem key={item.id} item={item} />)}
         </ul>
       </>
     );

@@ -1,9 +1,7 @@
-import React from 'react'
+import Feed from '@/components/layout/FeedList';
 
-function Feed() {
-  return (
-    <div>Feed</div>
-  )
+function Name() {
+  return <Feed />;
 }
 
-export default Feed
+export default Name;
