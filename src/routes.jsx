@@ -1,55 +1,49 @@
 import { createBrowserRouter } from 'react-router-dom';
-import ErrorPage from './pages/Error-page.jsx'
-import Landing from './pages/Landing.jsx'
-import SignIn from './pages/SignIn.jsx'
-import SignUp from './pages/SignUp.jsx'
-import Writing from './pages/Writing.jsx'
-import Feed from './pages/Feed.jsx'
-import MyPage from './pages/MyPage.jsx'
-import Content from './pages/Content.jsx'
-
+import ErrorPage from './pages/Error-page.jsx';
+import Landing from './pages/Landing.jsx';
+import SignIn from './pages/SignIn.jsx';
+import SignUp from './pages/SignUp.jsx';
+import Writing from './pages/Writing.jsx';
+import Feed from './pages/Feed.jsx';
+import MyPage from './pages/MyPage.jsx';
+import Content from './pages/Content.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Landing/>,
-    errorElement : <ErrorPage/>
+    element: <Landing />,
+    errorElement: <ErrorPage />,
   },
   {
     path: 'signin',
-    element: <SignIn/>
-    
+    element: <SignIn />,
   },
   {
     path: '/signup',
-    element: <SignUp/>
-    
+    element: <SignUp />,
   },
   {
     path: '/writing',
-    element: <Writing/>
-    
+    element: <Writing />,
   },
   {
     path: '/mypage',
-    element: <MyPage/>
+    element: <MyPage />,
   },
   {
     path: '/feed',
-    element: <Feed/>,
-    children : [
-      { path : 'feed/healings',/* element :*/},
-      { path : 'feed/jobs',/* element :*/},
-      { path : 'feed/foods',/* element :*/},
-      { path : 'feed/dailys',/* element :*/},
-    ]
+    element: <Feed />,
+    children: [
+      { path: 'feed/healings' /* element :*/ },
+      { path: 'feed/jobs' /* element :*/ },
+      { path: 'feed/foods' /* element :*/ },
+      { path: 'feed/dailys' /* element :*/ },
+    ],
   },
   {
     path: '/content/:contentId',
-    element: <Content/>
+    element: <Content />,
   },
-
 ]);
 
-
-export default router ;
+export default router;

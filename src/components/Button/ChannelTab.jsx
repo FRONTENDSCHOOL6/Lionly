@@ -2,16 +2,8 @@ import useChannel from '@/hooks/useChannel';
 import handleKeyboardArrowControl from '@/utils/handleTabArrowControl';
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const channelData = [
-  { id: 1, channelName: '전체 게시글', checked: true },
-  { id: 2, channelName: '일상방', checked: false },
-  { id: 3, channelName: '힐링방', checked: false },
-  { id: 4, channelName: '취업방', checked: false },
-  { id: 5, channelName: '모임방', checked: false },
-];
-
-function ChannelButtonList() {
-  const { select, handleChangeChannel } = useChannel();
+function ChannelTab() {
+  const { select, channels, handleChangeChannel } = useChannel();
 
   return (
     <>
@@ -19,18 +11,18 @@ function ChannelButtonList() {
         채널 리스트
       </h3>
       <ul
-        className="mx-[3px] my-2 flex w-fit gap-x-1.5"
+        className="mx-[3px] my-2 flex w-fit min-w-[320px] gap-x-1.5"
         role="tablist"
         aria-labelledby="channelList"
         aria-orientation="horizontal"
       >
-        {channelData.map((item, index) => {
+        {channels?.map((item, index) => {
           return (
-            <li key={crypto.randomUUID()}>
+            <li key={item}>
               <button
                 type="button"
-                role="tab"
                 tabIndex={select[index] === true ? -1 : 0}
+                role="tab"
                 aria-selected={select[index] === true ? true : false}
                 aria-controls={item.channelName}
                 className={`rounded-[4px] border border-lionly-secondary-color px-[9px] py-1 text-lionly-sm-bold outline-4 outline-lionly-black ${
@@ -41,7 +33,7 @@ function ChannelButtonList() {
                 onClick={handleChangeChannel}
                 onKeyDown={handleKeyboardArrowControl}
               >
-                {item.channelName}
+                {item}
               </button>
             </li>
           );
@@ -51,4 +43,4 @@ function ChannelButtonList() {
   );
 }
 
-export default ChannelButtonList;
+export default ChannelTab;

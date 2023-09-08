@@ -1,27 +1,33 @@
-import { channelData } from '@/components/button/ChannelButtonList';
+import getChannelList from '@/api/getChannelList';
 import getNodeIndex from '@/utils/getNodeIndex';
 import { node, string } from 'prop-types';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const ChannelContext = createContext({});
 
 function ChannelProvider({ displayName = 'ChannelContext', children }) {
-  const trueArray = [true];
-  const falseArray = Array(channelData.length - 1).fill(false);
-  const initialState = [...trueArray, ...falseArray];
+  const [channels, setChannels] = useState([]);
+  const [select, setSelect] = useState([true]);
 
-  const [select, setSelect] = useState(initialState);
   const handleChangeChannel = (e) => {
     const targetIndex = getNodeIndex(e.target.parentNode);
-    const clickedState = initialState.map((item, index) => {
+    const clickedState = channels.map((item, index) => {
       return index === targetIndex ? true : false;
     });
     setSelect(clickedState);
   };
 
+  useEffect(() => {
+    async function channels() {
+      const channelList = await getChannelList();
+      setChannels(channelList);
+    }
+    channels();
+  }, []);
+
   return (
     <ChannelContext.Provider
-      value={{ select, handleChangeChannel }}
+      value={{ select, channels, handleChangeChannel }}
       displayName={displayName}
     >
       {children}

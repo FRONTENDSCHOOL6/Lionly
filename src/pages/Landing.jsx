@@ -1,9 +1,11 @@
-
+import ChannelTab from '@/components/button/ChannelTab';
 
 function Landing() {
   return (
-    <div>Landing</div>
-  )
+    <div>
+      <ChannelTab />
+    </div>
+  );
 }
 
-export default Landing
+export default Landing;
