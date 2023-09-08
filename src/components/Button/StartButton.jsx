@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 
-function StartButton({ color = 'black' , text= '시작하기'}) {
+function StartButton({ color = 'black', text = '시작하기' }) {
   return (
     <button
       className={`
-    m-4 w-[250px] h-11 text-lionly-md font-normal rounded border border-lionly-white 
+    my-4 h-11 w-full rounded border border-lionly-white text-lionly-md font-normal 
     ${
       color == 'black'
         ? 'bg-lionly-white text-lionly-black'
-        : color == 'transparent'? 'bg-transparent text-lionly-white' : ''
+        : color == 'transparent'
+        ? 'bg-transparent text-lionly-white'
+        : ''
     }
     `}
     >
@@ -18,9 +20,8 @@ function StartButton({ color = 'black' , text= '시작하기'}) {
 }
 
 StartButton.propTypes = {
-  color : PropTypes.string,
-  text : PropTypes.string
+  color: PropTypes.string,
+  text: PropTypes.string,
 };
-
 
 export default StartButton;
