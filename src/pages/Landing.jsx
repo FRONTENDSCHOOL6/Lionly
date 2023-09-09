@@ -1,9 +1,9 @@
-import ProfileImage from '@/components/button/ProfileImage';
+import BigButton from '@/components/button/BigButton';
 
 function Landing() {
   return (
-    <div>
-      <ProfileImage />
+    <div className="mt-[162px]">
+      <BigButton />
     </div>
   );
 }
