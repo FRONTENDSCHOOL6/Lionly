@@ -6,7 +6,7 @@ function SignUp({ text }) {
   return (
     <div className="h-screen bg-lionly-primary-color">
       <div className="mx-auto max-w-[720px] px-[35px]">
-        <div className="flex justify-between pt-[30px]">
+        <div className="flex justify-between pt-[20%]">
           <h1 className="text-lionly-2xl text-lionly-white">회원가입</h1>
           <LionLogo className="h-[58px] w-[58px]" />
         </div>
