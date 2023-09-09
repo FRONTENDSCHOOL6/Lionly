@@ -36,7 +36,7 @@ function FeedItem({ item }) {
           <p className="text-lionly-sm text-lionly-gray-1">{item.date}</p>
         </figcaption>
         <button type="button" className="absolute right-0 h-9 w-9">
-          <KebabButtonSVG />
+          <KebabButtonSVG aria-hidden />
         </button>
       </figure>
       <figure className="w-full ">

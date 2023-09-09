@@ -12,7 +12,7 @@ function WritingButton() {
       }}
       className="flex h-[34px] w-[88px] items-center justify-center gap-2 rounded-lg bg-lionly-secondary-color text-lionly-md text-lionly-white"
     >
-      <PenSVG />
+      <PenSVG aria-hidden />
       글쓰기
     </button>
   );

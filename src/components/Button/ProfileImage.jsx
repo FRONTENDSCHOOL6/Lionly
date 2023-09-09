@@ -26,7 +26,10 @@ function ProfileImage({ small = false, handleInputClick, children }) {
 
       {handleInputClick ? (
         <div className="group absolute top-0 h-full w-full rounded-full border-2 text-lionly-sm-bold transition-all hover:bg-lionly-black hover:bg-opacity-[0.85]">
-          <CameraIconSVG className="absolute left-[calc(50%-12px)] top-2.5 hidden w-6 group-hover:block" />
+          <CameraIconSVG
+            aria-hidden
+            className="absolute left-[calc(50%-12px)] top-2.5 hidden w-6 group-hover:block"
+          />
           <span className="absolute bottom-3 left-[calc(50%-22.135px)] hidden text-lionly-white group-hover:block">
             사진 변경
           </span>
