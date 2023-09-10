@@ -73,7 +73,7 @@ function FormInput({
         method="post"
         onSubmit={handleInput}
         onChange={handleInput}
-        className="max-w-[720px]"
+        className="max-w-screen-md"
       >
         <fieldset>
           <label
