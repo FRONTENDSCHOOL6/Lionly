@@ -1,76 +1,76 @@
 import { getPbImageURL } from '@/utils/getPbImageURL';
 import { ReactComponent as KebabButtonSVG } from '@/assets/KebabMenuButton_FeedList.svg';
 import { shape, string } from 'prop-types';
-// import Spinner from '../Spinner';
-import pb from '@/api/pocketbase';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import getFeedText from '@/api/getFeedText';
 
-function FeedList() {
-  const [feed, setFeed] = useState();
-  useEffect(() => {
-    async function getList() {
-      try {
-        const getFeedList = await pb
-          .collection('feeds')
-          .getFullList({ expand: 'author' });
-        console.log(getFeedList);
-        setFeed(getFeedList);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getList();
-  }, []);
+function Feed() {
+  const { status, isLoading, data } = useQuery({
+    queryKey: ['text'],
+    queryFn: getFeedText,
+    retry: 3,
+    cacheTime: 5 * 60 * 1000,
+    staleTime: 3 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+  });
+  console.log(status);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (data) {
+    return (
+      <>
+        <h2>전체 게시글</h2>
+        <ul className="m-auto w-72">
+          {data && data.map((item) => <FeedItem key={item.id} item={item} />)}
+        </ul>
+      </>
+    );
+  }
+}
+
+export default Feed;
+
+function FeedItem({ item }) {
   return (
-    <ul className="m-auto w-72">
-      {feed?.map((item) => (
-        <li key={item.id} className="mb-[22px]">
-          <figure className="relative mb-[10px] flex h-10 w-full">
-            <img
-              src={getPbImageURL(item.expand.author, 'profile_image')}
-              alt=""
-              className="h-[40px] w-[40px] rounded-full"
-            />
-            <figcaption className="ml-3">
-              <p className="font-bold text-lionly-black">
-                {item.expand.author.nickname}
-              </p>
-              <p className="text-lionly-sm text-lionly-gray-1">
-                {item.updated}
-              </p>
-            </figcaption>
-            <button type="button" className="absolute right-0 h-9 w-9">
-              <KebabButtonSVG />
-            </button>
-          </figure>
-          <figure className="w-full ">
-            <img
-              src={getPbImageURL(item, 'feed_image')}
-              alt=""
-              className="h-40 w-full rounded-2xl"
-            />
-            <figcaption className="mt-[14px]">
-              <p className="w-[260] text-lionly-sm text-lionly-gray-1">
-                {item.text}
-              </p>
-            </figcaption>
-          </figure>
-        </li>
-      ))}
-    </ul>
+    <li key={item.id}>
+      <figure className="relative mb-[10px] flex h-10 w-full">
+        <img src={getPbImageURL(item, 'image')} alt="" />
+        <figcaption className="ml-3">
+          <p className="font-bold text-lionly-black">{item.nickname}</p>
+          <p className="text-lionly-sm text-lionly-gray-1">{item.date}</p>
+        </figcaption>
+        <button type="button" className="absolute right-0 h-9 w-9">
+          <KebabButtonSVG />
+        </button>
+      </figure>
+      <figure className="w-full ">
+        <img
+          src={getPbImageURL(item, 'feedimage')}
+          alt=""
+          className="h-40 w-full rounded-2xl"
+        />
+        <figcaption className="mt-[14px]">
+          <p className="w-[260] text-lionly-sm text-lionly-gray-1">
+            {item.text}
+          </p>
+        </figcaption>
+      </figure>
+    </li>
   );
 }
 
-FeedList.propTypes = {
+FeedItem.propTypes = {
   item: shape({
     id: string,
     image: string,
     nickname: string,
     date: string,
-    feed_image: string,
+    feedimage: string,
     text: string,
   }).isRequired,
 };
-
-export default FeedList;
