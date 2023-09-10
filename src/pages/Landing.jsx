@@ -1,9 +1,11 @@
-
+import BigButton from '@/components/button/BigButton';
 
 function Landing() {
   return (
-    <div>Landing</div>
-  )
+    <div className="mt-[162px]">
+      <BigButton />
+    </div>
+  );
 }
 
-export default Landing
+export default Landing;
