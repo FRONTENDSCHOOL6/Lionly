@@ -1,9 +1,9 @@
-
-
 function SignIn() {
   return (
-    <div>SignIn</div>
-  )
+    <div>
+      <h2>로그인</h2>
+    </div>
+  );
 }
 
-export default SignIn
+export default SignIn;

@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import { ChannelContext } from '@/contexts/Channel';
+import { useContext } from 'react';
 
 function useChannel() {
   const value = useContext(ChannelContext);
