@@ -1,11 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import { LogoutButton, ProfileImage, WritingButton } from '../button';
 import { ReactComponent as LionHeadLogo } from '/src/assets/lionHeadLogo_common.svg';
+import { handleTabArrowControl } from '@/utils';
 
 function FeedHeader() {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-lionly-primary-color px-4">
       <div className="flex justify-between border-b border-lionly-secondary-color">
-        <div className="flex items-center gap-x-2.5">
+        <div
+          tabIndex="0"
+          onClick={() => {
+            navigate('/');
+          }}
+          onKeyDown={handleTabArrowControl}
+          className="flex cursor-pointer items-center gap-x-2.5"
+        >
           <LionHeadLogo />
           <h1 className="text-lionly-xl text-white">Lionly</h1>
         </div>
