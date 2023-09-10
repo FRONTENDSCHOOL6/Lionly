@@ -30,7 +30,7 @@ function FeedList() {
             <img
               src={getPbImageURL(item.expand.author, 'profile_image')}
               alt=""
-              className="rounded-full"
+              className="h-[40px] w-[40px] rounded-full"
             />
             <figcaption className="ml-3">
               <p className="font-bold text-lionly-black">
