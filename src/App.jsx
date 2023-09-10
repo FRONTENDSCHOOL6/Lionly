@@ -1,8 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router-dom';
 import ChannelProvider from './contexts/Channel.jsx';
 import ProfileImageProvider from './contexts/ProfileImage.jsx';
 import router from './routes.jsx';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
