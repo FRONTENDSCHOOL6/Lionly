@@ -9,13 +9,11 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <QueryClientProvider client={queryClient}>
       <ChannelProvider>
-          <ProfileImageProvider>
-            <RouterProvider router={router} />
-          </ProfileImageProvider>
-        </ChannelProvider>
-    </QueryClientProvider>
+        <ProfileImageProvider>
+          <RouterProvider router={router} />
+        </ProfileImageProvider>
+      </ChannelProvider>
     </QueryClientProvider>
   );
 }
