@@ -12,9 +12,9 @@ async function getDate(collection, id) {
   const minutes = String(date.getMinutes());
   const seconds = String(date.getSeconds());
 
-  
+  console.log(
+    `${year}년${month}월${day}일 ${hours}시${minutes}분${seconds}초`
+  );
 
   return `${year}년${month}월${day}일 ${hours}시${minutes}분${seconds}초`;
 }
-
-export default getDate();
