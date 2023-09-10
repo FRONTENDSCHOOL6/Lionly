@@ -26,7 +26,6 @@ function FeedList() {
     );
   }
 
-function FeedItem({ item }) {
   return (
     <ul className="m-auto w-72">
       {data?.map((item) => (
@@ -67,13 +66,15 @@ function FeedItem({ item }) {
   );
 }
 
-FeedItem.propTypes = {
+FeedList.propTypes = {
   item: shape({
     id: string,
     image: string,
     nickname: string,
     date: string,
-    feedimage: string,
+    feed_image: string,
     text: string,
   }).isRequired,
 };
+
+export default FeedList;
