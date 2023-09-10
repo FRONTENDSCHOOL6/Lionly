@@ -1,5 +1,5 @@
 import useTitle from '@/hooks/useTitle';
-import MainLogo from '../MainLogo';
+// import MainLogo from '../MainLogo';
 import { Outlet } from 'react-router-dom';
 
 function BeforeLogin() {
@@ -10,14 +10,14 @@ function BeforeLogin() {
       <div
         className={`flex flex-col items-center ${logoStyle.gap} ${logoStyle.pt} ${logoStyle.pr} ${logoStyle.position} transition-all`}
       >
-        <MainLogo size={logoStyle.size} />
+        {/* <MainLogo size={logoStyle.size} /> */}
         <h1
           className={`text-lionly-2xl text-lionly-white ${headingStyle.visible}`}
         >
           Lionly
         </h1>
       </div>
-      <div className="flex justify-center">
+      <div className="flex w-full flex-col justify-center">
         <Outlet />
       </div>
     </>
