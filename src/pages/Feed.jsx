@@ -1,7 +1,5 @@
-import Feed from '@/components/layout/FeedList';
-
-function Name() {
-  return <Feed />;
+function Feed() {
+  return <div>Feed</div>;
 }
 
-export default Name;
+export default Feed;
