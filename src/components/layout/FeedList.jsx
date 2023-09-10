@@ -1,30 +1,34 @@
 import { getPbImageURL } from '@/utils/getPbImageURL';
 import { ReactComponent as KebabButtonSVG } from '@/assets/KebabMenuButton_FeedList.svg';
 import { shape, string } from 'prop-types';
-// import Spinner from '../Spinner';
-import pb from '@/api/pocketbase';
-import { useEffect, useState } from 'react';
+import getFeedList from '@/api/getFeedList.js';
+import { useQuery } from '@tanstack/react-query';
+import Spinner from '@/components/Spinner';
 
 function FeedList() {
-  const [feed, setFeed] = useState();
-  useEffect(() => {
-    async function getList() {
-      try {
-        const getFeedList = await pb
-          .collection('feeds')
-          .getFullList({ expand: 'author' });
-        console.log(getFeedList);
-        setFeed(getFeedList);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getList();
-  }, []);
+  const { status, isLoading, data } = useQuery({
+    queryKey: ['feed'],
+    queryFn: getFeedList,
+    retry: 3,
+    cacheTime: 5 * 60 * 1000,
+    staleTime: 3 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+  });
+  console.log(status);
+
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <ul className="m-auto w-72">
-      {feed?.map((item) => (
+      {data?.map((item) => (
         <li key={item.id} className="mb-[22px]">
           <figure className="relative mb-[10px] flex h-10 w-full">
             <img
