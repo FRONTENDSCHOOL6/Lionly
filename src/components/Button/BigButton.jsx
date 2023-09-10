@@ -11,7 +11,7 @@ function BigButton({ color = 'black', text = '시작하기' }) {
         navigate('/signin');
       }}
       className={`
-    m-4 h-11 w-[250px] rounded border border-lionly-white text-lionly-md font-normal 
+    mt-2 h-11 w-full rounded border border-lionly-white text-lionly-md font-normal
     ${
       color == 'black'
         ? 'bg-lionly-white text-lionly-black'
