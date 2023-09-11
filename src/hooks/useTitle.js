@@ -1,17 +1,17 @@
 import { useLocation } from 'react-router-dom';
 
 function useTitle() {
-  const location = useLocation().pathname;
+  const pathname = useLocation().pathname;
   const logoStyle = {
     size: null,
     gap: null,
     pt: null,
     pr: null,
-    position: null,
+    absolute: null,
   };
-  const headingStyle = { visible: null };
+  const headingStyle = { hidden: null };
 
-  switch (location) {
+  switch (pathname) {
     case '/signin':
       logoStyle.size = 58;
       logoStyle.gap = 'gap-y-2';
@@ -21,11 +21,9 @@ function useTitle() {
     case '/signup':
       logoStyle.size = 58;
       logoStyle.gap = 'gap-y-2';
-      logoStyle.pt = 'pt-[20px]';
-      logoStyle.pr = 'pr-[32px]';
-      logoStyle.position = 'float-right';
+      logoStyle.absolute = 'absolute top-5 right-8';
 
-      headingStyle.visible = 'hidden';
+      headingStyle.hidden = 'hidden';
       break;
 
     case '/feed':

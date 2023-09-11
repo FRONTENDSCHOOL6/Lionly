@@ -17,7 +17,7 @@ function InsertProfileButton() {
       </label>
 
       <ProfileImage handleInputClick={handleInputClick}>
-        <ProfilePencilSVG className="absolute bottom-0 right-0" />
+        <ProfilePencilSVG aria-hidden className="absolute bottom-0 right-0" />
       </ProfileImage>
       <ProfileImage small={true} />
       <ProfileImage />
