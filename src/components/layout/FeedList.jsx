@@ -4,6 +4,7 @@ import { shape, string } from 'prop-types';
 import getFeedList from '@/api/getFeedList.js';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '@/components/Spinner';
+import getDate from '@/utils/getDate';
 
 function FeedList() {
   const { status, isLoading, data } = useQuery({
@@ -17,7 +18,7 @@ function FeedList() {
     refetchOnMount: false,
   });
   console.log(status);
-
+  console.log(data)
   if (isLoading) {
     return (
       <div>
@@ -41,7 +42,7 @@ function FeedList() {
                 {item.expand.author.nickname}
               </p>
               <p className="text-lionly-sm text-lionly-gray-1">
-                {item.updated}
+                {getDate(item.created)}
               </p>
             </figcaption>
             <button type="button" className="absolute right-0 h-9 w-9">
