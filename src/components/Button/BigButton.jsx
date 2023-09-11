@@ -11,7 +11,7 @@ function BigButton({ color = 'black', text, destination }) {
         navigate(destination);
       }}
       className={`
-    mx-[35px] h-11 w-full rounded border border-lionly-white text-lionly-md font-normal
+    h-11 w-full rounded border border-lionly-white text-lionly-md font-normal
     ${
       color == 'black'
         ? 'bg-lionly-white text-lionly-black'
