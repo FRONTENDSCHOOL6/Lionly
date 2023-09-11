@@ -40,9 +40,6 @@ function FeedList() {
                     {item.updated}
                   </p>
                 </figcaption>
-                {/* <button type="button" className="absolute right-0 h-9 w-9">
-              <KebabButtonSVG />
-            </button> */}
               </figure>
               <figure className="w-full">
                 <img
