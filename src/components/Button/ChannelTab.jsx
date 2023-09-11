@@ -19,7 +19,7 @@ function ChannelTab() {
         >
           {channels?.map((item, index) => {
             return (
-              <li key={item}>
+              <li key={item} className="py-1">
                 <NavLink
                   to={
                     item === '힐링방'
@@ -36,13 +36,13 @@ function ChannelTab() {
                   role="tab"
                   aria-selected={select[index] === true ? true : false}
                   aria-controls={item.channelName}
-                  className={`rounded-[4px] border border-lionly-secondary-color px-[9px] py-1 text-lionly-sm-bold outline-4 outline-lionly-black ${
+                  onClick={handleChangeChannel}
+                  onKeyDown={handleKeyboardArrowControl}
+                  className={`rounded-[4px] border border-lionly-secondary-color p-2 px-[9px] text-lionly-md outline-4 outline-lionly-black ${
                     select[index] === true
                       ? 'bg-lionly-secondary-color'
                       : 'bg-lionly-white'
                   }`}
-                  onClick={handleChangeChannel}
-                  onKeyDown={handleKeyboardArrowControl}
                 >
                   {item}
                 </NavLink>
