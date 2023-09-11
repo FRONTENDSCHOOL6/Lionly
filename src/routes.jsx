@@ -49,10 +49,10 @@ const router = createBrowserRouter([
         path: '/feed',
         element: <Feed />,
         children: [
-          { path: 'feed/healings' /* element :*/ },
-          { path: 'feed/jobs' /* element :*/ },
-          { path: 'feed/foods' /* element :*/ },
-          { path: 'feed/dailys' /* element :*/ },
+          { path: '/feed/healings' /* element :*/ },
+          { path: '/feed/jobs' /* element :*/ },
+          { path: '/feed/foods' /* element :*/ },
+          { path: '/feed/dailys' /* element :*/ },
         ],
       },
       {

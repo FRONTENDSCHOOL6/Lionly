@@ -4,14 +4,15 @@ import { NavLink } from 'react-router-dom';
 
 function ChannelTab() {
   const { select, channels, handleChangeChannel } = useChannel();
+
   return (
     <>
       <h3 className="sr-only" id="channelList">
         채널 리스트
       </h3>
-      <div className="min-w-[320px]">
+      <div className="flex min-w-[320px]">
         <ul
-          className="mx-[3px] my-2 flex gap-x-1.5"
+          className="mx-[3px] my-2 flex gap-x-1.5 pl-4"
           role="tablist"
           aria-labelledby="channelList"
           aria-orientation="horizontal"
@@ -20,7 +21,17 @@ function ChannelTab() {
             return (
               <li key={item}>
                 <NavLink
-                  to="/"
+                  to={
+                    item === '힐링방'
+                      ? '/feed/healings'
+                      : item === '일상방'
+                      ? '/feed/dailys'
+                      : item === '맛집방'
+                      ? '/feed/foods'
+                      : item === '취업방'
+                      ? '/feed/jobs'
+                      : '/feed'
+                  }
                   tabIndex={select[index] === true ? -1 : 0}
                   role="tab"
                   aria-selected={select[index] === true ? true : false}
