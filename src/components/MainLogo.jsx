@@ -15,7 +15,7 @@ function MainLogo({ size }) {
       onClick={() => navigate('/')}
       width={size}
       height={size}
-      className="z-10 cursor-pointer transition-all "
+      className="z-10 cursor-pointer transition-all"
     />
   );
 }
