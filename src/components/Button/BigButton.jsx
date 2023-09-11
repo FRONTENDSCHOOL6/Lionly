@@ -1,17 +1,17 @@
 import { string } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function BigButton({ color = 'black', text = '시작하기' }) {
+function BigButton({ color = 'black', text, destination }) {
   const navigate = useNavigate();
 
   return (
     <button
       type="button"
       onClick={() => {
-        navigate('/signin');
+        navigate(destination);
       }}
       className={`
-    mt-2 h-11 w-full rounded border border-lionly-white text-lionly-md font-normal
+    mx-[35px] h-11 w-full rounded border border-lionly-white text-lionly-md font-normal
     ${
       color == 'black'
         ? 'bg-lionly-white text-lionly-black'
@@ -29,6 +29,7 @@ function BigButton({ color = 'black', text = '시작하기' }) {
 BigButton.propTypes = {
   color: string,
   text: string,
+  destination: string,
 };
 
 export default BigButton;

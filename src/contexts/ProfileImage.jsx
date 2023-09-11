@@ -23,7 +23,7 @@ function ProfileImageProvider({
 
   const { status } = useQuery({
     queryKey: ['profileImage'],
-    queryFn: getProfileImageURL,
+    queryFn: getProfileImageURL('6onsajcamfqzzjg'),
     onSuccess: ({ profileImageId, profileImageName }) => {
       const profileImageURL = `${
         import.meta.env.VITE_PB_API
@@ -31,10 +31,11 @@ function ProfileImageProvider({
 
       setProfileImageURL(profileImageURL);
     },
+
     retry: 2,
   });
 
-  console.log(status);
+  console.log('ProfileImage: ', status);
 
   return (
     <ProfileImageContext.Provider
