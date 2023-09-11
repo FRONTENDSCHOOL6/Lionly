@@ -68,32 +68,27 @@ function FormInput({
 
   return (
     <div>
-      <form
-        action="/"
-        method="post"
-        onSubmit={handleInput}
-        onChange={handleInput}
-      >
-        <fieldset>
-          <label
-            htmlFor={id}
-            className="mb-1 block text-lionly-sm-bold text-lionly-white"
-          >
-            {label}
-          </label>
-          <input
-            type={type}
-            id={id}
-            name={name}
-            placeholder={placeholder}
-            className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
-            ref={inputRef}
-            autoComplete="off"
-            minLength={minLength}
-            maxLength={maxLength}
-          />
-        </fieldset>
-      </form>
+      <fieldset>
+        <label
+          htmlFor={id}
+          className="mb-1 block text-lionly-sm-bold text-lionly-white"
+        >
+          {label}
+        </label>
+        <input
+          type={type}
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
+          ref={inputRef}
+          autoComplete="off"
+          minLength={minLength}
+          maxLength={maxLength}
+          onChange={handleInput}
+        />
+      </fieldset>
+
       <span
         className={`text-lionly-xs text-lionly-red ${
           isErrorShow ? 'block' : 'hidden'
