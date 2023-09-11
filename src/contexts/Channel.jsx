@@ -27,7 +27,7 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     retry: 2,
   });
 
-  console.log(status);
+  console.log('Channel :', status);
 
   return (
     <ChannelContext.Provider

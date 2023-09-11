@@ -16,7 +16,7 @@ function FeedList() {
     refetchOnReconnect: false,
     refetchOnMount: false,
   });
-  console.log(status);
+  console.log('FeedList: ', status);
 
   if (isLoading) {
     return (
