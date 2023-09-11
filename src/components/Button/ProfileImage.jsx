@@ -11,7 +11,7 @@ function ProfileImage({ small = false, handleInputClick, children }) {
   return (
     <div
       className={`relative ${
-        small ? 'h-10 w-10 min-w-fit' : 'h-[70px] w-[70px] min-w-fit'
+        small ? 'h-10 w-10 min-w-fit' : 'h-[70px] w-[70px] min-w-[70px]'
       }`}
       onClick={handleInputClick}
       tabIndex={0}

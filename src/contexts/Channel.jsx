@@ -9,16 +9,10 @@ export const ChannelContext = createContext({});
 function ChannelProvider({ displayName = 'ChannelContext', children }) {
   const [channels, setChannels] = useState([]);
   const [select, setSelect] = useState([true]);
+  const [selectedChannel, setSelectedChannel] = useState('전체 게시글');
 
-  const handleChangeChannel = (e) => {
-    const targetIndex = getNodeIndex(e.target.parentNode);
-    const clickedState = channels.map((item, index) => {
-      return index === targetIndex ? true : false;
-    });
-    setSelect(clickedState);
-  };
-
-  const { status } = useQuery({
+  /* pockethost에 있는 데이터에 따라 채널을 만들어줍니다. */
+  const { isLoading } = useQuery({
     queryKey: ['channels'],
     queryFn: getChannelList,
     onSuccess: (channels) => {
@@ -27,11 +21,25 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     retry: 2,
   });
 
-  console.log('Channel :', status);
+  const handleChangeChannel = (e) => {
+    const selectedChannelIndex = getNodeIndex(e.target.parentNode);
+    const clickedState = channels.map((item, index) => {
+      return index === selectedChannelIndex ? true : false;
+    });
+
+    setSelect(clickedState);
+    setSelectedChannel(channels[selectedChannelIndex]);
+  };
 
   return (
     <ChannelContext.Provider
-      value={{ select, channels, handleChangeChannel }}
+      value={{
+        select,
+        channels,
+        selectedChannel,
+        isLoading,
+        handleChangeChannel,
+      }}
       displayName={displayName}
     >
       {children}

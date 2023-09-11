@@ -3,20 +3,21 @@ import handleKeyboardArrowControl from '@/utils/handleTabArrowControl';
 import { NavLink } from 'react-router-dom';
 
 function ChannelTab() {
-  const { select, channels, handleChangeChannel } = useChannel();
+  const { select, channels, isLoading, handleChangeChannel } = useChannel();
 
   return (
     <>
       <h3 className="sr-only" id="channelList">
         채널 리스트
       </h3>
-      <div className="flex min-w-[320px]">
+      <div className="flex h-[60px] min-w-[320px] bg-[#f5f5f5]">
         <ul
-          className="mx-[3px] my-2 flex gap-x-1.5 pl-4"
+          className="mx-[3px] my-[14px] flex gap-x-1.5 px-2"
           role="tablist"
           aria-labelledby="channelList"
           aria-orientation="horizontal"
         >
+          {isLoading ? '채널 불러오는 중...' : null}
           {channels?.map((item, index) => {
             return (
               <li key={item} className="py-1">
@@ -38,7 +39,7 @@ function ChannelTab() {
                   aria-controls={item.channelName}
                   onClick={handleChangeChannel}
                   onKeyDown={handleKeyboardArrowControl}
-                  className={`rounded-[4px] border border-lionly-secondary-color p-2 px-[9px] text-lionly-md outline-4 outline-lionly-black ${
+                  className={`rounded-[4px] border border-lionly-secondary-color px-1 py-2 text-lionly-md outline-4 outline-lionly-black ${
                     select[index] === true
                       ? 'bg-lionly-secondary-color'
                       : 'bg-lionly-white'

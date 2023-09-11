@@ -1,4 +1,4 @@
-import { string, number } from 'prop-types';
+import { string, number, oneOfType } from 'prop-types';
 
 function Spinner({ size = 60, message = '게시글을 불러오는 중입니다.' }) {
   return (
@@ -55,7 +55,7 @@ function Spinner({ size = 60, message = '게시글을 불러오는 중입니다.
 }
 
 Spinner.propTypes = {
-  size: number,
+  size: oneOfType([string, number]),
   message: string,
 };
 

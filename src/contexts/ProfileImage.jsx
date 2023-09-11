@@ -21,7 +21,7 @@ function ProfileImageProvider({
     setProfileImageURL(imageURL);
   };
 
-  const { status } = useQuery({
+  useQuery({
     queryKey: ['profileImage'],
     queryFn: getProfileImageURL,
     onSuccess: (profileImageURL) => {
@@ -30,8 +30,6 @@ function ProfileImageProvider({
 
     retry: 2,
   });
-
-  console.log('ProfileImage: ', status);
 
   return (
     <ProfileImageContext.Provider

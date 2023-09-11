@@ -11,6 +11,7 @@ import {
   Writing,
 } from './pages';
 import BeforeLogin from './components/layout/BeforeLogin.jsx';
+import FeedList from './components/layout/FeedList.jsx';
 
 const router = createBrowserRouter([
   {
@@ -49,10 +50,14 @@ const router = createBrowserRouter([
         path: '/feed',
         element: <Feed />,
         children: [
-          { path: '/feed/healings' /* element :*/ },
-          { path: '/feed/jobs' /* element :*/ },
-          { path: '/feed/foods' /* element :*/ },
-          { path: '/feed/dailys' /* element :*/ },
+          {
+            path: '/feed',
+            element: <FeedList />,
+          },
+          { path: '/feed/healings', element: <FeedList /> },
+          { path: '/feed/jobs', element: <FeedList /> },
+          { path: '/feed/foods', element: <FeedList /> },
+          { path: '/feed/dailys', element: <FeedList /> },
         ],
       },
       {
