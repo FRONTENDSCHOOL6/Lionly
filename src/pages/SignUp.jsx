@@ -1,15 +1,14 @@
-import { ReactComponent as LionLogo } from '@/assets/lionLogo_common.svg';
 import BigButton from '@/components/Button/BigButton';
 import FormInput from '@/components/input/FormInput';
 // import StartButton from './../components/Button/StartButton';
 
 function SignUp({ text }) {
   return (
-    <>
-      <div className="flex justify-between">
-        <h1 className="text-lionly-2xl text-lionly-white">회원가입</h1>
-        <LionLogo className="h-[58px] w-[58px]" />
-      </div>
+    <div className="px-8">
+      <h2 className="mb-6 mt-[30px] text-lionly-2xl text-lionly-white">
+        회원가입
+      </h2>
+
       <FormInput
         type="text"
         name="userName"
@@ -61,7 +60,7 @@ function SignUp({ text }) {
         errorMessage="정답이 일치하지 않습니다."
       />
       <BigButton text="가입하기" />
-    </>
+    </div>
   );
 }
 
