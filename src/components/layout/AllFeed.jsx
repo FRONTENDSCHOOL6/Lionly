@@ -1,12 +1,12 @@
-import Spinner from '@/components/Spinner';
 import useChannel from '@/hooks/useChannel';
 import useFeed from '@/hooks/useFeed';
 import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils/getPbImageURL';
-import { Fragment } from 'react';
+import { Fragment, useCallback, useEffect, useRef } from 'react';
+import Spinner from '../Spinner';
 
 function AllFeed() {
-  const { isLoading, data } = useFeed();
+  const { isLoading, data, hasNextPage, fetchNextPage } = useFeed();
   const { channelList } = useChannel();
 
   if (isLoading) {
@@ -16,47 +16,51 @@ function AllFeed() {
       </div>
     );
   }
-
   return (
     <ul
       id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
       role="tabpanel"
       aria-labelledby={`tab-${Object.values(channelList).indexOf(true) + 1}`}
-      className="mx-auto mb-[14px] flex min-h-[72vh] w-2/3 flex-col gap-y-6"
+      className="mx-auto flex min-h-[72vh] flex-col gap-y-6 px-2"
     >
+      <h4 className="sr-only">피드 리스트</h4>
       {data?.pages.map((feed, index) => (
         <Fragment key={index}>
           {feed?.items.map((item) => (
             <li
               key={item.id}
               onClick={() => {
-                console.log('게시글 클릭');
+                console.log(item);
               }}
               className="cursor-pointer"
             >
-              <figure className="relative mb-[10px] flex h-10 w-full">
+              <figure className="mb-[10px] flex h-10 w-full gap-x-3">
                 <img
                   src={getPbImageURL(item.expand.author, 'profile_image')}
-                  alt=""
+                  aria-hidden
                   className="h-[40px] w-[40px] rounded-full"
                 />
-                <figcaption className="ml-3">
+
+                <figcaption className="w-full">
                   <p className="font-bold text-lionly-black">
                     {item.expand.author.nickname}
                   </p>
+
                   <p className="text-lionly-sm text-lionly-gray-1">
                     {`${getDate(item.created)}`}
                   </p>
                 </figcaption>
               </figure>
-              <figure className="w-full">
+
+              <figure className="flex w-full flex-col gap-y-[14px]">
                 <img
                   src={getPbImageURL(item, 'feed_image')}
-                  alt=""
-                  className="w-full rounded-2xl object-cover"
+                  aria-hidden
+                  className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
                 />
-                <figcaption className="mt-[14px]">
-                  <p className="w-[260] text-lionly-sm text-lionly-gray-1">
+
+                <figcaption>
+                  <p className="w-full text-lionly-md text-lionly-gray-1">
                     {item.text}
                   </p>
                 </figcaption>

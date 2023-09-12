@@ -53,10 +53,11 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     }
   }, [pathname]);
 
-  // const [setMakeRender] = useState(null);
   const handleChangeChannel = (e) => {
+    const target = e.target.textContent;
     setChannelList(() => ({
       ...initialState,
+      [target]: true,
     }));
   };
 

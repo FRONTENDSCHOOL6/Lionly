@@ -1,13 +1,41 @@
 import { ReactComponent as DownArrowSVG } from '@/assets/arrow_Feed_down.svg';
-import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ChannelTab } from '@/components/button';
 import FeedHeader from '@/components/layout/FeedHeader';
+import useIsLogin from '@/contexts/AuthProvider';
 import useFeed from '@/hooks/useFeed';
+import { moveScrollTop } from '@/utils';
+import { useCallback, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
 function Feed() {
-  const { fetchNextPage } = useFeed();
+  useIsLogin();
+  moveScrollTop();
+  const { hasNextPage, fetchNextPage } = useFeed();
+
+  const listEndRef = useRef(null);
+  const handleObserver = useCallback(
+    (entries) => {
+      const [target] = entries;
+      if (target.isIntersecting) {
+        fetchNextPage();
+      }
+    },
+    [fetchNextPage]
+  );
+
+  useEffect(() => {
+    const element = listEndRef.current;
+    const option = {
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(handleObserver, option);
+    element && observer.observe(element);
+    return () => {
+      element && observer.unobserve(element);
+    };
+  }, [fetchNextPage, hasNextPage, handleObserver]);
 
   return (
     <>
@@ -24,9 +52,9 @@ function Feed() {
           aria-label="게시글 불러오기"
           type="button"
           onClick={fetchNextPage}
-          className="sticky left-[100%] top-[90%] mr-6"
+          className="sticky left-[100%] top-[93.5%] mr-6"
         >
-          <DownArrowSVG className="h-7 w-7" />
+          <DownArrowSVG className="h-7 w-7 fill-lionly-black transition-all hover:scale-125" />
         </button>
         {/* <button
           aria-label="상단으로 이동"
@@ -37,6 +65,8 @@ function Feed() {
           <UpArrowSVG className="h-7 w-7" />
         </button> */}
         <Outlet />
+
+        <div ref={listEndRef} className="h-6"></div>
       </div>
     </>
   );
