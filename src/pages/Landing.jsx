@@ -1,4 +1,4 @@
-import BigButton from '@/components/button/BigButton';
+import BigButton from '@/components/button/LinkButton';
 
 function Landing() {
   return (
