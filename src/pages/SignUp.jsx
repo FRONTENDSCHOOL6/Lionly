@@ -57,14 +57,15 @@ function SignUp({ text }) {
       }
 
       const record = await createUserInfo(newUser);
-      console.log(record);
+      // console.log(record);
       if (record?.id) {
+        toast.success('회원가입이 완료됐습니다.');
         navigate('/SignIn');
       } else {
-        alert('회원가입에 실패했습니다.');
+        toast.error('회원가입에 실패했습니다.');
       }
     } catch (error) {
-      console.log(error.response);
+      // console.log(error.response);
 
       if (error.response.code === 400) {
         if (error.response.data.email?.message.includes('already')) {
@@ -75,7 +76,7 @@ function SignUp({ text }) {
         }
       } else {
         if (!(error instanceof ClientResponseError)) {
-          console.error('회원가입 실패:', error);
+          // console.error('회원가입 실패:', error);
           toast.error('회원가입에 실패했습니다.');
         }
       }
