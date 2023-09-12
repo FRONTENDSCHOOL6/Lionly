@@ -5,18 +5,22 @@ import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import FindAcountButton from '../button/FindAcountButton';
 import LinkButton from '../button/LinkButton';
-
+import { toast } from 'react-hot-toast';
+import { useAnimation, motion } from 'framer-motion';
+import useStorageData from '@/hooks/useStorageData';
 function Login() {
   const navigate = useNavigate();
-  // useRef 사용해서 자동 완성 기능 동작하게 하기. 
+  // useRef 사용해서 자동 완성 기능 동작하게 하기.
   const emailRef = useRef();
   const passwordRef = useRef();
-
+  const controls = useAnimation();
   const [formState, setFormState] = useState({
     email: '',
     password: '',
   });
-
+  // const {id} = useStorageData();
+ 
+  
   useEffect(() => {
     // 이미 로그인 된 상태에서 다시 로그인 페이지로 못넘아게 하기.
     const checkAuth = async () => {
@@ -34,27 +38,30 @@ function Login() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     try {
-      const response = await pb
-        .collection('users')
-        .authWithPassword(email, password);
-
-      console.log(response);
-      console.log(pb.authStore.isValid);
+      // 로그인 된 사용자의 데이터를 로컬 스토리지에 넣어줌
+      await pb.collection('users').authWithPassword(email, password);
 
       if (pb.authStore.isValid) {
         navigate('/feed');
+        toast.success(`안녕하세요! ${pb.authStore.model.name}님`, {
+          icon: '👏',
+        });
       } else {
         // 로그인 실패시 로직 필요 시 적기.
       }
     } catch (error) {
       console.error(error);
-      alert('계정 정보가 옳지 않습니다.');
+      toast.error('아이디나 비밀번호가 틀렸습니다.');
+      controls.start({
+        x: [-5, 5, -5, 5, 0],
+        transition: { duration: 0.5 },
+      });
     }
   };
 
-  const handleInput = debounce((e) => { // input value 입력 후 0.4초 간 동작 없으면 페이지 랜더링
+  const handleInput = debounce((e) => {
+    // input value 입력 후 0.4초 간 동작 없으면 페이지 랜더링
     const { name, value } = e.target;
-    console.log(e.target.value);
     setFormState({
       ...formState,
       [name]: value,
@@ -63,38 +70,60 @@ function Login() {
 
   return (
     <div>
-      
       <form
         onSubmit={handleSignIn}
-        className="flex flex-col items-center gap-2"
+        className="flex flex-col items-center gap-1"
       >
         <label htmlFor="login"></label>
-        <input className='h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white' placeholder='아이디를 입력해주세요' ref={emailRef} type="email" id="login" name="email" onChange={handleInput} />
+        <motion.input
+          animate={controls}
+          className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
+          placeholder="아이디를 입력해주세요"
+          ref={emailRef}
+          type="email"
+          id="login"
+          name="email"
+          onChange={handleInput}
+        />
 
-        <label htmlFor="password" className=' block text-lionly-sm-bold text-lionly-white'></label>
-        <input
-          className='h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white mb-1'
+        <label
+          htmlFor="password"
+          className=" block text-lionly-sm-bold text-lionly-white"
+        ></label>
+        <motion.input
+          animate={controls}
+          className="mb-1 h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
           ref={passwordRef}
-          placeholder='비밀번호를 입력해주세요'
+          placeholder="비밀번호를 입력해주세요"
           type="password"
           id="password"
           name="password"
           onChange={handleInput}
         />
-        <div className='w-full flex justify-end gap-2 text-lionly-sm-bold text-lionly-white mb-14'>
-          <FindAcountButton text={'아이디 찾기'} destination={'/'}/>
-          <span className="self-center  border-r border-lionly-white mb-[3px]" style={{height: '11px'}}></span>
-          <FindAcountButton text={'비밀번호 찾기'} destination={'/'}/>
+        <div className="mb-14 flex w-full justify-end gap-2 text-lionly-sm-bold text-lionly-white">
+          <FindAcountButton text={'아이디 찾기'} destination={'/'} />
+          <span
+            className="mb-[3px]  self-center border-r border-lionly-white"
+            style={{ height: '11px' }}
+          ></span>
+          <FindAcountButton text={'비밀번호 찾기'} destination={'/'} />
         </div>
-        
 
-        
         {/* bigButton type이 button 지정 돼서 활용 x */}
-        <button 
+        {/* <button 
         type="submit"
         className='h-11 w-full rounded border border-lionly-white text-lionly-md font-normal bg-lionly-white text-lionly-black mb-1'
-        >로그인</button>
-        <LinkButton color={'transparent'} text={'회원가입'} />
+        >로그인</button> */}
+        <div className="flex w-full flex-col gap-2">
+          <LinkButton type={'submit'} text={'로그인'} />
+          <LinkButton
+            color={'transparent'}
+            text={'회원가입'}
+            onClick={() => {
+              navigate('/signup');
+            }}
+          />
+        </div>
       </form>
     </div>
   );
