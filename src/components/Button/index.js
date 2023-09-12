@@ -1,4 +1,4 @@
-export { default as BigButton } from './BigButton';
+export { default as BigButton } from './LinkButton';
 export { default as ChangeButton } from './ChangeButton';
 export { default as ChannelTab } from './ChannelTab';
 export { default as InsertProfileButton } from './InsertProfileButton';
