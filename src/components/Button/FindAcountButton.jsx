@@ -6,7 +6,7 @@ function FindAcountButton({text, destination}) {
   return (
     <button onClick={()=>{
       navigate(destination)
-    }}>{text}</button>
+    }} type="button" >{text}</button>
   )
 }
 
