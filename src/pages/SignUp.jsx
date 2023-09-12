@@ -1,8 +1,10 @@
 import createUserInfo from '@/api/createUserInfo';
 import LinkButton from '@/components/Button/LinkButton';
 import FormInput from '@/components/input/FormInput';
+// import { nameReg, idReg, nickNameReg, passWordReg } from '@/utils/validation';
 import { ClientResponseError } from 'pocketbase';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp({ text }) {
@@ -21,22 +23,38 @@ function SignUp({ text }) {
     e.preventDefault();
 
     try {
-      const {
-        username,
-        userid,
-        usernickname,
-        userpassword,
-        userpasswordcheck,
-      } = userData;
+      const { name, userid, usernickname, userpassword, userpasswordcheck } =
+        userData;
 
       const newUser = {
         email: userid,
         emailVisibility: true,
-        name: username,
+        name: name,
         nickname: usernickname,
         password: userpassword,
         passwordConfirm: userpasswordcheck,
       };
+
+      // if (!nameReg(name)) {
+      //   toast.error('이름 형식이 잘못되었습니다.');
+      //   return;
+      // }
+      // if (!idReg(userid)) {
+      //   toast.error('이메일 형식이 잘못되었습니다.');
+      //   return;
+      // }
+      // if (!nickNameReg(usernickname)) {
+      //   toast.error('닉네임 형식이 잘못되었습니다.');
+      //   return;
+      // }
+      // if (!passWordReg(userpassword)) {
+      //   toast.error('비밀번호 형식이 잘못되었습니다.');
+      //   return;
+      // }
+      // if (userpassword !== userpasswordcheck) {
+      //   toast.error('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      //   return;
+      // }
 
       const record = await createUserInfo(newUser);
       console.log(record);
@@ -47,17 +65,19 @@ function SignUp({ text }) {
       }
     } catch (error) {
       console.log(error.response);
+
       if (error.response.code === 400) {
-        if (error.response.data.email.message.includes('already')) {
-          alert('이메일이 중복됩니다.');
+        // if (error.response.data.email.message.includes('already')) {
+        //   toast.error('이메일이 중복됩니다.');
+        // }
+        if (error.response.data.nickname.message.includes('unique')) {
+          toast.error('닉네임이 중복됩니다.');
         }
-        if (error.response.data.username.message.includes('already')) {
-          alert('이름이 중복됩니다.');
+      } else {
+        if (!(error instanceof ClientResponseError)) {
+          console.error('회원가입 실패:', error);
+          toast.error('회원가입에 실패했습니다.');
         }
-      }
-      if (!(error instanceof ClientResponseError)) {
-        console.error('회원가입 실패:', error);
-        alert('회원가입에 실패했습니다.');
       }
     }
   };
@@ -77,7 +97,7 @@ function SignUp({ text }) {
       <form onSubmit={handleSignUp} className="flex flex-col gap-y-5">
         <FormInput
           type="text"
-          name="username"
+          name="name"
           label="이름"
           placeholder="이름을 입력해주세요."
           errorMessage="한글 2~5자로 입력해주세요."
@@ -90,8 +110,8 @@ function SignUp({ text }) {
           type="email"
           label="아이디"
           name="userid"
-          placeholder="아이디를 입력해주세요."
-          errorMessage="이메일 형식으로 입력해주세요."
+          placeholder="이메일 형식으로 입력해주세요."
+          errorMessage="올바른 이메일 형식이 아닙니다."
           value={userData.userid}
           onChange={handleChange}
         />
