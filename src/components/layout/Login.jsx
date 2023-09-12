@@ -3,8 +3,8 @@ import debounce from '@/utils/debounce';
 import pb from '@/api/pocketbase';
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
-import { BigButton } from '../button';
 import FindAcountButton from '../button/FindAcountButton';
+import LinkButton from '../button/LinkButton';
 
 function Login() {
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ function Login() {
         type="submit"
         className='h-11 w-full rounded border border-lionly-white text-lionly-md font-normal bg-lionly-white text-lionly-black mb-1'
         >로그인</button>
-        <BigButton color={'transparent'} text={'회원가입'} destination={'/signup'} />
+        <LinkButton color={'transparent'} text={'회원가입'} />
       </form>
     </div>
   );

@@ -1,15 +1,9 @@
 import { string } from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 
-function BigButton({ color = 'black', text, destination }) {
-  const navigate = useNavigate();
-
+function LinkButton({ type = 'button', color = 'black', text, ...restprops }) {
   return (
     <button
-      type="button"
-      onClick={() => {
-        navigate(destination);
-      }}
+      type={type}
       className={`
     h-11 w-full rounded border border-lionly-white text-lionly-md font-normal
     ${
@@ -20,16 +14,17 @@ function BigButton({ color = 'black', text, destination }) {
         : ''
     }
     `}
+      {...restprops}
     >
       {text}
     </button>
   );
 }
 
-BigButton.propTypes = {
+LinkButton.propTypes = {
+  type: string,
   color: string,
   text: string,
-  destination: string,
 };
 
-export default BigButton;
+export default LinkButton;
