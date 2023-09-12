@@ -3,6 +3,8 @@ import debounce from '@/utils/debounce';
 import pb from '@/api/pocketbase';
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
+import { BigButton } from '../button';
+import FindAcountButton from '../button/FindAcountButton';
 
 function Login() {
   const navigate = useNavigate();
@@ -61,23 +63,38 @@ function Login() {
 
   return (
     <div>
+      
       <form
         onSubmit={handleSignIn}
         className="flex flex-col items-center gap-2"
       >
-        <label htmlFor="login">로그인</label>
-        <input ref={emailRef} type="email" id="login" name="email" onChange={handleInput} />
+        <label htmlFor="login"></label>
+        <input className='h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white' placeholder='아이디를 입력해주세요' ref={emailRef} type="email" id="login" name="email" onChange={handleInput} />
 
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="password" className=' block text-lionly-sm-bold text-lionly-white'></label>
         <input
+          className='h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white mb-1'
           ref={passwordRef}
+          placeholder='비밀번호를 입력해주세요'
           type="password"
           id="password"
           name="password"
           onChange={handleInput}
         />
+        <div className='w-full flex justify-end gap-2 text-lionly-sm-bold text-lionly-white mb-14'>
+          <FindAcountButton text={'아이디 찾기'} destination={'/'}/>
+          <span className="self-center  border-r border-lionly-white mb-[3px]" style={{height: '11px'}}></span>
+          <FindAcountButton text={'비밀번호 찾기'} destination={'/'}/>
+        </div>
+        
 
-        <button type="submit">로그인 하시오</button>
+        
+        {/* bigButton type이 button 지정 돼서 활용 x */}
+        <button 
+        type="submit"
+        className='h-11 w-full rounded border border-lionly-white text-lionly-md font-normal bg-lionly-white text-lionly-black mb-1'
+        >로그인</button>
+        <BigButton color={'transparent'} text={'회원가입'} destination={'/signup'} />
       </form>
     </div>
   );
