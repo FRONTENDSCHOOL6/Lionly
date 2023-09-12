@@ -1,4 +1,3 @@
-import getProfileImageURL from '@/api/getProfileImageURL';
 import defaultProfileImage from '@/assets/lionHeadLogo_common.svg';
 import { useQuery } from '@tanstack/react-query';
 import { node, string } from 'prop-types';
