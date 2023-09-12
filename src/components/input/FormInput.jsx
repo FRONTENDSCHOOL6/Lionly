@@ -11,6 +11,8 @@ function FormInput({
   errorMessage,
   minLength,
   maxLength,
+  onChange,
+  ...restProps
 }) {
   const id = useId();
   const inputRef = useRef(null);
@@ -19,8 +21,8 @@ function FormInput({
 
   let password;
 
-  if (name === 'userPasswordCheck') {
-    password = document.querySelector('[name="userPassword"]')?.value;
+  if (name === 'userpasswordcheck') {
+    password = document.querySelector('[name="userpassword"]')?.value;
   }
 
   const handleInput = (e) => {
@@ -35,19 +37,19 @@ function FormInput({
     let isValid = false;
 
     switch (name) {
-      case 'userName':
+      case 'name':
         isValid = nameReg(inputValue);
         break;
-      case 'userId':
+      case 'userid':
         isValid = idReg(inputValue);
         break;
-      case 'userPassword':
+      case 'userpassword':
         isValid = passWordReg(inputValue);
         break;
-      case 'userPasswordCheck':
+      case 'userpasswordcheck':
         isValid = password === inputValue;
         break;
-      case 'userNickName':
+      case 'usernickname':
         isValid = nickNameReg(inputValue);
         break;
       case 'answer':
@@ -68,34 +70,33 @@ function FormInput({
 
   return (
     <div>
-      <form
-        action="/"
-        method="post"
-        onSubmit={handleInput}
-        onChange={handleInput}
-      >
-        <fieldset>
-          <label
-            htmlFor={id}
-            className="mb-1 block text-lionly-sm-bold text-lionly-white"
-          >
-            {label}
-          </label>
-          <input
-            type={type}
-            id={id}
-            name={name}
-            placeholder={placeholder}
-            className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
-            ref={inputRef}
-            autoComplete="off"
-            minLength={minLength}
-            maxLength={maxLength}
-          />
-        </fieldset>
-      </form>
+      <fieldset>
+        <label
+          htmlFor={id}
+          className="mb-1 block text-lionly-sm-bold text-lionly-white"
+        >
+          {label}
+        </label>
+        <input
+          type={type}
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
+          ref={inputRef}
+          autoComplete="off"
+          minLength={minLength}
+          maxLength={maxLength}
+          onChange={(e) => {
+            handleInput(e);
+            onChange?.(e);
+          }}
+          {...restProps}
+        />
+      </fieldset>
+
       <span
-        className={`text-lionly-xs text-lionly-red ${
+        className={`mt-1 text-lionly-xs text-lionly-red ${
           isErrorShow ? 'block' : 'hidden'
         }`}
       >
@@ -114,6 +115,7 @@ FormInput.propTypes = {
   handleInput: func,
   minLength: string,
   maxLength: string,
+  onChange: func,
 };
 
 export default FormInput;
