@@ -1,4 +1,4 @@
-import BigButton from '@/components/Button/BigButton';
+import BigButton from '@/components/button/LinkButton';
 import FormInput from '@/components/input/FormInput';
 
 function SignUp({ text }) {
