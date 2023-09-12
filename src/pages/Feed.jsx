@@ -1,17 +1,49 @@
 import { ReactComponent as DownArrowSVG } from '@/assets/arrow_Feed_down.svg';
+import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ChannelTab } from '@/components/button';
 import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
 import useFeed from '@/hooks/useFeed';
 import { moveScrollTop } from '@/utils';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
   moveScrollTop();
+
   const { hasNextPage, fetchNextPage } = useFeed();
+
+  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
+  const scrollTopButtonRef = useRef(null);
+  useEffect(() => {
+    const handleShowButton = () => {
+      document.documentElement.scrollTop >
+      document.documentElement.clientHeight * 0.5
+        ? setShowScrollTopButton(true)
+        : setShowScrollTopButton(false);
+    };
+
+    window.addEventListener('scroll', handleShowButton);
+    return () => {
+      window.removeEventListener('scroll', handleShowButton);
+    };
+  }, []);
+
+  const handleScrollTop = () => {
+    scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleScrollBottom = () => {
+    scrollTo({
+      top: 10000,
+      behavior: 'smooth',
+    });
+  };
 
   const listEndRef = useRef(null);
   const handleObserver = useCallback(
@@ -23,7 +55,6 @@ function Feed() {
     },
     [fetchNextPage]
   );
-
   useEffect(() => {
     const element = listEndRef.current;
     const option = {
@@ -42,28 +73,35 @@ function Feed() {
       <Helmet>
         <title>Lionly - Feed</title>
       </Helmet>
+
       <div className="z-10 h-full bg-lionly-white">
         <div className="sticky top-0 z-10">
           <FeedHeader />
           <h2 className="sr-only">피드 페이지</h2>
           <ChannelTab />
         </div>
+
         <button
           aria-label="게시글 불러오기"
           type="button"
-          onClick={fetchNextPage}
-          className="sticky left-[100%] top-[93.5%] mr-6"
+          onClick={handleScrollBottom}
+          className="sticky left-[100%] top-[93.5%] mr-6 rounded-full shadow-lg"
         >
-          <DownArrowSVG className="h-7 w-7 fill-lionly-black transition-all hover:scale-125" />
+          <DownArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all  hover:scale-125 focus:scale-125" />
         </button>
-        {/* <button
-          aria-label="상단으로 이동"
-          type="button"
-          onClick={fetchNextPage}
-          className="sticky left-[100%] top-[90%] mr-6"
-        >
-          <UpArrowSVG className="h-7 w-7" />
-        </button> */}
+
+        {showScrollTopButton ? (
+          <button
+            ref={scrollTopButtonRef}
+            aria-label="상단으로 이동"
+            type="button"
+            onClick={handleScrollTop}
+            className="sticky left-[100%] top-[26.5%] mr-6 rounded-full shadow-lg transition-all"
+          >
+            <UpArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all hover:scale-125 focus:scale-125" />
+          </button>
+        ) : null}
+
         <Outlet />
 
         <div ref={listEndRef} className="h-6"></div>

@@ -2,11 +2,11 @@ import useChannel from '@/hooks/useChannel';
 import useFeed from '@/hooks/useFeed';
 import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils/getPbImageURL';
-import { Fragment, useCallback, useEffect, useRef } from 'react';
+import { Fragment } from 'react';
 import Spinner from '../Spinner';
 
 function AllFeed() {
-  const { isLoading, data, hasNextPage, fetchNextPage } = useFeed();
+  const { isLoading, data } = useFeed();
   const { channelList } = useChannel();
 
   if (isLoading) {
@@ -28,6 +28,7 @@ function AllFeed() {
         <Fragment key={index}>
           {feed?.items.map((item) => (
             <li
+              tabIndex={0}
               key={item.id}
               onClick={() => {
                 console.log(item);

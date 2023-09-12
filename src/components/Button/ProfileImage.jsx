@@ -15,7 +15,7 @@ function ProfileImage({ small = false, handleInputClick, imageName }) {
         small ? 'h-10 w-10 min-w-fit' : 'h-[70px] w-[70px] min-w-[70px]'
       }`}
       onClick={handleInputClick}
-      tabIndex={0}
+      tabIndex={handleInputClick ? 0 : -1}
     >
       <img
         src={imageURL}

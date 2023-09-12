@@ -1,7 +1,10 @@
 function moveScrollTop() {
   return (window.onload = () => {
     setTimeout(() => {
-      scrollTo(0, 0);
+      scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }, 100);
   });
 }
