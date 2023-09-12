@@ -32,7 +32,7 @@ function SignUp({ text }) {
       const newUser = {
         email: userid,
         emailVisibility: true,
-        username,
+        name: username,
         nickname: usernickname,
         password: userpassword,
         passwordConfirm: userpasswordcheck,
@@ -74,7 +74,7 @@ function SignUp({ text }) {
     <div className="flex flex-col gap-y-[26px] px-8">
       <h2 className="mt-[30px] text-lionly-2xl text-lionly-white">회원가입</h2>
 
-      <form onSubmit={handleSignUp} className="flex flex-col gap-y-3">
+      <form onSubmit={handleSignUp} className="flex flex-col gap-y-5">
         <FormInput
           type="text"
           name="username"
@@ -83,7 +83,7 @@ function SignUp({ text }) {
           errorMessage="한글 2~5자로 입력해주세요."
           minLength="2"
           maxLength="5"
-          value={userData.username}
+          value={userData.name}
           onChange={handleChange}
         />
         <FormInput
