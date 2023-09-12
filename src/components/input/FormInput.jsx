@@ -37,7 +37,7 @@ function FormInput({
     let isValid = false;
 
     switch (name) {
-      case 'username':
+      case 'name':
         isValid = nameReg(inputValue);
         break;
       case 'userid':

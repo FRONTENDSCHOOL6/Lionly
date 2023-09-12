@@ -1,5 +1,5 @@
 import createUserInfo from '@/api/createUserInfo';
-import BigButton from '@/components/Button/BigButton';
+import LinkButton from '@/components/Button/LinkButton';
 import FormInput from '@/components/input/FormInput';
 import { ClientResponseError } from 'pocketbase';
 import { useState } from 'react';
@@ -41,7 +41,7 @@ function SignUp({ text }) {
       const record = await createUserInfo(newUser);
       console.log(record);
       if (record?.id) {
-        navigate('/feed');
+        navigate('/SignIn');
       } else {
         alert('회원가입에 실패했습니다.');
       }
@@ -138,7 +138,7 @@ function SignUp({ text }) {
           onChange={handleChange}
         />
 
-        <BigButton text="가입하기" type="submit" />
+        <LinkButton text="가입하기" type="submit" />
       </form>
     </div>
   );
