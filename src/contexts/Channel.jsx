@@ -59,6 +59,10 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
       ...initialState,
       [target]: true,
     }));
+
+    setTimeout(() => {
+      location.reload();
+    }, 100);
   };
 
   return (

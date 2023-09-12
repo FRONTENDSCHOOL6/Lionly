@@ -5,8 +5,8 @@ import { getPbImageURL } from '@/utils/getPbImageURL';
 import { Fragment } from 'react';
 import Spinner from '../Spinner';
 
-function AllFeed() {
-  const { isLoading, data } = useFeed();
+function FeedList() {
+  const { isLoading, data } = useFeed(window.location.pathname);
   const { channelList } = useChannel();
 
   if (isLoading) {
@@ -16,6 +16,7 @@ function AllFeed() {
       </div>
     );
   }
+
   return (
     <ul
       id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
@@ -31,7 +32,7 @@ function AllFeed() {
               tabIndex={0}
               key={item.id}
               onClick={() => {
-                console.log(item);
+                console.log('게시글 클릭');
               }}
               className="cursor-pointer"
             >
@@ -74,4 +75,4 @@ function AllFeed() {
   );
 }
 
-export default AllFeed;
+export default FeedList;

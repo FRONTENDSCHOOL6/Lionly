@@ -1,11 +1,34 @@
 import getFeedList from '@/api/getFeedList';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-function useFeed() {
+function useFeed(pathname) {
+  let channelName;
+  switch (pathname) {
+    case '/feed':
+      channelName = '';
+      break;
+
+    case '/feed/dailys':
+      channelName = '일상방';
+      break;
+
+    case '/feed/foods':
+      channelName = '맛집방';
+      break;
+
+    case '/feed/jobs':
+      channelName = '취업방';
+      break;
+
+    case '/feed/healings':
+      channelName = '일상방';
+      break;
+  }
+
   const { isLoading, data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['feed'],
-    queryFn: ({ pageParam = 1 }) => getFeedList(pageParam),
-    getNextPageParam: (lastPage, allPages) =>
+    queryFn: ({ pageParam = 1 }) => getFeedList(pageParam, channelName),
+    getNextPageParam: (lastPage) =>
       lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
 
     retry: 3,
