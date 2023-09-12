@@ -1,10 +1,13 @@
 import Spinner from '@/components/Spinner';
+import useChannel from '@/hooks/useChannel';
 import useFeed from '@/hooks/useFeed';
+import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils/getPbImageURL';
 import { Fragment } from 'react';
 
-function FeedList() {
-  const { isLoading, data, fetchNextPage } = useFeed();
+function AllFeed() {
+  const { isLoading, data } = useFeed();
+  const { channelList } = useChannel();
 
   if (isLoading) {
     return (
@@ -15,7 +18,12 @@ function FeedList() {
   }
 
   return (
-    <ul className="mx-auto my-[14px] flex w-72 flex-col gap-y-6">
+    <ul
+      id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
+      role="tabpanel"
+      aria-labelledby={`tab-${Object.values(channelList).indexOf(true) + 1}`}
+      className="mx-auto mb-[14px] flex min-h-[72vh] w-2/3 flex-col gap-y-6"
+    >
       {data?.pages.map((feed, index) => (
         <Fragment key={index}>
           {feed?.items.map((item) => (
@@ -37,7 +45,7 @@ function FeedList() {
                     {item.expand.author.nickname}
                   </p>
                   <p className="text-lionly-sm text-lionly-gray-1">
-                    {item.updated}
+                    {`${getDate(item.created)}`}
                   </p>
                 </figcaption>
               </figure>
@@ -45,7 +53,7 @@ function FeedList() {
                 <img
                   src={getPbImageURL(item, 'feed_image')}
                   alt=""
-                  className="h-40 w-full rounded-2xl object-contain"
+                  className="w-full rounded-2xl object-cover"
                 />
                 <figcaption className="mt-[14px]">
                   <p className="w-[260] text-lionly-sm text-lionly-gray-1">
@@ -57,12 +65,8 @@ function FeedList() {
           ))}
         </Fragment>
       ))}
-
-      <button type="button" onClick={fetchNextPage}>
-        클릭
-      </button>
     </ul>
   );
 }
 
-export default FeedList;
+export default AllFeed;

@@ -1,11 +1,8 @@
 import getFeedList from '@/api/getFeedList';
-import useChannel from '@/hooks/useChannel';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 function useFeed() {
-  const { channels, select, selectedChannel } = useChannel();
-
-  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { isLoading, data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['feed'],
     queryFn: ({ pageParam = 1 }) => getFeedList(pageParam),
     getNextPageParam: (lastPage, allPages) =>

@@ -1,4 +1,4 @@
-import { ReactComponent as LionHeadLogo } from '@/assets/lionHeadLogo_common';
+import { ReactComponent as LionHeadLogoSVG } from '@/assets/lionHeadLogo_common';
 import { number } from 'prop-types';
 
 /**
@@ -7,7 +7,7 @@ import { number } from 'prop-types';
  * @returns
  */
 function SmallLogo({ size }) {
-  return <LionHeadLogo width={size} height={size} className="z-10" />;
+  return <LionHeadLogoSVG aria-hidden className={`z-10 w-${size} h-${size}`} />;
 }
 
 SmallLogo.propTypes = {

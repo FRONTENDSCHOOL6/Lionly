@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import BeforeLogin from './components/layout/BeforeLogin.jsx';
 import RootLayout from './components/layout/RootLayout.jsx';
 import {
   Content,
@@ -10,8 +11,8 @@ import {
   SignUp,
   Writing,
 } from './pages';
-import BeforeLogin from './components/layout/BeforeLogin.jsx';
-import FeedList from './components/layout/FeedList.jsx';
+import AllFeed from './components/layout/AllFeed.jsx';
+import HealingsFeed from './components/layout/HealingsFeed.jsx';
 
 const router = createBrowserRouter([
   {
@@ -52,12 +53,12 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/feed',
-            element: <FeedList />,
+            element: <AllFeed />,
           },
-          { path: '/feed/healings', element: <FeedList /> },
-          { path: '/feed/jobs', element: <FeedList /> },
-          { path: '/feed/foods', element: <FeedList /> },
-          { path: '/feed/dailys', element: <FeedList /> },
+          { path: '/feed/healings', element: <HealingsFeed /> },
+          { path: '/feed/jobs', element: <AllFeed /> },
+          { path: '/feed/foods', element: <AllFeed /> },
+          { path: '/feed/dailys', element: <AllFeed /> },
         ],
       },
       {

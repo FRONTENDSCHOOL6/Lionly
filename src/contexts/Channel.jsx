@@ -1,43 +1,69 @@
-import getChannelList from '@/api/getChannelList';
-import getNodeIndex from '@/utils/getNodeIndex';
-import { useQuery } from '@tanstack/react-query';
 import { node, string } from 'prop-types';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const ChannelContext = createContext({});
 
 function ChannelProvider({ displayName = 'ChannelContext', children }) {
-  const [channels, setChannels] = useState([]);
-  const [select, setSelect] = useState([true]);
-  const [selectedChannel, setSelectedChannel] = useState('전체 게시글');
+  const initialState = {
+    '전체 게시글': false,
+    일상방: false,
+    맛집방: false,
+    취업방: false,
+    힐링방: false,
+  };
+  const [channelList, setChannelList] = useState(initialState);
 
-  /* pockethost에 있는 데이터에 따라 채널을 만들어줍니다. */
-  const { isLoading } = useQuery({
-    queryKey: ['channels'],
-    queryFn: getChannelList,
-    onSuccess: (channels) => {
-      setChannels(channels);
-    },
-    retry: 2,
-  });
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    switch (pathname) {
+      case '/feed':
+        setChannelList(() => ({
+          ...initialState,
+          '전체 게시글': true,
+        }));
+        break;
 
+      case '/feed/dailys':
+        setChannelList(() => ({
+          ...initialState,
+          일상방: true,
+        }));
+        break;
+
+      case '/feed/foods':
+        setChannelList(() => ({
+          ...initialState,
+          맛집방: true,
+        }));
+        break;
+
+      case '/feed/jobs':
+        setChannelList(() => ({
+          ...initialState,
+          취업방: true,
+        }));
+        break;
+
+      case '/feed/healings':
+        setChannelList(() => ({
+          ...initialState,
+          힐링방: true,
+        }));
+        break;
+    }
+  }, [pathname]);
+
+  // const [setMakeRender] = useState(null);
   const handleChangeChannel = (e) => {
-    const selectedChannelIndex = getNodeIndex(e.target.parentNode);
-    const clickedState = channels.map((item, index) => {
-      return index === selectedChannelIndex ? true : false;
-    });
-
-    setSelect(clickedState);
-    setSelectedChannel(channels[selectedChannelIndex]);
+    setChannelList(() => ({
+      ...initialState,
+    }));
   };
 
   return (
     <ChannelContext.Provider
       value={{
-        select,
-        channels,
-        selectedChannel,
-        isLoading,
+        channelList,
         handleChangeChannel,
       }}
       displayName={displayName}

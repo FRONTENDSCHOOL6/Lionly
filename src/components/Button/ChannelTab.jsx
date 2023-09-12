@@ -3,7 +3,8 @@ import handleKeyboardArrowControl from '@/utils/handleTabArrowControl';
 import { NavLink } from 'react-router-dom';
 
 function ChannelTab() {
-  const { select, channels, isLoading, handleChangeChannel } = useChannel();
+  const { channelList, handleChangeChannel } = useChannel();
+  const channels = Object.keys(channelList);
 
   return (
     <>
@@ -17,7 +18,6 @@ function ChannelTab() {
           aria-labelledby="channelList"
           aria-orientation="horizontal"
         >
-          {isLoading ? '채널 불러오는 중...' : null}
           {channels?.map((item, index) => {
             return (
               <li key={item} className="py-1">
@@ -33,14 +33,15 @@ function ChannelTab() {
                       ? '/feed/jobs'
                       : '/feed'
                   }
-                  tabIndex={select[index] === true ? -1 : 0}
+                  id={`tab-${index + 1}`}
+                  tabIndex={channelList[item] === true ? -1 : 0}
                   role="tab"
-                  aria-selected={select[index] === true ? true : false}
-                  aria-controls={item.channelName}
+                  aria-selected={channelList[item] === true ? true : false}
+                  aria-controls={`tabpanel-${index + 1}`}
                   onClick={handleChangeChannel}
                   onKeyDown={handleKeyboardArrowControl}
                   className={`rounded-[4px] border border-lionly-secondary-color px-1 py-2 text-lionly-md outline-4 outline-lionly-black ${
-                    select[index] === true
+                    channelList[item] === true
                       ? 'bg-lionly-secondary-color'
                       : 'bg-lionly-white'
                   }`}
