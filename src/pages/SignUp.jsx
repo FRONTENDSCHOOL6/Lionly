@@ -1,5 +1,5 @@
 import createUserInfo from '@/api/createUserInfo';
-import LinkButton from '@/components/Button/LinkButton';
+import LinkButton from '@/components/button/LinkButton';
 import FormInput from '@/components/input/FormInput';
 import { nameReg, idReg, nickNameReg, passWordReg } from '@/utils/validation';
 import { ClientResponseError } from 'pocketbase';
