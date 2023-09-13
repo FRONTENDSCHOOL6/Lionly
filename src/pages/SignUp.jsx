@@ -65,18 +65,19 @@ function SignUp({ text }) {
         toast.error('회원가입에 실패했습니다.');
       }
     } catch (error) {
-      // console.log(error.response);
-
       if (error.response.code === 400) {
-        if (error.response.data.email?.message.includes('already')) {
+        const { email, nickname } = error.response.data;
+
+        if (email && email.message.includes('already')) {
           toast.error('이메일이 중복됩니다.');
         }
-        if (error.response.data.nickname?.message.includes('unique')) {
+
+        if (nickname && nickname.message.includes('unique')) {
           toast.error('닉네임이 중복됩니다.');
         }
       } else {
         if (!(error instanceof ClientResponseError)) {
-          // console.error('회원가입 실패:', error);
+          console.error('회원가입 실패:', error);
           toast.error('회원가입에 실패했습니다.');
         }
       }
