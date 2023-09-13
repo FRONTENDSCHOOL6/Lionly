@@ -5,6 +5,7 @@ import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
 import useFeed from '@/hooks/useFeed';
 import { moveScrollTop } from '@/utils';
+import { memo } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
@@ -110,4 +111,4 @@ function Feed() {
   );
 }
 
-export default Feed;
+export default memo(Feed);
