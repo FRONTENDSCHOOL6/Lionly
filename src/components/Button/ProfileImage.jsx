@@ -4,7 +4,7 @@ import { bool, func, array } from 'prop-types';
 /* small을 전달 받으면 작은 프로필 아이콘으로 구현됩니다.
 handleInputClick 함수를 전달 받으면 프로필 변경 버튼으로,
 전달 받지 않으면 일반 프로필 아이콘으로 구현됩니다. */
-function ProfileImage({ small = false, handleInputClick, imageName }) {
+function ProfileImage({ small = false, handleInputClick, imageName = [] }) {
   const imageURL = `${import.meta.env.VITE_PB_API}/files/users/${
     imageName[0]
   }/${imageName[1]}`;
@@ -18,7 +18,9 @@ function ProfileImage({ small = false, handleInputClick, imageName }) {
       tabIndex={handleInputClick ? 0 : -1}
     >
       <img
-        src={imageURL}
+        src={
+          imageName[1] === '' ? '/src/assets/lionHeadLogo_common.svg' : imageURL
+        }
         alt="프로필 이미지"
         className="
           h-full w-full
