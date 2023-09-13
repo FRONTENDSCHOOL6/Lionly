@@ -27,8 +27,8 @@ function useFeed(pathname) {
 
   const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ['feed'],
-      queryFn: ({ pageParam = 1 }) => getFeedList(pageParam, channelName),
+      queryKey: ['feed', channelName],
+      queryFn: ({ pageParam = 0 }) => getFeedList(pageParam, channelName),
       getNextPageParam: (lastPage) =>
         lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
 

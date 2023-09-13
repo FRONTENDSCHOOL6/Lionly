@@ -111,7 +111,7 @@ function Feed() {
             더 불러올 게시글이 없습니다.
           </p>
         ) : null}
-        <div ref={listEndRef} className="absolute bottom-[400px]"></div>
+        <div ref={listEndRef} className="absolute bottom-[300px]"></div>
       </div>
     </>
   );

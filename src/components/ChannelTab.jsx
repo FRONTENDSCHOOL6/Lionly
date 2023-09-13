@@ -12,7 +12,7 @@ function ChannelTab() {
       <h3 className="sr-only" id="channelList">
         채널 리스트
       </h3>
-      <div className="flex h-[60px] min-w-[320px] bg-[#f5f5f5]">
+      <div className="flex h-[60px] min-w-[320px] overflow-hidden bg-[#f5f5f5]">
         <ul
           className="mx-[3px] my-[14px] flex gap-x-1.5 px-2"
           role="tablist"
@@ -21,7 +21,7 @@ function ChannelTab() {
         >
           {channels?.map((item, index) => {
             return (
-              <li key={item} className="py-1">
+              <li key={item} className="shrink py-1">
                 <NavLink
                   to={
                     item === '힐링방'
