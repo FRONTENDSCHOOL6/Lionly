@@ -1,4 +1,4 @@
-import getProfileNickname from '@/api/getProfileNickname';
+// import getProfileNickname from '@/api/getProfileNickname';
 import { handleTabArrowControl } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
