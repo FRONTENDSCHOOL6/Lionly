@@ -5,13 +5,14 @@ import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import FindAcountButton from '../button/FindAcountButton';
 import LinkButton from '../button/LinkButton';
-
+import { toast } from 'react-hot-toast';
+import { useAnimation, motion } from 'framer-motion';
 function Login() {
   const navigate = useNavigate();
   // useRef 사용해서 자동 완성 기능 동작하게 하기. 
   const emailRef = useRef();
   const passwordRef = useRef();
-
+  const controls = useAnimation();
   const [formState, setFormState] = useState({
     email: '',
     password: '',
@@ -43,12 +44,19 @@ function Login() {
 
       if (pb.authStore.isValid) {
         navigate('/feed');
+        toast.success(`안녕하세요! ${pb.authStore.model.name}님`,{
+          icon : '👏'
+        });
       } else {
         // 로그인 실패시 로직 필요 시 적기.
       }
     } catch (error) {
       console.error(error);
-      alert('계정 정보가 옳지 않습니다.');
+      toast.error('아이디나 비밀번호가 틀렸습니다.');
+      controls.start({
+        x: [-5, 5, -5, 5, 0],
+        transition: { duration: 0.5 },
+      });
     }
   };
 
@@ -66,13 +74,13 @@ function Login() {
       
       <form
         onSubmit={handleSignIn}
-        className="flex flex-col items-center gap-2"
+        className="flex flex-col items-center gap-1"
       >
         <label htmlFor="login"></label>
-        <input className='h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white' placeholder='아이디를 입력해주세요' ref={emailRef} type="email" id="login" name="email" onChange={handleInput} />
+        <motion.input animate={controls} className='h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white' placeholder='아이디를 입력해주세요' ref={emailRef} type="email" id="login" name="email" onChange={handleInput} />
 
         <label htmlFor="password" className=' block text-lionly-sm-bold text-lionly-white'></label>
-        <input
+        <motion.input animate={controls}
           className='h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white mb-1'
           ref={passwordRef}
           placeholder='비밀번호를 입력해주세요'
@@ -88,13 +96,11 @@ function Login() {
         </div>
         
 
-        
-        {/* bigButton type이 button 지정 돼서 활용 x */}
-        <button 
-        type="submit"
-        className='h-11 w-full rounded border border-lionly-white text-lionly-md font-normal bg-lionly-white text-lionly-black mb-1'
-        >로그인</button>
-        <LinkButton color={'transparent'} text={'회원가입'} />
+      
+        <div className='w-full flex flex-col gap-2'>
+          <LinkButton type={'submit'} text={'로그인'} />
+          <LinkButton color={'transparent'} text={'회원가입'} onClick={()=>{navigate('/signup')}} />
+        </div>
       </form>
     </div>
   );

@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { string } from 'prop-types';
 
@@ -6,7 +7,7 @@ function FindAcountButton({text, destination}) {
   return (
     <button onClick={()=>{
       navigate(destination)
-    }}>{text}</button>
+    }} type="button" >{text}</button>
   )
 }
 
@@ -14,5 +15,4 @@ FindAcountButton.propTypes = {
   text: string,
   destination: string,
 };
-
 export default FindAcountButton;

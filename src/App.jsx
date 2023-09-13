@@ -3,7 +3,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthProvider.jsx';
 import ChannelProvider from './contexts/Channel.jsx';
-// import ProfileImageProvider from './contexts/ProfileImage.jsx';
 import router from './routes.jsx';
 import { Toaster } from 'react-hot-toast';
 
@@ -16,9 +15,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <ChannelProvider>
-              {/* <ProfileImageProvider> */}
               <RouterProvider router={router} />
-              {/* </ProfileImageProvider> */}
             </ChannelProvider>
           </AuthProvider>
         </QueryClientProvider>
