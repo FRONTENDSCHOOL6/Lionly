@@ -96,12 +96,7 @@ function Login() {
         </div>
         
 
-        
-        {/* bigButton type이 button 지정 돼서 활용 x */}
-        {/* <button 
-        type="submit"
-        className='h-11 w-full rounded border border-lionly-white text-lionly-md font-normal bg-lionly-white text-lionly-black mb-1'
-        >로그인</button> */}
+      
         <div className='w-full flex flex-col gap-2'>
           <LinkButton type={'submit'} text={'로그인'} />
           <LinkButton color={'transparent'} text={'회원가입'} onClick={()=>{navigate('/signup')}} />
