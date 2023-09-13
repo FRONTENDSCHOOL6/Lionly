@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LogoutButton, ProfileImage, WritingButton } from '../button';
 import { ReactComponent as LionHeadLogoSVG } from '/src/assets/lionHeadLogo_common.svg';
 import { ReactComponent as ProfileEditSVG } from '/src/assets/profileEdit_Feed.svg';
+import { memo } from 'react';
 
 function FeedHeader() {
   const navigate = useNavigate();
@@ -41,4 +42,4 @@ function FeedHeader() {
   );
 }
 
-export default FeedHeader;
+export default memo(FeedHeader);

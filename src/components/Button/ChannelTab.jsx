@@ -1,5 +1,6 @@
 import useChannel from '@/hooks/useChannel';
 import handleKeyboardArrowControl from '@/utils/handleTabArrowControl';
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 function ChannelTab() {
@@ -57,4 +58,4 @@ function ChannelTab() {
   );
 }
 
-export default ChannelTab;
+export default memo(ChannelTab);
