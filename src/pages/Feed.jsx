@@ -1,12 +1,11 @@
 import { ReactComponent as DownArrowSVG } from '@/assets/arrow_Feed_down.svg';
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
-import { ChannelTab } from '@/components/button';
+import ChannelTab from '@/components/ChannelTab';
 import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
 import useFeed from '@/hooks/useFeed';
 import { moveScrollTop } from '@/utils';
-import { memo } from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
@@ -97,7 +96,7 @@ function Feed() {
             aria-label="상단으로 이동"
             type="button"
             onClick={handleScrollTop}
-            className="sticky left-[100%] top-[26.5%] mr-6 rounded-full shadow-lg transition-all"
+            className="sticky left-[100%] top-[26.5%] mr-6 rounded-full shadow-lg"
           >
             <UpArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all hover:scale-125 focus:scale-125" />
           </button>

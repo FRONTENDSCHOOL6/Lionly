@@ -13,6 +13,7 @@ import {
   Writing,
 } from './pages';
 import ProtectedRoute from './components/ProtecteRoute.jsx';
+import Edit from './pages/Edit.jsx';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Writing />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/edit',
+        element: (
+          <ProtectedRoute>
+            <Edit />
           </ProtectedRoute>
         ),
       },
