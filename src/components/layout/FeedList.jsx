@@ -2,9 +2,8 @@ import useChannel from '@/hooks/useChannel';
 import useFeed from '@/hooks/useFeed';
 import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils/getPbImageURL';
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import Spinner from '../Spinner';
-import { memo } from 'react';
 
 function FeedList() {
   const { isLoading, data } = useFeed(window.location.pathname);
