@@ -7,10 +7,6 @@ import { memo } from 'react';
 
 function FeedHeader() {
   const navigate = useNavigate();
-  if (!useStorageData()) {
-    navigate('/signin');
-  }
-  console.log(1);
   const { id, nickname, profile_image } = useStorageData();
 
   return (
