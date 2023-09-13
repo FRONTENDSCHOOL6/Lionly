@@ -1,81 +1,78 @@
-import { getPbImageURL } from '@/utils/getPbImageURL';
-import { ReactComponent as KebabButtonSVG } from '@/assets/KebabMenuButton_FeedList.svg';
-import { shape, string } from 'prop-types';
-import getFeedList from '@/api/getFeedList.js';
-import { useQuery } from '@tanstack/react-query';
-import Spinner from '@/components/Spinner';
+import useChannel from '@/hooks/useChannel';
+import useFeed from '@/hooks/useFeed';
 import getDate from '@/utils/getDate';
+import { getPbImageURL } from '@/utils/getPbImageURL';
+import { Fragment } from 'react';
+import Spinner from '../Spinner';
 
 function FeedList() {
-  const { status, isLoading, data } = useQuery({
-    queryKey: ['feed'],
-    queryFn: getFeedList,
-    retry: 3,
-    cacheTime: 5 * 60 * 1000,
-    staleTime: 3 * 1000,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-  });
-  console.log(status);
-  console.log(data)
+  const { isLoading, data } = useFeed(window.location.pathname);
+  const { channelList } = useChannel();
+
   if (isLoading) {
     return (
-      <div>
-        <Spinner />
+      <div className="h-screen">
+        <Spinner size={'50%'} />
       </div>
     );
   }
 
   return (
-    <ul className="m-auto w-72">
-      {data?.map((item) => (
-        <li key={item.id} className="mb-[22px]">
-          <figure className="relative mb-[10px] flex h-10 w-full">
-            <img
-              src={getPbImageURL(item.expand.author, 'profile_image')}
-              alt=""
-              className="h-[40px] w-[40px] rounded-full"
-            />
-            <figcaption className="ml-3">
-              <p className="font-bold text-lionly-black">
-                {item.expand.author.nickname}
-              </p>
-              <p className="text-lionly-sm text-lionly-gray-1">
-                {getDate(item.created)}
-              </p>
-            </figcaption>
-            <button type="button" className="absolute right-0 h-9 w-9">
-              <KebabButtonSVG />
-            </button>
-          </figure>
-          <figure className="w-full ">
-            <img
-              src={getPbImageURL(item, 'feed_image')}
-              alt=""
-              className="h-40 w-full rounded-2xl"
-            />
-            <figcaption className="mt-[14px]">
-              <p className="w-[260] text-lionly-sm text-lionly-gray-1">
-                {item.text}
-              </p>
-            </figcaption>
-          </figure>
-        </li>
+    <ul
+      id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
+      role="tabpanel"
+      aria-labelledby={`tab-${Object.values(channelList).indexOf(true) + 1}`}
+      className="mx-auto flex min-h-[72vh] flex-col gap-y-6 px-2"
+    >
+      <h4 className="sr-only">피드 리스트</h4>
+      {data?.pages.map((feed, index) => (
+        <Fragment key={index}>
+          {feed?.items.map((item) => (
+            <li
+              tabIndex={0}
+              key={item.id}
+              onClick={() => {
+                console.log('게시글 클릭');
+              }}
+              className="cursor-pointer"
+            >
+              <figure className="mb-[10px] flex h-10 w-full gap-x-3">
+                <img
+                  src={getPbImageURL(item.expand.author, 'profile_image')}
+                  aria-hidden
+                  className="h-[40px] w-[40px] rounded-full"
+                />
+
+                <figcaption className="w-full">
+                  <p className="font-bold text-lionly-black">
+                    {item.expand.author.nickname}
+                  </p>
+
+                  <p className="text-lionly-sm text-lionly-gray-1">
+                    {`${getDate(item.created)}`}
+                  </p>
+                </figcaption>
+              </figure>
+
+              <figure className="flex w-full flex-col gap-y-[14px]">
+                <img
+                  src={getPbImageURL(item, 'feed_image')}
+                  aria-hidden
+                  className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
+                />
+
+                <figcaption>
+                  <p className="w-full text-lionly-md text-lionly-gray-1">
+                    {item.text}
+                  </p>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </Fragment>
       ))}
     </ul>
   );
 }
-
-FeedList.propTypes = {
-  item: shape({
-    id: string,
-    image: string,
-    nickname: string,
-    date: string,
-    feed_image: string,
-    text: string,
-  }).isRequired,
-};
 
 export default FeedList;

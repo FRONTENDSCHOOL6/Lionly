@@ -1,4 +1,3 @@
-import getProfileImageURL from '@/api/getProfileImageURL';
 import defaultProfileImage from '@/assets/lionHeadLogo_common.svg';
 import { useQuery } from '@tanstack/react-query';
 import { node, string } from 'prop-types';
@@ -21,21 +20,15 @@ function ProfileImageProvider({
     setProfileImageURL(imageURL);
   };
 
-  const { status } = useQuery({
+  useQuery({
     queryKey: ['profileImage'],
-    queryFn: getProfileImageURL('6onsajcamfqzzjg'),
-    onSuccess: ({ profileImageId, profileImageName }) => {
-      const profileImageURL = `${
-        import.meta.env.VITE_PB_API
-      }/files/users/${profileImageId}/${profileImageName}`;
-
+    queryFn: getProfileImageURL,
+    onSuccess: (profileImageURL) => {
       setProfileImageURL(profileImageURL);
     },
 
     retry: 2,
   });
-
-  console.log('ProfileImage: ', status);
 
   return (
     <ProfileImageContext.Provider
