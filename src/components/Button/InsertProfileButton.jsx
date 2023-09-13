@@ -16,11 +16,9 @@ function InsertProfileButton() {
         프로필 이미지 파일 불러오기
       </label>
 
-      <ProfileImage handleInputClick={handleInputClick}>
+      <ProfileImage aria-hidden handleInputClick={handleInputClick}>
         <ProfilePencilSVG aria-hidden className="absolute bottom-0 right-0" />
       </ProfileImage>
-      <ProfileImage small={true} />
-      <ProfileImage />
 
       <input
         ref={inputFileRef}
