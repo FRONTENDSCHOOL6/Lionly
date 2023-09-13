@@ -7,14 +7,13 @@ import useFeed from '@/hooks/useFeed';
 import { moveScrollTop } from '@/utils';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import toast from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
   moveScrollTop();
 
-  const { hasNextPage, fetchNextPage, isFetchingNextPage } = useFeed();
+  const { hasNextPage, fetchNextPage } = useFeed();
 
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const scrollTopButtonRef = useRef(null);
@@ -68,16 +67,6 @@ function Feed() {
       element && observer.unobserve(element);
     };
   }, [fetchNextPage, hasNextPage, handleObserver]);
-
-  useEffect(() => {
-    if (isFetchingNextPage) {
-      toast.promise(fetchNextPage, {
-        loading: '게시글을 불러오는 중입니다.',
-        success: <b>게시글을 불러왔습니다.</b>,
-        error: <b>게시글을 불러오지 못했습니다.</b>,
-      });
-    }
-  }, []);
 
   return (
     <>
