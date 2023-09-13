@@ -10,18 +10,18 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <ChannelProvider>
-            {/* <ProfileImageProvider> */}
-            <RouterProvider router={router} />
-            {/* </ProfileImageProvider> */}
-          </ChannelProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+    <>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <ChannelProvider>
+              <RouterProvider router={router} />
+            </ChannelProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </HelmetProvider>
       <Toaster />
-    </HelmetProvider>
+    </>
   );
 }
 
