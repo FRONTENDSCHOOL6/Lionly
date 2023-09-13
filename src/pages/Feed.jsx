@@ -74,7 +74,7 @@ function Feed() {
         <title>Lionly - Feed</title>
       </Helmet>
 
-      <div className="z-10 h-full bg-lionly-white">
+      <div className="z-10 h-full bg-lionly-white pb-6">
         <div className="sticky top-0 z-10">
           <FeedHeader />
           <h2 className="sr-only">피드 페이지</h2>
@@ -103,8 +103,15 @@ function Feed() {
         ) : null}
 
         <Outlet />
-
-        <div ref={listEndRef} className="h-6"></div>
+        {!hasNextPage ? (
+          <p
+            role="status"
+            className="pt-6 text-center text-lionly-base text-lionly-red"
+          >
+            더 불러올 게시글이 없습니다.
+          </p>
+        ) : null}
+        <div ref={listEndRef} className="absolute bottom-[400px]"></div>
       </div>
     </>
   );
