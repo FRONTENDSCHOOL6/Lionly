@@ -1,4 +1,4 @@
-import { ReactComponent as LionLogo } from '@/assets/lionLogo_common.svg';
+import { ReactComponent as LionLogoSVG } from '@/assets/lionLogo_common.svg';
 import { number } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,11 +11,10 @@ function MainLogo({ size }) {
   const navigate = useNavigate();
 
   return (
-    <LionLogo
+    <LionLogoSVG
+      aria-hidden
       onClick={() => navigate('/')}
-      width={size}
-      height={size}
-      className="z-10 cursor-pointer transition-all"
+      className={`z-10 cursor-pointer transition-all w-${size} h-${size}`}
     />
   );
 }

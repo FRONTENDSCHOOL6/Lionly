@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { string } from 'prop-types';
 
@@ -14,5 +15,4 @@ FindAcountButton.propTypes = {
   text: string,
   destination: string,
 };
-
 export default FindAcountButton;
