@@ -1,5 +1,5 @@
-function renderImg(collection,id, value ){
-  return `${import.meta.env.VITE_PB_API}/files/${collection}/${id}/${value}`
+function renderImg(collection, id, value) {
+  return `https://lionly.pockethost.io/files/${collection}/${id}/${value}`;
 }
 
 export default renderImg;
