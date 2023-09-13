@@ -4,6 +4,7 @@ import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils/getPbImageURL';
 import { Fragment } from 'react';
 import Spinner from '../Spinner';
+import { memo } from 'react';
 
 function FeedList() {
   const { isLoading, data } = useFeed(window.location.pathname);
@@ -75,4 +76,4 @@ function FeedList() {
   );
 }
 
-export default FeedList;
+export default memo(FeedList);

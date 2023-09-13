@@ -12,6 +12,7 @@ import {
   SignUp,
   Writing,
 } from './pages';
+import ProtectedRoute from './components/ProtecteRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,15 +41,27 @@ const router = createBrowserRouter([
 
       {
         path: '/writing',
-        element: <Writing />,
+        element: (
+          <ProtectedRoute>
+            <Writing />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/mypage',
-        element: <MyPage />,
+        element: (
+          <ProtectedRoute>
+            <MyPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/feed',
-        element: <Feed />,
+        element: (
+          <ProtectedRoute>
+            <Feed />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: '/feed',

@@ -25,21 +25,22 @@ function useFeed(pathname) {
       break;
   }
 
-  const { isLoading, data, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['feed'],
-    queryFn: ({ pageParam = 1 }) => getFeedList(pageParam, channelName),
-    getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
+  const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['feed'],
+      queryFn: ({ pageParam = 1 }) => getFeedList(pageParam, channelName),
+      getNextPageParam: (lastPage) =>
+        lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
 
-    retry: 3,
-    cacheTime: 5 * 60 * 1000,
-    staleTime: 3 * 1000,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-  });
+      retry: 3,
+      cacheTime: 5 * 60 * 1000,
+      staleTime: 3 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+    });
 
-  return { isLoading, data, fetchNextPage };
+  return { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage };
 }
 
 export default useFeed;
