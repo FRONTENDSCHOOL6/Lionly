@@ -10,4 +10,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  base: 'https://lionly-v5a4.vercel.app/',
 });
