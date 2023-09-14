@@ -66,11 +66,11 @@ function Writing() {
           <textarea
             name="content"
             placeholder="글을 작성해주세요."
-            className="h-screen w-full resize-none rounded-xl border-none focus:outline-none"
+            className="h-screen w-full resize-none rounded-xl border-none placeholder:pt-[50%] placeholder:text-center focus:outline-none"
             maxLength="200"
             onChange={handleInputCount}
           ></textarea>
-          <input type="text" />
+          <span className="글을 작성해주세요"></span>
         </div>
       </div>
     </div>
