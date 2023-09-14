@@ -1,17 +1,24 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useInfiniteFeed from './useInfiniteFeed';
 
-function useObserve() {
+function useObserveScroll() {
+  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const { fetchNextPage } = useInfiniteFeed();
+
   const listEndRef = useRef(null);
   const handleObserver = useCallback(
     (entries) => {
       const [target] = entries;
+
       if (target.isIntersecting) {
+        setShowScrollTopButton(true);
         fetchNextPage();
+      } else if (document.documentElement.scrollTop < 500) {
+        setShowScrollTopButton(false);
       }
     },
-    [fetchNextPage]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [document.documentElement.scrollTop]
   );
 
   useEffect(() => {
@@ -28,7 +35,7 @@ function useObserve() {
     };
   }, [handleObserver]);
 
-  return { listEndRef };
+  return { listEndRef, showScrollTopButton };
 }
 
-export default useObserve;
+export default useObserveScroll;

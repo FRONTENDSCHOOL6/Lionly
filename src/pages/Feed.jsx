@@ -3,7 +3,7 @@ import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import ChannelTab from '@/components/ChannelTab';
 import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
-import { useInfiniteFeed, useObserve, useScroll } from '@/hooks';
+import { useInfiniteFeed, useObserveScroll } from '@/hooks';
 import { onLoadMoveScrollTop } from '@/utils';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
@@ -12,9 +12,7 @@ function Feed() {
   useIsLogin();
   onLoadMoveScrollTop();
   const { isSuccess, hasNextPage } = useInfiniteFeed();
-  const { listEndRef } = useObserve();
-  const { showScrollTopButton, handleScrollTop, handleScrollBottom } =
-    useScroll();
+  const { showScrollTopButton, listEndRef } = useObserveScroll();
 
   let title;
   switch (window.location.pathname) {
@@ -35,6 +33,19 @@ function Feed() {
       title = '전체 게시글';
       break;
   }
+
+  const handleScrollTop = () => {
+    scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+  const handleScrollBottom = () => {
+    scrollTo({
+      top: 1000000,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <>
