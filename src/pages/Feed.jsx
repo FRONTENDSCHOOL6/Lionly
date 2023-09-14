@@ -3,7 +3,7 @@ import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import ChannelTab from '@/components/ChannelTab';
 import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
-import { useInfiniteFeed, useObserveScroll } from '@/hooks';
+import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
 import { onLoadMoveScrollTop } from '@/utils';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
@@ -11,8 +11,14 @@ import { Outlet } from 'react-router-dom';
 function Feed() {
   useIsLogin();
   onLoadMoveScrollTop();
-  const { isSuccess, hasNextPage } = useInfiniteFeed();
-  const { showScrollTopButton, listEndRef } = useObserveScroll();
+  const { hasNextPage } = useInfiniteFeed();
+  const { listEndRef } = useObserveScroll();
+  const {
+    showScrollTopButton,
+    showScrollBottomButton,
+    handleScrollTop,
+    handleScrollBottom,
+  } = useScroll();
 
   let title;
   switch (window.location.pathname) {
@@ -34,19 +40,6 @@ function Feed() {
       break;
   }
 
-  const handleScrollTop = () => {
-    scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-  const handleScrollBottom = () => {
-    scrollTo({
-      top: 1000000,
-      behavior: 'smooth',
-    });
-  };
-
   return (
     <>
       <Helmet>
@@ -60,7 +53,7 @@ function Feed() {
           <ChannelTab />
         </div>
 
-        {isSuccess ? (
+        {showScrollBottomButton ? (
           <button
             role="button"
             aria-label="하단으로 이동"
