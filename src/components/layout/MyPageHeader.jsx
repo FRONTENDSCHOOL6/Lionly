@@ -3,14 +3,13 @@ import { ReactComponent as ButtonPrevSVG } from '@/assets/buttonPrev_MyPage.svg'
 import pb from './../../api/pocketbase';
 import useStorageData from '@/hooks/useStorageData';
 import LinkButton from '../Button/LinkButton';
-import renderImg from '@/utils/getImageData';
 import { shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { handleTabArrowControl } from '@/utils';
+import { ProfileImage } from '../button';
 
 function MyPageHeader() {
-  const { profile_image, email, nickname, collectionName, id } =
-    useStorageData();
+  const { profile_image, email, nickname, id } = useStorageData();
 
   return (
     <>
@@ -41,11 +40,7 @@ function MyPageHeader() {
         </div>
 
         <figure className="flex flex-col items-center">
-          <img
-            src={renderImg(collectionName, id, profile_image)}
-            alt=""
-            className="h-[58px] w-[58px] rounded-full"
-          />
+          <ProfileImage imageName={[id, profile_image]} />
           <figcaption className="flex flex-col items-center">
             <p className="mb-2 mt-3 text-lionly-xs text-lionly-gray-2">
               <u>{email}</u>
@@ -66,9 +61,8 @@ MyPageHeader.propTypes = {
     id: string,
     email: string,
     nickname: string,
-    collectionName: string,
     profile_image: string,
-  }).isRequired,
+  }),
 };
 
 export default MyPageHeader;
