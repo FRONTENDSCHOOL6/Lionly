@@ -11,7 +11,6 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     취업방: false,
     힐링방: false,
   };
-
   const initialState = {
     '전체 게시글': true,
     일상방: false,
@@ -19,10 +18,9 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     취업방: false,
     힐링방: false,
   };
-
   const [channelList, setChannelList] = useState(initialState);
-
   const pathname = window.location.pathname;
+
   useEffect(() => {
     switch (pathname) {
       case '/feed':
@@ -60,14 +58,20 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
         }));
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const handleChangeChannel = (e) => {
     const target = e.target.textContent;
-    setChannelList(() => ({
-      ...allFalseState,
-      [target]: true,
-    }));
+
+    if (!channelList[target]) {
+      scrollTo({ top: 0, behavior: 'smooth' });
+
+      setChannelList(() => ({
+        ...allFalseState,
+        [target]: true,
+      }));
+    }
   };
 
   return (

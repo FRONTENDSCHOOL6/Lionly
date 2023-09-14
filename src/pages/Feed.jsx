@@ -3,75 +3,43 @@ import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import ChannelTab from '@/components/ChannelTab';
 import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
-import useFeed from '@/hooks/useFeed';
-import { moveScrollTop } from '@/utils';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { useInfiniteFeed, useObserve, useScroll } from '@/hooks';
+import { onLoadMoveScrollTop } from '@/utils';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
-  moveScrollTop();
+  onLoadMoveScrollTop();
+  const { isSuccess, hasNextPage } = useInfiniteFeed();
+  const { listEndRef } = useObserve();
+  const { showScrollTopButton, handleScrollTop, handleScrollBottom } =
+    useScroll();
 
-  const { hasNextPage, fetchNextPage } = useFeed();
+  let title;
+  switch (window.location.pathname) {
+    case '/feed/dailys':
+      title = '일상방';
+      break;
+    case '/feed/foods':
+      title = '맛집방';
+      break;
+    case '/feed/jobs':
+      title = '취업방';
+      break;
+    case '/feed/healings':
+      title = '힐링방';
+      break;
 
-  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
-  const scrollTopButtonRef = useRef(null);
-  useEffect(() => {
-    const handleShowButton = () => {
-      document.documentElement.scrollTop >
-      document.documentElement.clientHeight * 0.5
-        ? setShowScrollTopButton(true)
-        : setShowScrollTopButton(false);
-    };
-
-    window.addEventListener('scroll', handleShowButton);
-    return () => {
-      window.removeEventListener('scroll', handleShowButton);
-    };
-  }, []);
-
-  const handleScrollTop = () => {
-    scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
-  const handleScrollBottom = () => {
-    scrollTo({
-      top: 1000000,
-      behavior: 'smooth',
-    });
-  };
-
-  const listEndRef = useRef(null);
-  const handleObserver = useCallback(
-    (entries) => {
-      const [target] = entries;
-      if (target.isIntersecting) {
-        fetchNextPage();
-      }
-    },
-    [fetchNextPage]
-  );
-  useEffect(() => {
-    const element = listEndRef.current;
-    const option = {
-      threshold: 0,
-    };
-
-    const observer = new IntersectionObserver(handleObserver, option);
-    element && observer.observe(element);
-    return () => {
-      element && observer.unobserve(element);
-    };
-  }, [fetchNextPage, hasNextPage, handleObserver]);
+    default:
+      title = '전체 게시글';
+      break;
+  }
 
   return (
     <>
       <Helmet>
-        <title>Lionly - Feed</title>
+        <title>Feed - {title}</title>
       </Helmet>
 
       <div className="z-10 h-full bg-lionly-white pb-6">
@@ -81,18 +49,21 @@ function Feed() {
           <ChannelTab />
         </div>
 
-        <button
-          aria-label="게시글 불러오기"
-          type="button"
-          onClick={handleScrollBottom}
-          className="sticky left-[100%] top-[93.5%] mr-6 rounded-full shadow-lg"
-        >
-          <DownArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all  hover:scale-125 focus:scale-125" />
-        </button>
+        {isSuccess ? (
+          <button
+            role="button"
+            aria-label="하단으로 이동"
+            type="button"
+            onClick={handleScrollBottom}
+            className="sticky left-[100%] top-[93.5%] mr-6 rounded-full shadow-lg"
+          >
+            <DownArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all  hover:scale-125 focus:scale-125" />
+          </button>
+        ) : null}
 
         {showScrollTopButton ? (
           <button
-            ref={scrollTopButtonRef}
+            role="button"
             aria-label="상단으로 이동"
             type="button"
             onClick={handleScrollTop}
@@ -103,12 +74,13 @@ function Feed() {
         ) : null}
 
         <Outlet />
+
         {!hasNextPage ? (
           <p
             role="status"
             className="pt-6 text-center text-lionly-base text-lionly-red"
           >
-            더 불러올 게시글이 없습니다.
+            마지막 게시글입니다.
           </p>
         ) : null}
         <div ref={listEndRef} className="absolute bottom-[300px]"></div>
@@ -117,4 +89,4 @@ function Feed() {
   );
 }
 
-export default memo(Feed);
+export default Feed;

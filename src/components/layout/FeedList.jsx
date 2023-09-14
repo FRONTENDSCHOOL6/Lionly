@@ -1,18 +1,20 @@
-import useChannel from '@/hooks/useChannel';
-import useFeed from '@/hooks/useFeed';
 import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils/getPbImageURL';
-import { Fragment, memo } from 'react';
+import { Fragment } from 'react';
 import Spinner from '../Spinner';
+import { useChannel, useInfiniteFeed } from '@/hooks';
 
 function FeedList() {
-  const { isLoading, data } = useFeed(window.location.pathname);
+  const { isLoading, data } = useInfiniteFeed();
   const { channelList } = useChannel();
 
   if (isLoading) {
     return (
       <div className="h-screen">
         <Spinner size={'50%'} />
+        <p role="status" className="text-center text-lionly-md text-lionly-red">
+          게시글을 불러오는 중입니다.
+        </p>
       </div>
     );
   }
@@ -75,4 +77,4 @@ function FeedList() {
   );
 }
 
-export default memo(FeedList);
+export default FeedList;

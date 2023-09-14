@@ -1,5 +1,4 @@
 import useStorageData from '@/hooks/useStorageData';
-import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogoutButton, ProfileImage, WritingButton } from '../button';
 import { ReactComponent as LionHeadLogoSVG } from '/src/assets/lionHeadLogo_common.svg';
@@ -42,4 +41,4 @@ function FeedHeader() {
   );
 }
 
-export default memo(FeedHeader);
+export default FeedHeader;
