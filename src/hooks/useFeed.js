@@ -3,16 +3,19 @@ import { useQuery } from '@tanstack/react-query';
 import useChannel from './useChannel';
 
 function useFeed(feedId) {
-  const { status, data } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ['feedList', window.location.pathname],
     queryFn: () => getFeed(feedId),
   });
 
-  let pathname;
+  const comment = data?.expand.comments.map((comment) => {
+    return comment;
+  });
 
   const { channelList } = useChannel();
   const selectedChannelIndex = Object.values(channelList).indexOf(true);
   const selectedChannel = Object.keys(channelList)[selectedChannelIndex];
+  let pathname;
 
   switch (selectedChannel) {
     case '전체 게시글':
@@ -32,7 +35,7 @@ function useFeed(feedId) {
       break;
   }
 
-  return { status, data, pathname };
+  return { isLoading, data, comment, pathname };
 }
 
 export default useFeed;

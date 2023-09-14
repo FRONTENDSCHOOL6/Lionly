@@ -41,7 +41,7 @@ function FeedList() {
               }}
               className="cursor-pointer"
             >
-              <main className="flex flex-col gap-y-2.5">
+              <div className="flex flex-col gap-y-2.5">
                 <figure className="flex h-10 w-full gap-x-3">
                   <img
                     alt={`${item.expand.author.nickname}의 프로필 이미지`}
@@ -69,7 +69,7 @@ function FeedList() {
                     </p>
                   </figcaption>
                 </figure>
-              </main>
+              </div>
             </li>
           ))}
         </Fragment>

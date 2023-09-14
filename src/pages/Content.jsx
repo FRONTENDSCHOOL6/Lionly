@@ -1,4 +1,5 @@
 import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
+import Spinner from '@/components/Spinner';
 import { useFeed } from '@/hooks';
 import { getPbImageURL } from '@/utils';
 import getDate from '@/utils/getDate';
@@ -7,8 +8,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function Content() {
   const { feedId } = useParams();
-  const { status, data, pathname } = useFeed(feedId);
+  const { isLoading, data, comment, pathname } = useFeed(feedId);
   const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <div className="h-screen">
+        <Spinner size={'50%'} />
+        <p role="status" className="text-center text-lionly-md text-lionly-red">
+          게시글을 불러오는 중입니다.
+        </p>
+      </div>
+    );
+  }
+
   return (
     data && (
       <>
@@ -63,7 +76,22 @@ function Content() {
           </figure>
         </main>
 
-        <section></section>
+        <section className="bg-lionly-white">
+          <ul>
+            {comment.map((item) => (
+              <li key={item.id}>
+                <img
+                  src={getPbImageURL(item.commenter, 'profile_image')}
+                  alt={`${item.commenter}의 프로필 이미지`}
+                />
+                <span>{item.commenter}</span>
+                <span>{item.created}</span>
+                <p>{item.comment}</p>
+                <span>답글 달기</span>
+              </li>
+            ))}
+          </ul>
+        </section>
       </>
     )
   );
