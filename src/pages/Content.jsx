@@ -1,5 +1,5 @@
 import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
-import useFeed from '@/hooks/useFeed';
+import { useFeed } from '@/hooks';
 import { getPbImageURL } from '@/utils';
 import getDate from '@/utils/getDate';
 import { Helmet } from 'react-helmet-async';
