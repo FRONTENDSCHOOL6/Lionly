@@ -72,10 +72,7 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
-          {
-            path: '/feed',
-            element: <FeedList />,
-          },
+          { path: '/feed', element: <FeedList /> },
           { path: '/feed/healings', element: <FeedList /> },
           { path: '/feed/jobs', element: <FeedList /> },
           { path: '/feed/foods', element: <FeedList /> },
