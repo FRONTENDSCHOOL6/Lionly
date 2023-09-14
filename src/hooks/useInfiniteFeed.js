@@ -1,9 +1,9 @@
 import getFeedList from '@/api/getFeedList';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-function useFeed(pathname) {
+function useInfiniteFeed() {
   let channelName;
-  switch (pathname) {
+  switch (window.location.pathname) {
     case '/feed':
       channelName = '';
       break;
@@ -21,13 +21,13 @@ function useFeed(pathname) {
       break;
 
     case '/feed/healings':
-      channelName = '일상방';
+      channelName = '힐링방';
       break;
   }
 
-  const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+  const { isLoading, isSuccess, data, hasNextPage, fetchNextPage } =
     useInfiniteQuery({
-      queryKey: ['feed'],
+      queryKey: ['feed', window.location.pathname],
       queryFn: ({ pageParam = 1 }) => getFeedList(pageParam, channelName),
       getNextPageParam: (lastPage) =>
         lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
@@ -40,7 +40,7 @@ function useFeed(pathname) {
       refetchOnMount: false,
     });
 
-  return { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage };
+  return { isLoading, isSuccess, data, hasNextPage, fetchNextPage };
 }
 
-export default useFeed;
+export default useInfiniteFeed;
