@@ -1,6 +1,6 @@
 import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils/getPbImageURL';
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import Spinner from '../Spinner';
 import { useChannel, useInfiniteFeed } from '@/hooks';
 
