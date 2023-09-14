@@ -51,10 +51,14 @@ function MyFeedList() {
               {isDropView && (
                 <ul
                   ref={dropRef}
-                  className="absolute right-0 top-full z-10 border border-gray-300 bg-white p-2 shadow-lg"
+                  className="absolute right-0 top-full z-10 rounded-lg border border-gray-300 bg-white p-2 shadow-lg"
                 >
-                  <li className="cursor-pointer p-2 hover:bg-gray-100">수정</li>
-                  <li className="cursor-pointer p-2 hover:bg-gray-100">삭제</li>
+                  <li className="cursor-pointer rounded-md p-2 hover:bg-gray-100">
+                    수정
+                  </li>
+                  <li className="cursor-pointer rounded-md p-2 hover:bg-gray-100">
+                    삭제
+                  </li>
                 </ul>
               )}
             </figure>
