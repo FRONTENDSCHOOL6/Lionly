@@ -11,11 +11,11 @@ function getTimeDifference(time) {
   const timeDifferenceM = timeDifferenceMs / (60 * 1000);
 
   const result =
-    timeDifferenceH > 24
-      ? Math.round(timeDifferenceDay)
+    timeDifferenceM > 24
+      ? `${Math.round(timeDifferenceDay)}일 전`
       : timeDifferenceH < 1
-      ? Math.round(timeDifferenceM)
-      : Math.round(timeDifferenceH);
+      ? `${Math.round(timeDifferenceM)}분 전`
+      : `${Math.round(timeDifferenceH)}시간 전`;
 
   return result;
 }
