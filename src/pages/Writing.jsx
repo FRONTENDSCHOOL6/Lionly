@@ -9,17 +9,14 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import createFeedData from '@/api/createFeedData';
 import useStorageData from '@/hooks/useStorageData';
-// import debounce from '@/utils/debounce';
 
 function Writing() {
   const [inputCount, setInputCount] = useState(0);
   const imageInput = useRef(null);
   const uploadImageRef = useRef(null);
-  const authorRef = useRef(null);
   const textRef = useRef(null);
   const channelsRef = useRef(null);
   const { id } = useStorageData();
-  // console.log(id);
   const navigate = useNavigate();
 
   const handleInputCount = (e) => {
@@ -32,40 +29,36 @@ function Writing() {
     imageInput.current.click();
   };
 
-  const handleRegisterData = async (e) => {
-    e.preventDefault();
-
-    const imageValue = imageInput.current.files[0];
-    // const authorValue = authorRef.current.value;
-    const textValue = textRef.current.value;
-    const channelsValue = channelsRef.current.value;
-
-    const formData = new FormData();
-    formData.append('feed_image', imageValue);
-    // formData.append('author', authorValue);
-    formData.append('text', textValue);
-    formData.append('channels', channelsValue);
-
-    await createFeedData(formData);
-    try {
-      if (confirm('글을 등록하시겠습니까?')) {
-        toast('글 등록이 완료되었습니다.');
-        navigate('/feed');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleUploadImg = (e) => {
     const imgFile = e.target.files[0];
     const imgUrl = URL.createObjectURL(imgFile);
     uploadImageRef.current.setAttribute('src', imgUrl);
   };
 
-  // if(handleUploadImg){
-  //   button
-  // }
+  const handleRegisterData = async (e) => {
+    e.preventDefault();
+
+    const imageValue = imageInput.current.files[0];
+    const textValue = textRef.current.value;
+    const channelsValue = channelsRef.current.value;
+    const authorValue = id;
+
+    const formData = new FormData();
+    formData.append('feed_image', imageValue);
+    formData.append('text', textValue);
+    formData.append('channels', channelsValue);
+    formData.append('author', authorValue);
+
+    await createFeedData(formData);
+    try {
+      if (confirm('게시물을 업로드 하시겠습니까?')) {
+        toast.success('게시물이 업로드 되었습니다.');
+        navigate('/feed');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -74,11 +67,12 @@ function Writing() {
       </Helmet>
       <div className="mt-4 flex justify-between px-4">
         <Link to="/mypage" className="cursor-pointer">
-          <LeftArrow />
+          <LeftArrow className="mt-2" />
         </Link>
         <button
           type="submit"
           className="rounded-full border border-lionly-white px-3 py-[7px] text-lionly-sm text-lionly-white"
+          onClick={handleRegisterData}
         >
           <img src={check} alt="" className="inline-block pr-2" />
           등록
@@ -86,27 +80,33 @@ function Writing() {
       </div>
       <div>
         <form encType="multipart/form-data" onSubmit={handleRegisterData}>
-          <div className="flex h-[300px] justify-center">
-            <img src="" alt="" ref={uploadImageRef} />
-            <input
-              type="file"
-              className="sr-only"
-              ref={imageInput}
-              accept="*.jpg,*.png,*.jpeg,*.webp,*.avif,.gif"
-              name="img"
-              id="img"
-              onChange={handleUploadImg}
+          <div className="h-[400px] w-full">
+            <img
+              src=""
+              alt="피드 이미지"
+              ref={uploadImageRef}
+              className="overflow-hidden pt-2"
             />
-            <button
-              className="my-[110px] w-[130px] rounded-full bg-lionly-secondary-color px-4 py-[11px] text-lionly-sm-bold text-lionly-white"
-              onClick={handleImageUpload}
-            >
-              <img src={plus} alt="" className="inline-block pr-2" />
-              사진 추가하기
-            </button>
           </div>
+          <input
+            type="file"
+            className="sr-only"
+            ref={imageInput}
+            accept="*.jpg,*.png,*.jpeg,*.webp,*.avif,.gif"
+            name="img"
+            id="img"
+            onChange={handleUploadImg}
+          />
+          <button
+            className="my-[110px]w-[130px] rounded-full bg-lionly-secondary-color px-4 py-[11px] text-lionly-sm-bold text-lionly-white"
+            type="button"
+            onClick={handleImageUpload}
+          >
+            <img src={plus} alt="" className="inline-block pr-2" />
+            사진 추가하기
+          </button>
         </form>
-        <div className="w-full rounded-xl bg-lionly-white px-[35px]">
+        <div className="h-[400px] w-full rounded-xl bg-lionly-white px-[35px]">
           <div className="flex justify-between py-[23px]">
             <div className="flex gap-2">
               <h2>게시물 작성</h2>
@@ -136,7 +136,7 @@ function Writing() {
           <textarea
             name="content"
             placeholder="글을 작성해주세요."
-            className="h-screen w-full resize-none rounded-xl border-none placeholder:pt-[40%] placeholder:text-center focus:outline-none"
+            className="h-[320px] w-full resize-none rounded-xl border-none placeholder:pt-[20%] placeholder:text-center focus:outline-none"
             maxLength="200"
             onChange={handleInputCount}
             ref={textRef}
