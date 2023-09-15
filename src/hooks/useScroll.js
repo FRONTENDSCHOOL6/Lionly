@@ -27,7 +27,9 @@ function useScroll() {
         : setShowScrollTopButton(false);
 
       !hasNextPage &&
-      document.documentElement.scrollTop > document.documentElement.clientHeight
+      document.documentElement.scrollTop ===
+        document.documentElement.scrollHeight -
+          document.documentElement.clientHeight
         ? setShowScrollBottomButton(false)
         : setShowScrollBottomButton(true);
     };
