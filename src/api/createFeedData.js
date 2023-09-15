@@ -1,7 +1,6 @@
 import pb from './pocketbase'
 
-async function createFeedData(data) {
-  const feedData = await pb.collection('feeds').create(data);
-  return feedData;
+function createFeedData(data) {
+  return pb.collection('feeds').create(data);
 }
 export default createFeedData;

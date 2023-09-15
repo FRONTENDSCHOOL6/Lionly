@@ -35,6 +35,8 @@ function Writing() {
     uploadImageRef.current.style.backgroundImage = `url('${imgUrl}')`;
   };
 
+  const handleClearText = () => {};
+
   const handleRegisterData = async (e) => {
     e.preventDefault();
 
@@ -85,7 +87,7 @@ function Writing() {
             className="flex h-[400px] w-full justify-center rounded-md bg-cover bg-center bg-no-repeat"
           >
             <button
-              className="border-lionly-white-2 mt-[30%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
+              className="border-lionly-white-2 mt-[180px] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
               type="button"
               onClick={handleImageUpload}
             >
@@ -125,6 +127,7 @@ function Writing() {
               <button
                 type="button"
                 className="text-lionly-sm-bold text-lionly-gray-3"
+                onClick={handleClearText}
               >
                 전체 삭제
               </button>
