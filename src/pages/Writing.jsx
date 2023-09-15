@@ -32,7 +32,7 @@ function Writing() {
   const handleUploadImg = (e) => {
     const imgFile = e.target.files[0];
     const imgUrl = URL.createObjectURL(imgFile);
-    uploadImageRef.current.setAttribute('src', imgUrl);
+    uploadImageRef.current.style.backgroundImage = `url('${imgUrl}')`;
   };
 
   const handleRegisterData = async (e) => {
@@ -65,13 +65,13 @@ function Writing() {
       <Helmet>
         <title>Lionly - Writing</title>
       </Helmet>
-      <div className="mt-4 flex justify-between px-4">
+      <div className="mt-4 flex justify-between px-4 pb-3">
         <Link to="/mypage" className="cursor-pointer">
           <LeftArrow className="mt-2" />
         </Link>
         <button
           type="submit"
-          className="rounded-full border border-lionly-white px-3 py-[7px] text-lionly-sm text-lionly-white"
+          className="rounded-full border border-lionly-white px-3 py-[7px] text-lionly-sm text-lionly-white  hover:bg-lionly-secondary-color"
           onClick={handleRegisterData}
         >
           <img src={check} alt="" className="inline-block pr-2" />
@@ -80,31 +80,28 @@ function Writing() {
       </div>
       <div>
         <form encType="multipart/form-data" onSubmit={handleRegisterData}>
-          <div className="h-[400px] w-full">
-            <img
-              src=""
-              alt="피드 이미지"
-              ref={uploadImageRef}
-              className="overflow-hidden pt-2"
-            />
+          <div
+            ref={uploadImageRef}
+            className="flex h-[400px] w-full justify-center rounded-md bg-cover bg-center bg-no-repeat"
+          >
+            <button
+              className="border-lionly-white-2 mt-[30%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
+              type="button"
+              onClick={handleImageUpload}
+            >
+              <img src={plus} alt="" className="inline-block pr-2" />
+              사진 추가하기
+            </button>
           </div>
           <input
             type="file"
             className="sr-only"
             ref={imageInput}
-            accept="*.jpg,*.png,*.jpeg,*.webp,*.avif,.gif"
+            accept="*.jpg,*.png,*.jpeg,*.webp,*.avif, *.gif"
             name="img"
             id="img"
             onChange={handleUploadImg}
           />
-          <button
-            className="my-[110px]w-[130px] rounded-full bg-lionly-secondary-color px-4 py-[11px] text-lionly-sm-bold text-lionly-white"
-            type="button"
-            onClick={handleImageUpload}
-          >
-            <img src={plus} alt="" className="inline-block pr-2" />
-            사진 추가하기
-          </button>
         </form>
         <div className="h-[400px] w-full rounded-xl bg-lionly-white px-[35px]">
           <div className="flex justify-between py-[23px]">
