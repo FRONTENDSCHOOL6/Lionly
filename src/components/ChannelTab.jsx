@@ -7,7 +7,7 @@ function ChannelTab() {
   const channels = Object.keys(channelList);
 
   return (
-    <>
+    <nav>
       <h3 className="sr-only" id="channelList">
         채널 리스트
       </h3>
@@ -53,7 +53,7 @@ function ChannelTab() {
           })}
         </ul>
       </div>
-    </>
+    </nav>
   );
 }
 
