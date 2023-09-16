@@ -59,9 +59,9 @@ function Feed() {
             aria-label="하단으로 이동"
             type="button"
             onClick={handleScrollBottom}
-            className="sticky left-[100%] top-[93.5%] mr-6 rounded-full shadow-lg"
+            className="sticky left-[100%] top-[93.5%] rounded-full pr-6"
           >
-            <DownArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all  hover:scale-125 focus:scale-125" />
+            <DownArrowSVG className="h-7 w-7 rounded-full shadow-2xl transition-all  hover:scale-125 focus:scale-125" />
           </button>
         ) : null}
 
@@ -71,9 +71,9 @@ function Feed() {
             aria-label="상단으로 이동"
             type="button"
             onClick={handleScrollTop}
-            className="sticky left-[100%] top-[26.5%] mr-6 rounded-full shadow-lg"
+            className="sticky left-[100%] top-[26.5%] rounded-full pr-6"
           >
-            <UpArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all hover:scale-125 focus:scale-125" />
+            <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl transition-all hover:scale-125 focus:scale-125" />
           </button>
         ) : null}
 
