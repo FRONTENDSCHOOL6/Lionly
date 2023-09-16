@@ -1,28 +1,22 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 function useDropDown() {
-  const [view, setView] = useState(false);
   const ref = useRef(null);
 
-  const removeHandler = () => {
-    setView(!view);
-  };
-
   useEffect(() => {
-    const handleDropOut = (e) => {
-      if (view && !ref.current.contains(e.target)) {
-        setView(!view);
+    const handleModalOut = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        console.log('외부 클릭 감지');
       }
     };
 
-    document.addEventListener('mousedown', handleDropOut);
+    document.addEventListener('click', handleModalOut);
 
     return () => {
-      document.removeEventListener('mousedown', handleDropOut);
+      document.removeEventListener('click', handleModalOut);
     };
-  }, [ref.current]);
-
-  return [view, ref, removeHandler];
+  });
+  return ref;
 }
 
 export default useDropDown;
