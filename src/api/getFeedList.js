@@ -6,6 +6,7 @@ async function getFeedList(pageParam, channelName) {
     filter: `${
       channelName ? `channels = "${channelName}"` : "channels ~ '방'"
     }`,
+    sort: '-created',
   });
 
   return feedList;
