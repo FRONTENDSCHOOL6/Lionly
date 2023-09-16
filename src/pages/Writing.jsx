@@ -14,7 +14,8 @@ function Writing() {
   const [inputCount, setInputCount] = useState(0);
   const imageInput = useRef(null);
   const uploadImageRef = useRef(null);
-  const textRef = useRef(null);
+  const headerRef = useRef(null);
+  const textareaRef = useRef(null);
   const channelsRef = useRef(null);
   const { id } = useStorageData();
   const navigate = useNavigate();
@@ -29,19 +30,22 @@ function Writing() {
     imageInput.current.click();
   };
 
+  const handleTextDelete = () => {
+    textareaRef.current.value = '';
+    setInputCount(0);
+  };
+
   const handleUploadImg = (e) => {
     const imgFile = e.target.files[0];
     const imgUrl = URL.createObjectURL(imgFile);
     uploadImageRef.current.style.backgroundImage = `url('${imgUrl}')`;
   };
 
-  const handleClearText = () => {};
-
   const handleRegisterData = async (e) => {
     e.preventDefault();
 
     const imageValue = imageInput.current.files[0];
-    const textValue = textRef.current.value;
+    const textValue = textareaRef.current.value;
     const channelsValue = channelsRef.current.value;
     const authorValue = id;
 
@@ -63,11 +67,12 @@ function Writing() {
   };
 
   return (
-    <div>
+    <div className="flex h-screen flex-col">
       <Helmet>
         <title>Lionly - Writing</title>
       </Helmet>
-      <div className="mt-4 flex justify-between px-4 pb-3">
+
+      <div ref={headerRef} className="mt-4 flex justify-between px-4 pb-3">
         <Link to="/mypage" className="cursor-pointer">
           <LeftArrow className="mt-2" />
         </Link>
@@ -80,14 +85,15 @@ function Writing() {
           등록
         </button>
       </div>
-      <div>
+
+      <div className="flex flex-1 flex-col">
         <form encType="multipart/form-data" onSubmit={handleRegisterData}>
           <div
             ref={uploadImageRef}
-            className="flex h-[400px] w-full justify-center rounded-md bg-cover bg-center bg-no-repeat"
+            className="flex aspect-[9/5] w-full justify-center rounded-md bg-cover bg-center bg-no-repeat"
           >
             <button
-              className="border-lionly-white-2 mt-[180px] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
+              className="border-lionly-white-2 mt-[25%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
               type="button"
               onClick={handleImageUpload}
             >
@@ -105,7 +111,10 @@ function Writing() {
             onChange={handleUploadImg}
           />
         </form>
-        <div className="h-[400px] w-full rounded-xl bg-lionly-white px-[35px]">
+
+        <div
+          className={`flex w-full flex-1 flex-col rounded-xl bg-lionly-white px-[35px]`}
+        >
           <div className="flex justify-between py-[23px]">
             <div className="flex gap-2">
               <h2>게시물 작성</h2>
@@ -114,6 +123,7 @@ function Writing() {
                 / 200
               </span>
             </div>
+
             <div className="flex gap-10">
               <select
                 className="w-[100px] pl-4 text-sm outline-none"
@@ -127,19 +137,20 @@ function Writing() {
               <button
                 type="button"
                 className="text-lionly-sm-bold text-lionly-gray-3"
-                onClick={handleClearText}
+                onClick={handleTextDelete}
               >
                 전체 삭제
               </button>
             </div>
           </div>
+
           <textarea
             name="content"
             placeholder="글을 작성해주세요."
-            className="h-[320px] w-full resize-none rounded-xl border-none placeholder:pt-[20%] placeholder:text-center focus:outline-none"
+            className="w-full flex-1 resize-none rounded-xl border-none placeholder:pt-[10%] placeholder:text-center focus:outline-none"
             maxLength="200"
             onChange={handleInputCount}
-            ref={textRef}
+            ref={textareaRef}
           ></textarea>
         </div>
       </div>
