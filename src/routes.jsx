@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/edit',
+        path: '/edit/:postId',
         element: (
           <ProtectedRoute>
             <Edit />
