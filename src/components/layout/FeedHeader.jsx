@@ -9,7 +9,7 @@ function FeedHeader() {
   const { id, nickname, profile_image } = useStorageData();
 
   return (
-    <div className="bg-lionly-primary-color px-4">
+    <header className="bg-lionly-primary-color px-4">
       <div className="flex items-center justify-between border-b border-lionly-secondary-color">
         <div className="flex items-center gap-x-2.5">
           <LionHeadLogoSVG aria-hidden />
@@ -37,7 +37,7 @@ function FeedHeader() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
