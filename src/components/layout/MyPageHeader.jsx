@@ -7,13 +7,21 @@ import { shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { handleTabArrowControl } from '@/utils';
 import { ProfileImage } from '../button';
+import { useState } from 'react';
+import ProfileEdit from './ProfileEdit';
 
 function MyPageHeader() {
   const { profile_image, email, nickname, id } = useStorageData();
 
+  const [openModal, setOpenModal] = useState(false);
+
+  const modalClose = () => {
+    setOpenModal(false);
+  };
+
   return (
     <>
-      <div className="mx-auto">
+      <div className=" relative  mx-auto">
         <div className="mx-4 mb-[30px] mt-4 flex justify-between bg-lionly-primary-color">
           <Link to="/feed">
             <button type="button">
@@ -50,7 +58,15 @@ function MyPageHeader() {
             </p>
           </figcaption>
         </figure>
-        <LinkButton text="프로필 편집" />
+
+        {openModal == true ? <ProfileEdit onClose={modalClose} /> : null}
+
+        <LinkButton
+          text="프로필 편집"
+          onClick={() => {
+            setOpenModal(!openModal);
+          }}
+        />
       </div>
     </>
   );
