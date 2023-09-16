@@ -5,13 +5,18 @@ import { getPbImageURL } from '@/utils/getPbImageURL';
 import { shape, string } from 'prop-types';
 import { useState, useEffect } from 'react';
 import { ReactComponent as KebabButtonSVG } from '/src/assets/kebabMenuButton_FeedList.svg';
-import useDropDown from '@/hooks/useDropDown';
+import { useCallback } from 'react';
+import pb from '@/api/pocketbase';
+import deleteMyFeed from '@/api/deleteMyFeed';
 
 function MyFeedList() {
-  const { profile_image, email, nickname, id } = useStorageData();
+  const { id } = useStorageData();
+  const [drop, setDrop] = useState(null);
   const [data, setData] = useState(null);
 
-  const [isDropView, dropRef, dropOutHandler] = useDropDown();
+  const handleDrop = useCallback((id) => {
+    setDrop((prevId) => (prevId === id ? null : id));
+  }, []);
 
   useEffect(() => {
     async function myData() {
@@ -20,7 +25,7 @@ function MyFeedList() {
     }
     myData();
   }, []);
-
+  console.log(data);
   return (
     <>
       <ul className="mx-auto flex min-h-[72vh] flex-col gap-y-6 px-2">
@@ -43,21 +48,22 @@ function MyFeedList() {
               <button
                 type="button"
                 className="absolute right-0 h-9 w-9"
-                onClick={dropOutHandler}
-                ref={dropRef}
+                onClick={() => handleDrop(item.id)}
+                // ref={dropRef}
               >
                 <KebabButtonSVG aria-hidden />
               </button>
-              {isDropView && (
+              {drop == item.id && (
                 <ul
-                  ref={dropRef}
-                  className="absolute right-0 top-full z-10 rounded-lg border border-gray-300 bg-white p-2 shadow-lg"
+                  // ref={dropRef}
+                  className="absolute right-0 top-full z-10  border border-gray-300 bg-white p-2 shadow-lg"
                 >
-                  <li className="cursor-pointer rounded-md p-2 hover:bg-gray-100">
-                    수정
-                  </li>
-                  <li className="cursor-pointer rounded-md p-2 hover:bg-gray-100">
-                    삭제
+                  <li className="cursor-pointer rounded-md p-2 ">수정하기</li>
+
+                  <li className="cursor-pointer rounded-md p-2 text-red-700 ">
+                    <button type="button" onClick={deleteMyFeed(item.id)}>
+                      삭제하기
+                    </button>
                   </li>
                 </ul>
               )}
