@@ -43,11 +43,15 @@ function ProfileEdit({ onClose }) {
   }
 
   return (
-    <>
+    <div
+      className="fixed left-0 top-0 z-20 h-full w-full bg-slate-400/70
+   "
+      onClick={onClose}
+    >
       <div
-        className="absolute left-1/4 
-        top-3/4 z-50
-      mx-auto h-[320px] w-[280px] rounded-md bg-lionly-white pt-1  "
+        className="absolute  left-1/2 top-1/2 z-50
+        mx-auto h-[320px]
+      w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-lionly-white pt-1  "
       >
         <button type="button" onClick={onClose}>
           <DeleteSVG className="absolute right-4" />
@@ -99,7 +103,7 @@ function ProfileEdit({ onClose }) {
         </div>
         <LionLogoSVG className="absolute bottom-0 right-4 h-16 w-14" />
       </div>
-    </>
+    </div>
   );
 }
 
