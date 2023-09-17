@@ -14,16 +14,14 @@ function ProfileImage({
 
   return (
     <div
-      className={`relative w-[${size}px] h-[${size}px] min-w-[${size}px] min-h-[${size}px]`}
+      className={`relative`}
       onClick={handleInputClick}
       tabIndex={handleInputClick ? 0 : -1}
     >
       <img
         src={imageName[1] === '' ? lionHeadLogo : imageURL}
         alt={`${nickname}의 프로필 이미지`}
-        className="
-          h-full w-full
-        rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg"
+        className={`w-[${size}px] h-[${size}px] min-w-[${size}px] min-h-[${size}px] rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg`}
       />
 
       {handleInputClick ? (
