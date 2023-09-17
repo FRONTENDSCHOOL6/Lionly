@@ -1,9 +1,10 @@
 import pb from './pocketbase';
 
-async function getMyFeedList(key) {
-  const getMyFeedList = await pb.collection('feeds').getFullList({
+async function getMyFeedList(pageParam) {
+  const getMyFeedList = await pb.collection('feeds').getList(pageParam, 2, {
     expand: 'author',
-    filter: `author = "${key}"`,
+    filter: `author = "${pb.authStore.model?.id}"`,
+    sort: '-created',
   });
 
   return getMyFeedList;
