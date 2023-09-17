@@ -70,7 +70,10 @@ function MyFeedList() {
                         </li>
 
                         <li className="cursor-pointer rounded-md p-2 text-red-700 ">
-                          <button type="button" onClick={deleteMyFeed(item.id)}>
+                          <button
+                            type="button"
+                            onClick={() => deleteMyFeed(item.id)}
+                          >
                             삭제하기
                           </button>
                         </li>
