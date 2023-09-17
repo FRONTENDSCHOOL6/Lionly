@@ -19,6 +19,9 @@ function Writing() {
   const { id } = useStorageData();
   const navigate = useNavigate();
 
+  const textareaMaxLength = 200;
+  const channelList = ['일상방 🌉', '맛집방 🍕', '취업방 🧑🏻‍💻', '힐링방 ☘️'];
+
   const handleInputCount = (e) => {
     maxLengthCheck(e.target);
     setInputCount(e.target.value.length);
@@ -116,7 +119,7 @@ function Writing() {
               <h2>게시물 작성</h2>
               <span className="font-thin text-lionly-red">{inputCount}</span>
               <span className="text-lionly-base font-thin text-lionly-gray-3">
-                / 200
+                / {textareaMaxLength}
               </span>
             </div>
 
@@ -126,10 +129,11 @@ function Writing() {
                 ref={channelsRef}
                 tabIndex="0"
               >
-                <option value="일상방">일상방 🌉</option>
-                <option value="맛집방">맛집방 🍕</option>
-                <option value="취업방">취업방 🧑🏻‍💻</option>
-                <option value="힐링방">힐링방 ☘️</option>
+                {channelList.map((item) => (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                ))}
               </select>
               <button
                 type="button"
@@ -145,7 +149,7 @@ function Writing() {
             name="content"
             placeholder="글을 작성해주세요.✏️"
             className="w-full flex-1 resize-none rounded-xl border-none placeholder:pt-[10%] placeholder:text-center focus:outline-none"
-            maxLength="200"
+            maxLength={textareaMaxLength}
             onChange={handleInputCount}
             ref={textareaRef}
           ></textarea>
