@@ -44,7 +44,7 @@ function ProfileEdit({ onClose }) {
 
   return (
     <div
-      className="fixed left-0 top-0 z-20 h-full w-full bg-slate-400/70
+      className="fixed left-0 top-0 z-20 h-full w-full bg-gray-800/40
    "
       onClick={onClose}
     >
