@@ -12,7 +12,6 @@ import ProfileEdit from './ProfileEdit';
 
 function MyPageHeader() {
   const { profile_image, email, nickname, id } = useStorageData();
-
   const [openModal, setOpenModal] = useState(false);
 
   const modalClose = () => {
@@ -21,8 +20,8 @@ function MyPageHeader() {
 
   return (
     <>
-      <div className=" relative  mx-auto">
-        <div className="mx-4 mb-[30px] mt-4 flex justify-between bg-lionly-primary-color">
+      <div className="mx-auto bg-lionly-primary-color">
+        <div className="mx-4 mb-[30px] mt-4 flex justify-between ">
           <Link to="/feed">
             <button type="button">
               <ButtonPrevSVG
