@@ -37,19 +37,19 @@ function SignUp() {
       };
 
       if (!nameReg(name)) {
-        toast.error('이름 형식이 잘못되었습니다.');
+        toast.error('이름 형식이 올바르지 않습니다.');
         return;
       }
       if (!idReg(userid)) {
-        toast.error('이메일 형식이 잘못되었습니다.');
+        toast.error('이메일 형식이 올바르지 않습니다.');
         return;
       }
       if (!nickNameReg(usernickname)) {
-        toast.error('닉네임 형식이 잘못되었습니다.');
+        toast.error('닉네임 형식이 올바르지 않습니다.');
         return;
       }
       if (!passWordReg(userpassword)) {
-        toast.error('비밀번호 형식이 잘못되었습니다.');
+        toast.error('비밀번호 형식이 올바르지 않습니다.');
         return;
       }
       if (userpassword !== userpasswordcheck) {

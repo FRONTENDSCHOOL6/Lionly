@@ -14,14 +14,12 @@ function Writing() {
   const [inputCount, setInputCount] = useState(0);
   const imageInput = useRef(null);
   const uploadImageRef = useRef(null);
-  const headerRef = useRef(null);
   const textareaRef = useRef(null);
   const channelsRef = useRef(null);
   const { id } = useStorageData();
   const navigate = useNavigate();
 
   const handleInputCount = (e) => {
-    const inputValue = e.target.value;
     maxLengthCheck(e.target);
     setInputCount(e.target.value.length);
   };
@@ -72,9 +70,9 @@ function Writing() {
         <title>Lionly - Writing</title>
       </Helmet>
 
-      <div ref={headerRef} className="mt-4 flex justify-between px-4 pb-3">
-        <Link to="/mypage" className="cursor-pointer">
-          <LeftArrow className="mt-2" />
+      <div className="mt-4 flex justify-between px-4 pb-3">
+        <Link to="/mypage">
+          <LeftArrow className="mt-2" aria-label="뒤로 가기" role="button" />
         </Link>
         <button
           type="submit"
@@ -112,9 +110,7 @@ function Writing() {
           />
         </form>
 
-        <div
-          className={`flex w-full flex-1 flex-col rounded-xl bg-lionly-white px-[35px]`}
-        >
+        <div className="flex w-full flex-1 flex-col rounded-xl bg-lionly-white px-[35px]">
           <div className="flex justify-between py-[23px]">
             <div className="flex gap-2">
               <h2>게시물 작성</h2>
@@ -126,8 +122,9 @@ function Writing() {
 
             <div className="flex gap-10">
               <select
-                className="w-[100px] pl-4 text-sm outline-none"
+                className="w-[100px] pl-4 text-sm"
                 ref={channelsRef}
+                tabIndex="0"
               >
                 <option value="일상방">일상방 🌉</option>
                 <option value="맛집방">맛집방 🍕</option>
@@ -136,7 +133,7 @@ function Writing() {
               </select>
               <button
                 type="button"
-                className="text-lionly-sm-bold text-lionly-gray-3"
+                className="text-lionly-sm-bold text-lionly-gray-3 hover:text-lionly-black"
                 onClick={handleTextDelete}
               >
                 전체 삭제
@@ -146,7 +143,7 @@ function Writing() {
 
           <textarea
             name="content"
-            placeholder="글을 작성해주세요."
+            placeholder="글을 작성해주세요.✏️"
             className="w-full flex-1 resize-none rounded-xl border-none placeholder:pt-[10%] placeholder:text-center focus:outline-none"
             maxLength="200"
             onChange={handleInputCount}
