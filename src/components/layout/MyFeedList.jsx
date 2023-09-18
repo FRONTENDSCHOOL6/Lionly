@@ -1,20 +1,17 @@
 import getDate from '@/utils/getDate';
 import { getPbImageURL } from '@/utils';
 import { shape, string } from 'prop-types';
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { ReactComponent as KebabButtonSVG } from '/src/assets/kebabMenuButton_FeedList.svg';
 import { useCallback } from 'react';
 import deleteMyFeed from '@/api/deleteMyFeed';
 import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
 import Spinner from '../Spinner';
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 function MyFeedList() {
-  // const navigate = useNavigate();
   const [drop, setDrop] = useState(null);
   const { isLoading, data } = useInfiniteMyFeed();
-
   const handleDrop = useCallback((id) => {
     setDrop((prevId) => (prevId === id ? null : id));
   }, []);
@@ -74,7 +71,7 @@ function MyFeedList() {
                         <li className="cursor-pointer rounded-md p-2 text-red-700 ">
                           <button
                             type="button"
-                            onClick={() => deleteMyFeed(item.id)}
+                            onClick={() => deleteMyFeed(item.id, item.comments)}
                           >
                             삭제하기
                           </button>
