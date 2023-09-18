@@ -8,16 +8,16 @@ import deleteMyFeed from '@/api/deleteMyFeed';
 import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
 import Spinner from '../Spinner';
 import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 function MyFeedList() {
+  // const navigate = useNavigate();
   const [drop, setDrop] = useState(null);
   const { isLoading, data } = useInfiniteMyFeed();
 
   const handleDrop = useCallback((id) => {
     setDrop((prevId) => (prevId === id ? null : id));
   }, []);
-
-  console.log(data);
 
   if (isLoading) {
     return (
@@ -29,15 +29,21 @@ function MyFeedList() {
       </div>
     );
   }
-
+  console.log(data);
   return (
     data && (
-      <>
+      <main>
         <ul className="mx-auto flex min-h-[72vh] flex-col gap-y-6 px-2">
+          <h3 className="sr-only">내가 쓴 글 </h3>
           {data.pages.map((feed, index) => (
             <Fragment key={index}>
               {feed?.items.map((item) => (
-                <li key={item.id} className="mb-[22px]">
+                <li
+                  key={item.id}
+                  id={item.id}
+                  onClick={() => {}}
+                  className="mb-[22px] cursor-pointer"
+                >
                   <figure className="relative mb-[10px] flex h-10 w-full">
                     <img
                       src={getPbImageURL(item.expand.author, 'profile_image')}
@@ -56,17 +62,13 @@ function MyFeedList() {
                       type="button"
                       className="absolute right-0 h-9 w-9"
                       onClick={() => handleDrop(item.id)}
-                      // ref={dropRef}
                     >
                       <KebabButtonSVG aria-hidden />
                     </button>
                     {drop == item.id && (
-                      <ul
-                        // ref={dropRef}
-                        className="absolute right-0 top-full z-10  border border-gray-300 bg-white p-2 shadow-lg"
-                      >
+                      <ul className="absolute right-0 top-full z-10  border border-gray-300 bg-white p-2 shadow-lg">
                         <li className="cursor-pointer rounded-md p-2 ">
-                          수정하기
+                          <button type="button">수정하기</button>
                         </li>
 
                         <li className="cursor-pointer rounded-md p-2 text-red-700 ">
@@ -80,24 +82,27 @@ function MyFeedList() {
                       </ul>
                     )}
                   </figure>
-                  <figure className="w-full ">
-                    <img
-                      src={getPbImageURL(item, 'feed_image')}
-                      aria-hidden
-                      className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
-                    />
-                    <figcaption className="mt-[14px]">
-                      <p className="w-full text-lionly-md text-lionly-gray-1">
-                        {item.text}
-                      </p>
-                    </figcaption>
-                  </figure>
+                  <Link to={`/feed/content/${item.id}`}>
+                    <figure className="w-full ">
+                      <img
+                        src={getPbImageURL(item, 'feed_image')}
+                        alt="피드 이미지"
+                        aria-hidden
+                        className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
+                      />
+                      <figcaption className="mt-[14px]">
+                        <p className="w-full text-lionly-md text-lionly-gray-1">
+                          {item.text}
+                        </p>
+                      </figcaption>
+                    </figure>
+                  </Link>
                 </li>
               ))}
             </Fragment>
           ))}
         </ul>
-      </>
+      </main>
     )
   );
 }
