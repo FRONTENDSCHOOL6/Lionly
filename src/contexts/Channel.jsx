@@ -4,71 +4,82 @@ import { createContext, useEffect, useState } from 'react';
 export const ChannelContext = createContext({});
 
 function ChannelProvider({ displayName = 'ChannelContext', children }) {
-  const initialState = {
+  const allFalseState = {
     '전체 게시글': false,
     일상방: false,
     맛집방: false,
     취업방: false,
     힐링방: false,
   };
+  const initialState = {
+    '전체 게시글': true,
+    일상방: false,
+    맛집방: false,
+    취업방: false,
+    힐링방: false,
+  };
   const [channelList, setChannelList] = useState(initialState);
-
   const pathname = window.location.pathname;
+
   useEffect(() => {
     switch (pathname) {
       case '/feed':
         setChannelList(() => ({
-          ...initialState,
+          ...allFalseState,
           '전체 게시글': true,
         }));
         break;
 
       case '/feed/dailys':
         setChannelList(() => ({
-          ...initialState,
+          ...allFalseState,
           일상방: true,
         }));
         break;
 
       case '/feed/foods':
         setChannelList(() => ({
-          ...initialState,
+          ...allFalseState,
           맛집방: true,
         }));
         break;
 
       case '/feed/jobs':
         setChannelList(() => ({
-          ...initialState,
+          ...allFalseState,
           취업방: true,
         }));
         break;
 
       case '/feed/healings':
         setChannelList(() => ({
-          ...initialState,
+          ...allFalseState,
           힐링방: true,
         }));
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const handleChangeChannel = (e) => {
     const target = e.target.textContent;
-    setChannelList(() => ({
-      ...initialState,
-      [target]: true,
-    }));
 
-    setTimeout(() => {
-      location.reload();
-    }, 100);
+    if (!channelList[target]) {
+      scrollTo({ top: 0, behavior: 'smooth' });
+
+      setChannelList(() => ({
+        ...allFalseState,
+        [target]: true,
+      }));
+    }
   };
 
   return (
     <ChannelContext.Provider
       value={{
+        initialState,
         channelList,
+        setChannelList,
         handleChangeChannel,
       }}
       displayName={displayName}

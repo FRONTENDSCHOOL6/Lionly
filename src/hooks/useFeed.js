@@ -1,46 +1,38 @@
-import getFeedList from '@/api/getFeedList';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import getFeed from '@/api/getFeed';
+import { useQuery } from '@tanstack/react-query';
+import useChannel from './useChannel';
 
-function useFeed(pathname) {
-  let channelName;
-  switch (pathname) {
-    case '/feed':
-      channelName = '';
+function useFeed(feedId) {
+  const { status, data } = useQuery({
+    queryKey: ['feedList', window.location.pathname],
+    queryFn: () => getFeed(feedId),
+  });
+
+  let pathname;
+
+  const { channelList } = useChannel();
+  const selectedChannelIndex = Object.values(channelList).indexOf(true);
+  const selectedChannel = Object.keys(channelList)[selectedChannelIndex];
+
+  switch (selectedChannel) {
+    case '전체 게시글':
+      pathname = '/feed';
       break;
-
-    case '/feed/dailys':
-      channelName = '일상방';
+    case '일상방':
+      pathname = '/feed/dailys';
       break;
-
-    case '/feed/foods':
-      channelName = '맛집방';
+    case '맛집방':
+      pathname = '/feed/foods';
       break;
-
-    case '/feed/jobs':
-      channelName = '취업방';
+    case '취업방':
+      pathname = '/feed/jobs';
       break;
-
-    case '/feed/healings':
-      channelName = '일상방';
+    case '힐링방':
+      pathname = '/feed/healings';
       break;
   }
 
-  const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: ['feed'],
-      queryFn: ({ pageParam = 1 }) => getFeedList(pageParam, channelName),
-      getNextPageParam: (lastPage) =>
-        lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
-
-      retry: 3,
-      cacheTime: 5 * 60 * 1000,
-      staleTime: 3 * 1000,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      refetchOnMount: false,
-    });
-
-  return { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage };
+  return { status, data, pathname };
 }
 
 export default useFeed;

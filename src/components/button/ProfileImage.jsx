@@ -1,30 +1,27 @@
 import { ReactComponent as CameraIconSVG } from '@/assets/camera_myProfile.svg';
-import { bool, func, array } from 'prop-types';
+import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
+import { array, func, number, string } from 'prop-types';
 
-/* small을 전달 받으면 작은 프로필 아이콘으로 구현됩니다.
-handleInputClick 함수를 전달 받으면 프로필 변경 버튼으로,
-전달 받지 않으면 일반 프로필 아이콘으로 구현됩니다. */
-function ProfileImage({ small = false, handleInputClick, imageName = [] }) {
+function ProfileImage({
+  size = 40,
+  handleInputClick,
+  nickname,
+  imageName = [],
+}) {
   const imageURL = `${import.meta.env.VITE_PB_API}/files/users/${
     imageName[0]
   }/${imageName[1]}`;
 
   return (
     <div
-      className={`relative ${
-        small ? 'h-10 w-10 min-w-fit' : 'h-[70px] w-[70px] min-w-[70px]'
-      }`}
+      className={`relative`}
       onClick={handleInputClick}
       tabIndex={handleInputClick ? 0 : -1}
     >
       <img
-        src={
-          imageName[1] === '' ? '/src/assets/lionHeadLogo_common.svg' : imageURL
-        }
-        alt="프로필 이미지"
-        className="
-          h-full w-full
-        rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg"
+        src={imageName[1] === '' ? lionHeadLogo : imageURL}
+        alt={`${nickname}의 프로필 이미지`}
+        className={`w-[${size}px] h-[${size}px] min-w-[${size}px] min-h-[${size}px] rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg`}
       />
 
       {handleInputClick ? (
@@ -43,8 +40,9 @@ function ProfileImage({ small = false, handleInputClick, imageName = [] }) {
 }
 
 ProfileImage.propTypes = {
-  small: bool,
+  size: number,
   handleInputClick: func,
+  nickname: string,
   imageName: array,
 };
 
