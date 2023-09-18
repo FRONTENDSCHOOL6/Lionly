@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
-import useInfiniteFeed from './useInfiniteFeed';
 
-function useObserveScroll() {
-  const { fetchNextPage } = useInfiniteFeed();
+function useObserveScroll(fetchNextPage) {
   const listEndRef = useRef(null);
   const handleObserver = useCallback(
     (entries) => {
