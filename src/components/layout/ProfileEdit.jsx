@@ -6,10 +6,11 @@ import { useRef, useState } from 'react';
 import renderImg from '@/utils/getImageData';
 import pb from '@/api/pocketbase';
 import toast from 'react-hot-toast';
+import useDropDown from '@/hooks/useDropDown';
 
 function ProfileEdit({ onClose }) {
   const { profile_image, id } = useStorageData();
-
+  const modalRef = useDropDown();
   const [profileImage, setProfileImage] = useState();
   const profileImageFile = useRef(null);
   const [uploadImage, setUploadImage] = useState(null);
@@ -39,6 +40,7 @@ function ProfileEdit({ onClose }) {
         nickname: changeNickName,
       });
       toast('변경되었습니다!');
+      location.reload();
     }
   }
 
@@ -46,9 +48,10 @@ function ProfileEdit({ onClose }) {
     <div
       className="fixed left-0 top-0 z-20 h-full w-full bg-gray-800/40
    "
-      onClick={onClose}
+      // onClick={onClose}
     >
       <div
+        ref={modalRef}
         className="absolute  left-1/2 top-1/2 z-50
         mx-auto h-[320px]
       w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-lionly-white pt-1  "
@@ -58,7 +61,7 @@ function ProfileEdit({ onClose }) {
         </button>
         <div className="flex flex-col items-center gap-2">
           <button
-            className="mt-5 h-[70px] w-[70px]"
+            className="mt-5 h-[70px] w-[70px] "
             onClick={() => handleButtonClick()}
           >
             <img
@@ -66,7 +69,7 @@ function ProfileEdit({ onClose }) {
               alt=""
               className="
           h-full w-full
-        rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg"
+        rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg  "
             />
             {/* <ProfileImage handleInputClick={[id, profile_image]} /> */}
           </button>
