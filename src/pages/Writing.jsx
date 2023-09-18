@@ -1,7 +1,6 @@
 import { ReactComponent as LeftArrow } from '@/assets/leftarrow.svg';
 import { Helmet } from 'react-helmet-async';
-import { useRef, useState } from 'react';
-import { maxLengthCheck } from '@/utils/maxLengthCheck';
+import { useRef } from 'react';
 import check from '@/assets/check.svg';
 import plus from '@/assets/plus.svg';
 import { Link } from 'react-router-dom';
@@ -9,38 +8,20 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import createFeedData from '@/api/createFeedData';
 import useStorageData from '@/hooks/useStorageData';
+import useUpLoadImage from '@/hooks/useUploadImage';
+import useTextarea from '@/hooks/useTextarea';
 
 function Writing() {
-  const [inputCount, setInputCount] = useState(0);
-  const imageInput = useRef(null);
-  const uploadImageRef = useRef(null);
+  const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
+    useUpLoadImage();
+  const { handleInputCount, handleTextDelete, inputCount } = useTextarea();
+
+  const textareaMaxLength = 200;
+
   const textareaRef = useRef(null);
   const channelsRef = useRef(null);
   const { id } = useStorageData();
   const navigate = useNavigate();
-
-  const textareaMaxLength = 200;
-  const channelList = ['일상방 🌉', '맛집방 🍕', '취업방 🧑🏻‍💻', '힐링방 ☘️'];
-
-  const handleInputCount = (e) => {
-    maxLengthCheck(e.target);
-    setInputCount(e.target.value.length);
-  };
-
-  const handleImageUpload = () => {
-    imageInput.current.click();
-  };
-
-  const handleTextDelete = () => {
-    textareaRef.current.value = '';
-    setInputCount(0);
-  };
-
-  const handleUploadImg = (e) => {
-    const imgFile = e.target.files[0];
-    const imgUrl = URL.createObjectURL(imgFile);
-    uploadImageRef.current.style.backgroundImage = `url('${imgUrl}')`;
-  };
 
   const handleRegisterData = async (e) => {
     e.preventDefault();
@@ -73,7 +54,7 @@ function Writing() {
         <title>Lionly - Writing</title>
       </Helmet>
 
-      <div className="mt-4 flex justify-between px-4 pb-3">
+      <header className="mt-4 flex justify-between px-4 pb-3">
         <Link to="/mypage">
           <LeftArrow className="mt-2" aria-label="뒤로 가기" role="button" />
         </Link>
@@ -85,7 +66,7 @@ function Writing() {
           <img src={check} alt="" className="inline-block pr-2" />
           등록
         </button>
-      </div>
+      </header>
 
       <div className="flex flex-1 flex-col">
         <form encType="multipart/form-data" onSubmit={handleRegisterData}>
@@ -129,11 +110,10 @@ function Writing() {
                 ref={channelsRef}
                 tabIndex="0"
               >
-                {channelList.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
+                <option value="일상방">일상방 🌉</option>
+                <option value="맛집방">맛집방 🍕</option>
+                <option value="취업방">취업방 🧑🏻‍💻</option>
+                <option value="힐링방">힐링방 ☘️</option>
               </select>
               <button
                 type="button"
