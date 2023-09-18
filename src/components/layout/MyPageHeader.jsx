@@ -4,13 +4,14 @@ import pb from './../../api/pocketbase';
 import useStorageData from '@/hooks/useStorageData';
 import LinkButton from '../Button/LinkButton';
 import { shape, string } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { handleTabArrowControl } from '@/utils';
 import { ProfileImage } from '../button';
 import { useState } from 'react';
 import ProfileEdit from './ProfileEdit';
 
 function MyPageHeader() {
+  const navigate = useNavigate();
   const { profile_image, email, nickname, id } = useStorageData();
   const [openModal, setOpenModal] = useState(false);
 
@@ -22,15 +23,18 @@ function MyPageHeader() {
     <>
       <div className="mx-auto bg-lionly-primary-color">
         <div className="mx-4 mb-[30px] mt-4 flex justify-between ">
-          <Link to="/feed">
-            <button type="button">
-              <ButtonPrevSVG
-                aria-hidden
-                onKeyDown={handleTabArrowControl}
-                tabindex="0"
-              />
-            </button>
-          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <ButtonPrevSVG
+              aria-hidden
+              onKeyDown={handleTabArrowControl}
+              tabindex="0"
+            />
+          </button>
           <h1 className="text-lionly-lg text-lionly-white">마이페이지</h1>
           <button
             type="button"
