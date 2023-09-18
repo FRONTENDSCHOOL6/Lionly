@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useRef } from 'react';
 import check from '@/assets/check.svg';
 import plus from '@/assets/plus.svg';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import createFeedData from '@/api/createFeedData';
@@ -23,6 +23,13 @@ function Writing() {
   const channelsRef = useRef(null);
   const { id } = useStorageData();
   const navigate = useNavigate();
+
+  const handleWritingCancel = () => {
+    if (confirm('게시물 작성을 취소하시겠습니까?')) {
+      toast.success('게시물 작성이 취소되었습니다.');
+      navigate(-1);
+    }
+  };
 
   const handleRegisterData = async (e) => {
     e.preventDefault();
@@ -69,9 +76,13 @@ function Writing() {
       </Helmet>
 
       <header className="mt-4 flex justify-between px-4 pb-3">
-        <Link to="/feed">
-          <LeftArrow className="mt-2" aria-label="뒤로 가기" role="button" />
-        </Link>
+        <LeftArrow
+          className="mt-2"
+          aria-label="뒤로 가기"
+          role="button"
+          onClick={handleWritingCancel}
+        />
+
         <button
           type="submit"
           className="rounded-full border border-lionly-white px-3 py-[7px] text-lionly-sm text-lionly-white  hover:bg-lionly-secondary-color"
