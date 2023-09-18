@@ -15,11 +15,11 @@ import { motion } from 'framer-motion';
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
     useUpLoadImage();
-  const { handleInputCount, handleTextDelete, inputCount } = useTextarea();
+  const { handleInputCount, handleTextDelete, inputCount, textareaRef } =
+    useTextarea();
 
   const textareaMaxLength = 200;
 
-  const textareaRef = useRef(null);
   const channelsRef = useRef(null);
   const { id } = useStorageData();
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ function Writing() {
 
       <main className="flex flex-1 flex-col">
         <form encType="multipart/form-data" onSubmit={handleRegisterData}>
-          <div
+          <figure
             ref={uploadImageRef}
             className="flex aspect-[9/4] w-full justify-center rounded-xl bg-cover bg-center bg-no-repeat"
           >
@@ -96,7 +96,7 @@ function Writing() {
               <img src={plus} alt="" className="inline-block pr-2" />
               사진 추가하기
             </button>
-          </div>
+          </figure>
           <input
             type="file"
             className="sr-only"

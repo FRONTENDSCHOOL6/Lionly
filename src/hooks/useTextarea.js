@@ -17,6 +17,7 @@ function useTextarea() {
 
   return {
     inputCount,
+    textareaRef,
     handleInputCount,
     handleTextDelete,
   };
