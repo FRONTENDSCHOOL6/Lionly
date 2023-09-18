@@ -9,8 +9,8 @@ import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
-  const { hasNextPage } = useInfiniteFeed();
-  const { listEndRef } = useObserveScroll();
+  const { hasNextPage, fetchNextPage } = useInfiniteFeed();
+  const { listEndRef } = useObserveScroll(fetchNextPage);
   const {
     showScrollTopButton,
     showScrollBottomButton,

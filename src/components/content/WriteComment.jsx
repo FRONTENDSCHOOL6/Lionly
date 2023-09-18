@@ -4,14 +4,13 @@ import useComments from '@/hooks/useComments';
 import { object } from 'prop-types';
 
 function WriteComment({ data }) {
-  const { commentInputRef, handleSubmitComment, storageData } =
+  const { commentInputRef, storageData, handleSubmitComment } =
     useComments(data);
   const { id, nickname, profile_image } = storageData;
 
   return (
     <section className="sticky bottom-0 bg-lionly-white px-4 py-[18px]">
       <form
-        id="commentInputRef"
         onSubmit={handleSubmitComment}
         className="flex items-center gap-x-2"
       >

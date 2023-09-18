@@ -17,7 +17,15 @@ function Comments({ data }) {
             const content = await getFeed(record?.id);
             setComments(content.expand.comments);
           }
+          scrollTo({
+            top: 1000000,
+            behavior: 'smooth',
+          });
         });
+
+      return async () => {
+        await pb.collection('feeds').unsubscribe('*');
+      };
     })();
   }, []);
 
