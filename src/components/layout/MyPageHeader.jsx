@@ -59,13 +59,14 @@ function MyPageHeader() {
         </figure>
 
         {openModal == true ? <ProfileEdit onClose={modalClose} /> : null}
-
-        <LinkButton
-          text="프로필 편집"
-          onClick={() => {
-            setOpenModal(!openModal);
-          }}
-        />
+        <div className="mx-[65px] px-[35px]">
+          <LinkButton
+            text="프로필 편집"
+            onClick={() => {
+              setOpenModal(!openModal);
+            }}
+          />
+        </div>
       </div>
     </>
   );
