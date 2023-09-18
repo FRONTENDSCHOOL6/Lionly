@@ -11,6 +11,7 @@ import useStorageData from '@/hooks/useStorageData';
 import useUpLoadImage from '@/hooks/useUploadImage';
 import useTextarea from '@/hooks/useTextarea';
 
+
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
     useUpLoadImage();
@@ -22,6 +23,7 @@ function Writing() {
   const channelsRef = useRef(null);
   const { id } = useStorageData();
   const navigate = useNavigate();
+
 
   const handleRegisterData = async (e) => {
     e.preventDefault();
@@ -55,7 +57,7 @@ function Writing() {
       </Helmet>
 
       <header className="mt-4 flex justify-between px-4 pb-3">
-        <Link to="/mypage">
+        <Link to="/feed">
           <LeftArrow className="mt-2" aria-label="뒤로 가기" role="button" />
         </Link>
         <button
@@ -68,14 +70,14 @@ function Writing() {
         </button>
       </header>
 
-      <div className="flex flex-1 flex-col">
+      <main className="flex flex-1 flex-col">
         <form encType="multipart/form-data" onSubmit={handleRegisterData}>
           <div
             ref={uploadImageRef}
-            className="flex aspect-[9/5] w-full justify-center rounded-md bg-cover bg-center bg-no-repeat"
+            className="flex aspect-[9/4] w-full justify-center rounded-xl bg-cover bg-center bg-no-repeat"
           >
             <button
-              className="border-lionly-white-2 mt-[25%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
+              className="border-lionly-white-2 mt-[33%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
               type="button"
               onClick={handleImageUpload}
             >
@@ -134,7 +136,7 @@ function Writing() {
             ref={textareaRef}
           ></textarea>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
