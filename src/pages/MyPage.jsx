@@ -4,11 +4,10 @@ import MyFeedList from '@/components/layout/MyFeedList';
 import MyPageHeader from '@/components/layout/MyPageHeader';
 import useIsLogin from '@/contexts/AuthProvider';
 import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
-import { onLoadMoveScrollTop } from '@/utils';
+import { Helmet } from 'react-helmet-async';
 
 function MyPage() {
   useIsLogin();
-  onLoadMoveScrollTop();
   const { hasNextPage } = useInfiniteFeed();
   const { listEndRef } = useObserveScroll();
   const {
@@ -19,7 +18,10 @@ function MyPage() {
   } = useScroll();
 
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>마이페이지</title>
+      </Helmet>
       <MyPageHeader />
       <div className="z-10 h-full bg-lionly-white">
         <p className="mx-4 mb-4 mt-9 border-b-4 border-lionly-black px-11 py-3 text-center text-lionly-lg text-lionly-black">
@@ -62,7 +64,7 @@ function MyPage() {
         ) : null}
         <div ref={listEndRef} className="absolute bottom-[300px]"></div>
       </div>
-    </div>
+    </>
   );
 }
 
