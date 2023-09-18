@@ -4,13 +4,11 @@ import ChannelTab from '@/components/ChannelTab';
 import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
 import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
-import { onLoadMoveScrollTop } from '@/utils';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
-  onLoadMoveScrollTop();
   const { hasNextPage } = useInfiniteFeed();
   const { listEndRef } = useObserveScroll();
   const {

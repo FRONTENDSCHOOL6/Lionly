@@ -6,34 +6,36 @@ function useContent(contentId) {
   const { isLoading, data } = useQuery({
     queryKey: ['content', window.location.pathname],
     queryFn: () => getFeed(contentId),
-    select: (content) => {
-      return {
-        collectionId: content.collectionId,
-        id: content.id,
-        author: {
-          collectionId: content.expand.author.collectionId,
-          id: content.expand.author.id,
-          nickname: content.expand.author.nickname,
-          profileImage: content.expand.author.profile_image,
-        },
-        feedImage: content.feed_image,
-        text: content.text,
-        createdTime: content.created,
-        comments: content.expand.comments?.map((commentData) => {
-          return {
-            collectionId: commentData.id,
-            commenter: {
-              collectionId: commentData.expand.commenter.collectionId,
-              id: commentData.expand.commenter.id,
-              nickname: commentData.expand.commenter.nickname,
-              profileImage: commentData.expand.commenter.profile_image,
-            },
-            comment: commentData.comment,
-            createdTime: commentData.created,
-          };
-        }),
-      };
-    },
+    // select: (content) => {
+    //   return {
+    //     collectionId: content.collectionId,
+    //     id: content.id,
+    //     feed_image: content.feed_image,
+    //     text: content.text,
+    //     created: content.created,
+
+    //     author: {
+    //       collectionId: content.expand.author.collectionId,
+    //       id: content.expand.author.id,
+    //       nickname: content.expand.author.nickname,
+    //       profile_image: content.expand.author.profile_image,
+    //     },
+
+    //     comments: content.expand.comments?.map((commentData) => {
+    //       return {
+    //         collectionId: commentData.id,
+    //         comment: commentData.comment,
+    //         created: commentData.created,
+    //         commenter: {
+    //           collectionId: commentData.expand.commenter.collectionId,
+    //           id: commentData.expand.commenter.id,
+    //           nickname: commentData.expand.commenter.nickname,
+    //           profile_image: commentData.expand.commenter.profile_image,
+    //         },
+    //       };
+    //     }),
+    //   };
+    // },
   });
 
   const { channelList } = useChannel();
