@@ -6,6 +6,7 @@ import useIsLogin from '@/contexts/AuthProvider';
 import { useObserveScroll, useScroll } from '@/hooks';
 import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 
 function MyPage() {
   useIsLogin();
@@ -19,7 +20,19 @@ function MyPage() {
   } = useScroll();
 
   return (
-    <>
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: -50,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+    >
       <Helmet>
         <title>마이페이지</title>
       </Helmet>
@@ -65,7 +78,7 @@ function MyPage() {
         ) : null}
         <div ref={listEndRef} className="absolute bottom-[300px]"></div>
       </div>
-    </>
+    </motion.div>
   );
 }
 
