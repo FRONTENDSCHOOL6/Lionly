@@ -1,5 +1,5 @@
 export { default as ErrorPage } from './ErrorPage';
-export { default as Content } from './Content';
+export { default as Contents } from './Contents';
 export { default as Feed } from './Feed';
 export { default as Landing } from './Landing';
 export { default as SignIn } from './SignIn';

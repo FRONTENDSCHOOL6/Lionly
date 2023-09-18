@@ -1,4 +1,4 @@
-function getTimeDifference(time) {
+function calcTimeDifference(time) {
   const beforeDate = new Date(time);
   const currentDate = new Date();
 
@@ -11,7 +11,7 @@ function getTimeDifference(time) {
   const timeDifferenceM = timeDifferenceMs / (60 * 1000);
 
   const result =
-    timeDifferenceM > 24
+    timeDifferenceH > 24
       ? `${Math.round(timeDifferenceDay)}일 전`
       : timeDifferenceH < 1
       ? `${Math.round(timeDifferenceM)}분 전`
@@ -20,4 +20,4 @@ function getTimeDifference(time) {
   return result;
 }
 
-export default getTimeDifference;
+export default calcTimeDifference;
