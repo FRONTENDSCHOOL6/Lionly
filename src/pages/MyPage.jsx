@@ -3,13 +3,14 @@ import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import MyFeedList from '@/components/layout/MyFeedList';
 import MyPageHeader from '@/components/layout/MyPageHeader';
 import useIsLogin from '@/contexts/AuthProvider';
-import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
+import { useObserveScroll, useScroll } from '@/hooks';
+import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
 import { Helmet } from 'react-helmet-async';
 
 function MyPage() {
   useIsLogin();
-  const { hasNextPage } = useInfiniteFeed();
-  const { listEndRef } = useObserveScroll();
+  const { hasNextPage, fetchNextPage } = useInfiniteMyFeed();
+  const { listEndRef } = useObserveScroll(fetchNextPage);
   const {
     showScrollTopButton,
     showScrollBottomButton,
