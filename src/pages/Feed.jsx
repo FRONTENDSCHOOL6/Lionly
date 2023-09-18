@@ -4,15 +4,13 @@ import ChannelTab from '@/components/ChannelTab';
 import FeedHeader from '@/components/layout/FeedHeader';
 import useIsLogin from '@/contexts/AuthProvider';
 import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
-import { onLoadMoveScrollTop } from '@/utils';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
-  onLoadMoveScrollTop();
-  const { hasNextPage } = useInfiniteFeed();
-  const { listEndRef } = useObserveScroll();
+  const { hasNextPage, fetchNextPage } = useInfiniteFeed();
+  const { listEndRef } = useObserveScroll(fetchNextPage);
   const {
     showScrollTopButton,
     showScrollBottomButton,
@@ -59,9 +57,9 @@ function Feed() {
             aria-label="하단으로 이동"
             type="button"
             onClick={handleScrollBottom}
-            className="sticky left-[100%] top-[93.5%] mr-6 rounded-full shadow-lg"
+            className="sticky left-[100%] top-[93.5%] rounded-full pr-6"
           >
-            <DownArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all  hover:scale-125 focus:scale-125" />
+            <DownArrowSVG className="h-7 w-7 rounded-full shadow-2xl transition-all  hover:scale-125 focus:scale-125" />
           </button>
         ) : null}
 
@@ -71,9 +69,9 @@ function Feed() {
             aria-label="상단으로 이동"
             type="button"
             onClick={handleScrollTop}
-            className="sticky left-[100%] top-[26.5%] mr-6 rounded-full shadow-lg"
+            className="sticky left-[100%] top-[26.5%] rounded-full pr-6"
           >
-            <UpArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all hover:scale-125 focus:scale-125" />
+            <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl transition-all hover:scale-125 focus:scale-125" />
           </button>
         ) : null}
 

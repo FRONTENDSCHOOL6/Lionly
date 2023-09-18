@@ -3,7 +3,7 @@ import FeedList from './components/layout/FeedList.jsx';
 import BeforeLogin from './components/layout/BeforeLogin.jsx';
 import RootLayout from './components/layout/RootLayout.jsx';
 import {
-  Content,
+  Contents,
   ErrorPage,
   Feed,
   Landing,
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'feed/content/:feedId',
-        element: <Content />,
+        element: <Contents />,
       },
     ],
   },
