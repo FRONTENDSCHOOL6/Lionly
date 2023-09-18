@@ -80,7 +80,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'feed/content/:feedId',
+        path: 'feed/contents/:feedId',
         element: <Contents />,
       },
     ],
