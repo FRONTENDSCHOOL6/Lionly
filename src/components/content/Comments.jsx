@@ -4,23 +4,23 @@ import { ProfileImage } from '@/components/button';
 import useComments from '@/hooks/useComments';
 import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
-import { useState } from 'react';
 import { useEffect } from 'react';
 
 function Comments({ data }) {
-  const { comments, setComments, commentsData } = useComments(data, data.id);
+  const { comments, setComments } = useComments(data);
   useEffect(() => {
     (async function subscribeComments() {
       await pb
         .collection('feeds')
         .subscribe('*', async ({ action, record }) => {
           if (action === 'update') {
-            // setComments(feedData?.expand.comments);
+            const content = await getFeed(record?.id);
+            setComments(content.expand.comments);
           }
         });
     })();
   }, []);
-  console.log(comments);
+
   return (
     <section className="px-4">
       <h3 className="sr-only">Comments</h3>

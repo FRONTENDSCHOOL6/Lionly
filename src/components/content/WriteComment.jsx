@@ -1,12 +1,12 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ProfileImage } from '@/components/button';
 import useComments from '@/hooks/useComments';
-import useStorageData from '@/hooks/useStorageData';
 import { object } from 'prop-types';
 
 function WriteComment({ data }) {
-  const { id, nickname, profile_image } = useStorageData();
-  const { commentInputRef, handleSubmitComment } = useComments(data);
+  const { commentInputRef, handleSubmitComment, storageData } =
+    useComments(data);
+  const { id, nickname, profile_image } = storageData;
 
   return (
     <section className="sticky bottom-0 bg-lionly-white px-4 py-[18px]">

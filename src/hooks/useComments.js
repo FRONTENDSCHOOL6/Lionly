@@ -4,25 +4,26 @@ import { useRef, useState } from 'react';
 import useStorageData from './useStorageData';
 
 function useComments(data) {
-  const { id } = useStorageData();
-  const commentInputRef = useRef(null);
   const commentId = crypto.randomUUID().replaceAll('-', '').slice(0, 15);
-  const [comments, setComments] = useState(data.expand.comments);
-  const commentArray = data.expand.comments?.map((item) => item.collectionId);
+  const commentInputRef = useRef(null);
+  const storageData = useStorageData();
   const handleSubmitComment = async (e) => {
     e.preventDefault();
 
     await createComment({
       id: commentId,
       comment: commentInputRef.current?.value,
-      commenter: id,
+      commenter: storageData.id,
     });
 
+    const commentArray = data.expand.comments?.map((item) => item.id);
     commentArray?.push(commentId);
     await updateComment(data.id, { comments: commentArray });
   };
 
+  const [comments, setComments] = useState(data.expand.comments);
   return {
+    storageData,
     commentId,
     commentInputRef,
     handleSubmitComment,
