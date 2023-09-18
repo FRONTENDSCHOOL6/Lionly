@@ -10,7 +10,7 @@ import createFeedData from '@/api/createFeedData';
 import useStorageData from '@/hooks/useStorageData';
 import useUpLoadImage from '@/hooks/useUploadImage';
 import useTextarea from '@/hooks/useTextarea';
-
+import { motion } from 'framer-motion';
 
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
@@ -23,7 +23,6 @@ function Writing() {
   const channelsRef = useRef(null);
   const { id } = useStorageData();
   const navigate = useNavigate();
-
 
   const handleRegisterData = async (e) => {
     e.preventDefault();
@@ -51,7 +50,20 @@ function Writing() {
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <motion.div
+      className="flex h-screen flex-col"
+      initial={{
+        opacity: 0,
+        y: -50,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+    >
       <Helmet>
         <title>Lionly - Writing</title>
       </Helmet>
@@ -137,7 +149,7 @@ function Writing() {
           ></textarea>
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 }
 

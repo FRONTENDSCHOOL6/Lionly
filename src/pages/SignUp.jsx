@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -125,7 +126,19 @@ function SignUp() {
   };
 
   return (
-    <>
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: -50,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+    >
       <Helmet>
         <title>Lionly - SignIn</title>
       </Helmet>
@@ -201,7 +214,7 @@ function SignUp() {
           <LinkButton text="가입하기" type="submit" />
         </form>
       </div>
-    </>
+    </motion.div>
   );
 }
 
