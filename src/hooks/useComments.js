@@ -33,6 +33,7 @@ function useComments(data) {
   };
 
   const [comments, setComments] = useState(data.expand.comments);
+
   return {
     commentInputRef,
     storageData,

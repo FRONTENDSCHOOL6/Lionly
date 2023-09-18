@@ -1,20 +1,21 @@
-import getFeed from '@/api/getFeed';
+import getContent from '@/api/getContent';
 import pb from '@/api/pocketbase';
 import { ProfileImage } from '@/components/button';
-import useComments from '@/hooks/useComments';
+import { useComments } from '@/hooks';
 import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
 import { useEffect } from 'react';
 
 function Comments({ data }) {
   const { comments, setComments } = useComments(data);
+
   useEffect(() => {
     (async function subscribeComments() {
       await pb
         .collection('feeds')
         .subscribe('*', async ({ action, record }) => {
           if (action === 'update') {
-            const content = await getFeed(record?.id);
+            const content = await getContent(record?.id);
             setComments(content.expand.comments);
           }
           scrollTo({
@@ -27,6 +28,7 @@ function Comments({ data }) {
         await pb.collection('feeds').unsubscribe('*');
       };
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -43,16 +45,20 @@ function Comments({ data }) {
                   item.expand.commenter.profile_image,
                 ]}
               />
+
               <div className="flex flex-col gap-y-px">
                 <div className="flex gap-x-2">
                   <span className="text-lionly-sm-bold">
                     {item.expand.commenter.nickname}
                   </span>
+
                   <span className="text-lionly-sm text-lionly-gray-2">
                     {calcTimeDifference(item.created)}
                   </span>
                 </div>
+
                 <p className="text-lionly-sm">{item.comment}</p>
+
                 <span
                   tabIndex="0"
                   onClick={() => {

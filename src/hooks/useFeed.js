@@ -1,11 +1,11 @@
-import getFeed from '@/api/getFeed';
+import getContent from '@/api/getContent';
 import { useQuery } from '@tanstack/react-query';
 import useChannel from './useChannel';
 
 function useFeed(feedId) {
   const { status, data } = useQuery({
     queryKey: ['feedList', window.location.pathname],
-    queryFn: () => getFeed(feedId),
+    queryFn: () => getContent(feedId),
   });
 
   let pathname;

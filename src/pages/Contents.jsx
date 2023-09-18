@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 function Contents() {
   const { feedId } = useParams();
-  const { isLoading, data, pathname } = useContent(feedId);
+  const { isLoading, data } = useContent(feedId);
 
   if (isLoading) {
     return (
@@ -33,11 +33,10 @@ function Contents() {
 
         <div className="flex min-h-screen flex-col justify-between bg-lionly-white">
           <div>
-            <Header data={data} pathname={pathname} />
+            <Header data={data} />
             <Content data={data} />
             <Comments data={data} />
           </div>
-
           <WriteComment data={data} />
         </div>
       </>

@@ -1,6 +1,6 @@
 import pb from '@/api/pocketbase';
 
-async function getFeed(feedId) {
+async function getContent(feedId) {
   const feed = await pb.collection('feeds').getOne(`${feedId}`, {
     expand: 'author, comments, comments.commenter',
   });
@@ -8,4 +8,4 @@ async function getFeed(feedId) {
   return feed;
 }
 
-export default getFeed;
+export default getContent;

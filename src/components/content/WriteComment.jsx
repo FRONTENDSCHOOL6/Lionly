@@ -1,12 +1,17 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ProfileImage } from '@/components/button';
-import useComments from '@/hooks/useComments';
+import { useComments } from '@/hooks';
 import { object } from 'prop-types';
 
 function WriteComment({ data }) {
   const { commentInputRef, storageData, handleSubmitComment } =
     useComments(data);
   const { id, nickname, profile_image } = storageData;
+  const handleSliceLastValue = (e) => {
+    e.target.maxLength < e.target.value.length
+      ? (e.target.value = e.target.value.slice(0, e.target.maxLength))
+      : null;
+  };
 
   return (
     <section className="sticky bottom-0 bg-lionly-white px-4 py-[18px]">
@@ -25,11 +30,7 @@ function WriteComment({ data }) {
           type="text"
           placeholder={`${nickname}(으)로 댓글 달기`}
           maxLength={250}
-          onInput={(e) =>
-            e.target.maxLength < e.target.value.length
-              ? (e.target.value = e.target.value.slice(0, e.target.maxLength))
-              : null
-          }
+          onInput={handleSliceLastValue}
           className="w-full rounded-full border px-5 py-2"
         />
         <button
