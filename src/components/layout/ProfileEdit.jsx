@@ -7,6 +7,7 @@ import renderImg from '@/utils/getImageData';
 import pb from '@/api/pocketbase';
 import toast from 'react-hot-toast';
 import useDropDown from '@/hooks/useDropDown';
+// import { useAnimation, motion } from 'framer-motion';
 
 function ProfileEdit({ onClose }) {
   const { profile_image, id } = useStorageData();
@@ -66,34 +67,36 @@ function ProfileEdit({ onClose }) {
           >
             <img
               src={profileImage || renderImg('users', id, profile_image)}
-              alt=""
+              alt="프로필 이미지"
               className="
           h-full w-full
         rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg  "
             />
             {/* <ProfileImage handleInputClick={[id, profile_image]} /> */}
           </button>
-          {/* 프로필 이미지 변경 */}
-
-          <input
-            className="hidden"
-            type="file"
-            ref={profileImageFile}
-            onChange={handleFileUpload}
-          />
-          {/* 닉네임 변경 */}
-          <label htmlFor="nickname"></label>
-          <input
-            id="nickname"
-            type="text"
-            label="닉네임"
-            name="nickname"
-            placeholder="변경할 닉네임을 입력하세요."
-            className="h-9 w-52 gap-2 rounded-lg border bg-lionly-gray-4 px-3 py-3 text-center text-lionly-sm  outline-none  placeholder:text-lionly-gray-2"
-            minLength="3"
-            maxLength="8"
-            onChange={handleNickName}
-          />
+          <form>
+            <label htmlFor="profileImage"></label>
+            <input
+              id="profileImage"
+              className="hidden"
+              type="file"
+              ref={profileImageFile}
+              onChange={handleFileUpload}
+            />
+            {/* 닉네임 변경 */}
+            <label htmlFor="nickname"></label>
+            <input
+              id="nickname"
+              type="text"
+              label="닉네임"
+              name="nickname"
+              placeholder="변경할 닉네임을 입력하세요."
+              className="h-9 w-52 gap-2 rounded-lg border bg-lionly-gray-4 px-3 py-3 text-center text-lionly-sm  outline-none  placeholder:text-lionly-gray-2"
+              minLength="3"
+              maxLength="8"
+              onChange={handleNickName}
+            />
+          </form>
           <button
             className="h-9 w-52 rounded-lg bg-lionly-primary-color px-2 py-2 text-lionly-md text-lionly-white"
             type="submit"
