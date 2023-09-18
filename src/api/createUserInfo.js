@@ -1,7 +1,6 @@
 import pb from './pocketbase';
 
-async function createUserInfo(data) {
-  const userInfo = await pb.collection('users').create(data);
-  return userInfo;
+function createUserInfo(data) {
+  return pb.collection('users').create(data);
 }
 export default createUserInfo;
