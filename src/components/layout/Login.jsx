@@ -63,7 +63,6 @@ function Login() {
   const handleInput = debounce((e) => {
     // input value 입력 후 0.4초 간 동작 없으면 페이지 랜더링
     const { name, value } = e.target;
-    console.log(e.target.value);
     setFormState({
       ...formState,
       [name]: value,

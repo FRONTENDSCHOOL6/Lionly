@@ -83,7 +83,7 @@
 
 <div align="center">
 
-<img src="https://github.com/FRONTENDSCHOOL6/Lionly/assets/127176650/4d41ed6b-d0c4-4cfb-9e22-6d63f12ece2d" height="900">
+![서비스 흐름도](https://github.com/FRONTENDSCHOOL6/Lionly/assets/74188144/384017e4-5f0f-45bd-8cf4-ce008c9b0aa7)
 
 </div>
 
