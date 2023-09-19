@@ -9,6 +9,7 @@ import LinkButton from '../Button/LinkButton';
 import { ProfileImage } from '../button';
 import pb from './../../api/pocketbase';
 import ProfileEdit from './ProfileEdit';
+// import toast from 'react-hot-toast';
 
 function MyPageHeader() {
   const navigate = useNavigate();
@@ -19,6 +20,13 @@ function MyPageHeader() {
     setOpenModal(false);
   };
 
+  const handleSignOut = () => {
+    const signOut = confirm('로그아웃 하시겠습니까?');
+    if (signOut) {
+      pb.authStore.clear();
+    }
+  };
+
   return (
     <>
       <div className="mx-auto bg-lionly-primary-color">
@@ -26,34 +34,31 @@ function MyPageHeader() {
           <button
             type="button"
             onClick={() => {
-              navigate(-1);
+              navigate('/feed');
             }}
           >
             <ButtonPrevSVG
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
               tabIndex="0"
+              className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
           <h1 className="text-lionly-lg text-lionly-white">마이페이지</h1>
-          <button
-            type="button"
-            onClick={() => {
-              pb.authStore.clear();
-            }}
-          >
+          <button type="button" onClick={handleSignOut}>
             <SignOutSVG
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
               tabIndex="0"
+              className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
         </div>
 
         <figure className="flex flex-col items-center">
-          <ProfileImage imageName={[id, profile_image]} />
+          <ProfileImage size={70} imageName={[id, profile_image]} />
           <figcaption className="flex flex-col items-center">
-            <p className="mb-2 mt-3 text-lionly-xs text-lionly-gray-2">
+            <p className="mb-2 mt-3 text-lionly-sm-bold text-lionly-gray-2">
               <u>{email}</u>
             </p>
             <p className="mb-7 items-center text-lionly-lg text-lionly-black">

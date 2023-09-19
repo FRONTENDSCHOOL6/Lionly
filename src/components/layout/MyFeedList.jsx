@@ -82,7 +82,7 @@ function MyFeedList() {
                           </button>
                         </li>
 
-                        <li className="cursor-pointer rounded-md p-2 text-red-700 ">
+                        <li className="cursor-pointer rounded-md p-2 text-red-700 duration-300 hover:bg-gray-200/80 ">
                           <button
                             type="button"
                             onClick={() => deleteMyFeed(item.id, item.comments)}
