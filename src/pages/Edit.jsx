@@ -79,7 +79,7 @@ function Edit() {
         });
       }
       toast.success('게시글이 성공적으로 수정 되었습니다!');
-      navigate('/feed');
+      navigate('/mypage');
       window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
   };
   console.log(data)
@@ -105,7 +105,7 @@ function Edit() {
         <header className="mb-4 mt-4 flex w-full justify-between">
           <button className="ml-3 h-7 w-12 rounded-xl border border-lionly-white text-lionly-sm-bold text-lionly-white pt-[1px]"
           onClick={()=>{
-            navigate('/feed');
+            navigate('/mypage');
           }}
           >
             취소
