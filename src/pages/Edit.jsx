@@ -126,7 +126,6 @@ function Edit() {
               backgroundImage: `url(${
                 selectedImage || renderImg('feeds', data.id, data.feed_image)
               })`,
-              // backgroundSize: '100% 100%'
             }}
           >
             <h3 className="sr-only">로그인 된 사용자 게시물</h3>
