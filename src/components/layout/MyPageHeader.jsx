@@ -41,6 +41,7 @@ function MyPageHeader() {
               aria-hidden
               onKeyDown={handleTabArrowControl}
               tabindex="0"
+              className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
           <h1 className="text-lionly-lg text-lionly-white">마이페이지</h1>
@@ -49,6 +50,7 @@ function MyPageHeader() {
               aria-hidden
               onKeyDown={handleTabArrowControl}
               tabindex="0"
+              className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
         </div>
