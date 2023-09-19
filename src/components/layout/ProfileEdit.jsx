@@ -8,10 +8,11 @@ import pb from '@/api/pocketbase';
 import toast from 'react-hot-toast';
 import useDropDown from '@/hooks/useDropDown';
 import FormInput from '../input/FormInput';
-// import { useAnimation, motion } from 'framer-motion';
+import { nickNameReg } from '@/utils/validation';
+import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
 
 function ProfileEdit({ onClose }) {
-  const { profile_image, id } = useStorageData();
+  const { profile_image, id, nickName } = useStorageData();
   const modalRef = useDropDown();
   const [profileImage, setProfileImage] = useState();
   const profileImageFile = useRef(null);
@@ -35,23 +36,44 @@ function ProfileEdit({ onClose }) {
     setChangeNickName(nickName);
     console.log(changeNickName);
   }
+
   async function handleUpdate() {
-    if (id && profileImage && changeNickName) {
-      await pb.collection('users').update(id, {
-        profile_image: uploadImage,
-        nickname: changeNickName,
-      });
+    try {
+      if (changeNickName === '' || changeNickName == null) {
+        toast.error('변경할 닉네임을 입력해주세요.', { icon: '⚠️' });
+        return;
+      }
+
+      if (!nickNameReg(changeNickName)) {
+        toast.error('닉네임 형식이 올바르지 않습니다.');
+        return;
+      }
+      if (!uploadImage && changeNickName) {
+        await pb.collection('users').update(id, {
+          nickname: changeNickName,
+        });
+      } else {
+        await pb.collection('users').update(id, {
+          profile_image: uploadImage,
+          nickname: changeNickName,
+        });
+      }
+
       toast('변경되었습니다!');
       location.reload();
+    } catch (error) {
+      if (error.response.code === 400) {
+        const { nickname } = error.response.data;
+
+        if (nickname && nickname.message.includes('unique')) {
+          toast.error('닉네임이 중복됩니다.');
+        }
+      }
     }
   }
 
   return (
-    <div
-      className="fixed left-0 top-0 z-20 h-full w-full bg-gray-800/40
-   "
-      // onClick={onClose}
-    >
+    <div className="fixed left-0 top-0 z-20 h-full w-full bg-gray-800/40">
       <div
         ref={modalRef}
         className="absolute  left-1/2 top-1/2 z-50
@@ -66,14 +88,23 @@ function ProfileEdit({ onClose }) {
             className="mt-5 h-[70px] w-[70px] "
             onClick={() => handleButtonClick()}
           >
-            <img
-              src={profileImage || renderImg('users', id, profile_image)}
-              alt="프로필 이미지"
-              className="
+            {profile_image ? (
+              <img
+                src={profileImage || renderImg('users', id, profile_image)}
+                alt="프로필 이미지"
+                className="
           h-full w-full
         rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg  "
-            />
-            {/* <ProfileImage handleInputClick={[id, profile_image]} /> */}
+              />
+            ) : (
+              <img
+                src={profileImage || lionHeadLogo}
+                alt="프로필 이미지"
+                className="
+          h-full w-full
+        rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg  "
+              />
+            )}
           </button>
           <form>
             <label htmlFor="profileImage"></label>
@@ -84,7 +115,7 @@ function ProfileEdit({ onClose }) {
               ref={profileImageFile}
               onChange={handleFileUpload}
             />
-            {/* 닉네임 변경 */}
+
             <FormInput
               type="text"
               label="닉네임"
@@ -119,4 +150,5 @@ ProfileEdit.propTypes = {
     profile_image: string,
   }),
 };
+
 export default ProfileEdit;
