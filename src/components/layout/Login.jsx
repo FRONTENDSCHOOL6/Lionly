@@ -3,7 +3,6 @@ import debounce from '@/utils/debounce';
 import pb from '@/api/pocketbase';
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
-import FindAccountButton from '../button/FindAccountButton';
 import LinkButton from '../button/LinkButton';
 import { toast } from 'react-hot-toast';
 import { useAnimation, motion } from 'framer-motion';
@@ -101,13 +100,7 @@ function Login() {
           name="password"
           onChange={handleInput}
         />
-        <div className="mb-14 flex w-full justify-end gap-2 text-lionly-sm-bold text-lionly-white">
-          <FindAccountButton text={'아이디 찾기'} destination={'/'} />
-          <span
-            className="mb-[3px]  self-center border-r border-lionly-white"
-            style={{ height: '11px' }}
-          ></span>
-          <FindAccountButton text={'비밀번호 찾기'} destination={'/'} />
+        <div className="mb-14 ">
         </div>
 
         <div className="flex w-full flex-col gap-2">
