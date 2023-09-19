@@ -23,14 +23,12 @@ function Content({ data }) {
           )}`}</p>
         </figcaption>
       </figure>
-
       <figure className="flex w-full flex-col gap-y-[14px]">
         <img
           alt="피드 이미지"
           src={getPbImageURL(data, 'feed_image')}
           className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
         />
-
         <figcaption>
           <p className="w-full text-lionly-base font-bold text-lionly-gray-1">
             {data.text}
