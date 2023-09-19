@@ -173,7 +173,7 @@ function Edit() {
             </div>
           </div>
           <textarea 
-          className='w-full flex-grow p-6 placeholder:text-center placeholder:pt-[10%]'
+          className='w-full flex-grow p-6 placeholder:text-center placeholder:pt-[10%] focus:outline-none resize-none rounded-b-xl'
           placeholder="글을 작성해주세요.✏️"
           maxLength='199' 
           value={textValue}
