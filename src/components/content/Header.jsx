@@ -1,8 +1,8 @@
 import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
-import { object, string } from 'prop-types';
+import { object } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function Header({ data, pathname }) {
+function Header({ data }) {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,6 @@ function Header({ data, pathname }) {
 
 Header.propTypes = {
   data: object,
-  pathname: string,
 };
 
 export default Header;

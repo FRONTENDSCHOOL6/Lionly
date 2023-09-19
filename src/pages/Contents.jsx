@@ -1,12 +1,12 @@
 import Spinner from '@/components/Spinner';
-import { Comments, Content, Header, WriteComment } from '@/components/content';
+import { Comments, Content, Header, InsertComment } from '@/components/content';
 import { useContent } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 function Contents() {
   const { feedId } = useParams();
-  const { isLoading, data, pathname } = useContent(feedId);
+  const { isLoading, data } = useContent(feedId);
 
   if (isLoading) {
     return (
@@ -33,12 +33,11 @@ function Contents() {
 
         <div className="flex min-h-screen flex-col justify-between bg-lionly-white">
           <div>
-            <Header data={data} pathname={pathname} />
+            <Header data={data} />
             <Content data={data} />
             <Comments data={data} />
           </div>
-
-          <WriteComment data={data} />
+          <InsertComment data={data} />
         </div>
       </>
     )

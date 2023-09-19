@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthProvider.jsx';
 import ChannelProvider from './contexts/Channel.jsx';
+import ReplyProvider from './contexts/Reply.jsx';
 import router from './routes.jsx';
 import { AnimatePresence } from 'framer-motion';
 
@@ -17,7 +18,9 @@ function App() {
           <QueryClientProvider client={queryClient}>
             <AuthProvider>
               <ChannelProvider>
-                <RouterProvider router={router} />
+                <ReplyProvider>
+                  <RouterProvider router={router} />
+                </ReplyProvider>
               </ChannelProvider>
             </AuthProvider>
           </QueryClientProvider>
