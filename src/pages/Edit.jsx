@@ -85,7 +85,7 @@ function Edit() {
     }
     toast.success('게시글이 성공적으로 수정 되었습니다!');
     navigate('/mypage');
-    // window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
+    window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
   }, [navigate, textValue, changeImage]);
 
   const handleTextChange = useCallback((e) => {
