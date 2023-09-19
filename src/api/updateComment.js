@@ -1,7 +1,7 @@
 import pb from './pocketbase';
 
-async function updateComment(feedId, newFeedData = {}) {
-  await pb.collection('feeds').update(feedId, newFeedData);
+async function updateComment(collection, feedId, newFeedData = {}) {
+  await pb.collection(collection).update(feedId, newFeedData);
 
   return;
 }

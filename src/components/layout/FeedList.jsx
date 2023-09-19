@@ -41,7 +41,7 @@ function FeedList() {
                   key={item.id}
                   id={item.id}
                   onClick={() => {
-                    navigate(`/feed/content/${item.id}`);
+                    navigate(`/feed/contents/${item.id}`);
                   }}
                   className="cursor-pointer"
                 >
