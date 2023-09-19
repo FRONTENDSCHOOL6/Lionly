@@ -1,5 +1,5 @@
 import Spinner from '@/components/Spinner';
-import { Comments, Content, Header, WriteComment } from '@/components/content';
+import { Comments, Content, Header, InsertComment } from '@/components/content';
 import { useContent } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
@@ -37,7 +37,7 @@ function Contents() {
             <Content data={data} />
             <Comments data={data} />
           </div>
-          <WriteComment data={data} />
+          <InsertComment data={data} />
         </div>
       </>
     )

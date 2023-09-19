@@ -21,8 +21,13 @@ function ProfileImage({
       <img
         src={imageName[1] === '' ? lionHeadLogo : imageURL}
         alt={`${nickname}의 프로필 이미지`}
-        className={`min-w-[${size}px] min-h-[${size}px] rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg`}
-        style={{ width: `${size}px`, height: `${size}px` }}
+        className="rounded-full border-2 border-lionly-gray-4 bg-cover bg-no-repeat shadow-lg"
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          'min-width': `${size}px`,
+          'min-height': `${size}px`,
+        }}
       />
 
       {handleInputClick ? (
