@@ -1,7 +1,6 @@
 import { ReactComponent as DownArrowSVG } from '@/assets/arrow_Feed_down.svg';
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
-import ChannelTab from '@/components/ChannelTab';
-import FeedHeader from '@/components/layout/FeedHeader';
+import { ChannelTab, FeedHeader } from '@/components/feed';
 import useIsLogin from '@/contexts/AuthProvider';
 import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
@@ -47,32 +46,38 @@ function Feed() {
       <div className="z-10 h-full bg-lionly-white pb-6">
         <div className="sticky top-0 z-10">
           <FeedHeader />
+
           <h2 className="sr-only">피드 페이지</h2>
+
           <ChannelTab />
         </div>
 
         {showScrollBottomButton ? (
-          <button
-            role="button"
-            aria-label="하단으로 이동"
-            type="button"
-            onClick={handleScrollBottom}
-            className="sticky left-[100%] top-[93.5%] rounded-full pr-6"
-          >
-            <DownArrowSVG className="h-7 w-7 rounded-full shadow-2xl transition-all  hover:scale-125 focus:scale-125" />
-          </button>
+          <div className="sticky left-[100%] top-[93.5%] inline pr-6">
+            <button
+              role="button"
+              aria-label="하단으로 이동"
+              type="button"
+              onClick={handleScrollBottom}
+              className="rounded-full transition-all hover:scale-125 focus:scale-125"
+            >
+              <DownArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
+            </button>
+          </div>
         ) : null}
 
         {showScrollTopButton ? (
-          <button
-            role="button"
-            aria-label="상단으로 이동"
-            type="button"
-            onClick={handleScrollTop}
-            className="sticky left-[100%] top-[26.5%] rounded-full pr-6"
-          >
-            <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl transition-all hover:scale-125 focus:scale-125" />
-          </button>
+          <div className="sticky left-[100%] top-[26.5%] inline pr-6">
+            <button
+              role="button"
+              aria-label="상단으로 이동"
+              type="button"
+              onClick={handleScrollTop}
+              className="rounded-full transition-all hover:scale-125 focus:scale-125"
+            >
+              <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
+            </button>
+          </div>
         ) : null}
 
         <Outlet />

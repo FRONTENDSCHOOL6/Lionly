@@ -1,16 +1,15 @@
 import getContent from '@/api/getContent';
 import pb from '@/api/pocketbase';
 import { ProfileImage } from '@/components/button';
-import { useComments } from '@/hooks';
+import { useComments, useReply } from '@/hooks';
 import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
 import { useEffect } from 'react';
 import ModalReply from './ModalReply';
-import useReply from '@/hooks/useReply';
 
 function Comments({ data }) {
   const { comments, setComments } = useComments(data);
-  const { openModal, handleOpenModal, selectedComment } = useReply();
+  const { openModal, handleOpenModal } = useReply();
 
   useEffect(() => {
     (async function subscribeComments() {
@@ -41,7 +40,8 @@ function Comments({ data }) {
     <section className="px-4">
       <h3 className="sr-only">Comments</h3>
       <ul className="flex flex-col gap-y-3">
-        <ModalReply data={data} state={openModal} value={selectedComment} />
+        <ModalReply data={data} state={openModal} />
+
         {comments &&
           comments.map((comment, index) => (
             <li key={comment.id} className="flex flex-col">
@@ -53,26 +53,31 @@ function Comments({ data }) {
                     comment.expand.commenter.profile_image,
                   ]}
                 />
+
                 <div className="flex flex-col gap-y-px">
                   <div className="flex gap-x-2">
                     <span className="text-lionly-sm-bold">
                       {comment.expand.commenter.nickname}
                     </span>
+
                     <span className="text-lionly-sm text-lionly-gray-2">
                       {calcTimeDifference(comment.created)}
                     </span>
                   </div>
+
                   <p className="text-lionly-sm">{comment.comment}</p>
+
                   <span
                     id={`writeReply${index}`}
                     tabIndex="0"
                     onClick={(e) => handleOpenModal(e, comment.id)}
-                    className="w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
+                    className="preventCloseModal w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
                   >
                     답글 달기
                   </span>
                 </div>
               </div>
+
               {comment.expand.reply && (
                 <ul>
                   {comment.expand.reply.map((reply) => (

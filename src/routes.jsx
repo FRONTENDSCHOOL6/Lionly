@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import FeedList from './components/layout/FeedList.jsx';
+import FeedList from './components/feed/FeedList.jsx';
 import BeforeLogin from './components/layout/BeforeLogin.jsx';
 import RootLayout from './components/layout/RootLayout.jsx';
 import {

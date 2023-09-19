@@ -15,6 +15,7 @@ function FeedHeader() {
           <LionHeadLogoSVG aria-hidden />
           <h1 className="text-lionly-xl text-white">Lionly</h1>
         </div>
+
         <ProfileEditSVG
           aria-hidden
           tabIndex="0"

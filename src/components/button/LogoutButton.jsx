@@ -10,7 +10,7 @@ function LogoutButton() {
         setChannelList(() => ({ ...initialState }));
         pb.authStore.clear();
       }}
-      className="h-[34px] w-[88px] rounded-lg bg-lionly-white text-lionly-md text-lionly-black shadow-lg"
+      className="h-[34px] w-[88px] rounded-lg bg-lionly-white text-lionly-md text-lionly-black shadow-lg transition-all hover:scale-125 focus:scale-125"
     >
       Logout
     </button>

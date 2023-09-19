@@ -1,5 +1,5 @@
-import useChannel from '@/hooks/useChannel';
-import handleKeyboardArrowControl from '@/utils/handleTabArrowControl';
+import { useChannel } from '@/hooks';
+import { handleKeyboardArrowControl } from '@/utils';
 import { NavLink } from 'react-router-dom';
 
 function ChannelTab() {
@@ -20,7 +20,10 @@ function ChannelTab() {
         >
           {channels?.map((item, index) => {
             return (
-              <li key={item} className="shrink py-1">
+              <li
+                key={item}
+                className="shrink py-1 transition-all hover:scale-125 focus:scale-125"
+              >
                 <NavLink
                   to={
                     item === '힐링방'

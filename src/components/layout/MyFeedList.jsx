@@ -30,9 +30,9 @@ function MyFeedList() {
   }
   console.log(data);
 
-  const handleUpdateClick = (postId)=>{
+  const handleUpdateClick = (postId) => {
     navigate(`/edit/${postId}`);
-  }
+  };
 
   return (
     data && (
@@ -72,12 +72,14 @@ function MyFeedList() {
                     {drop == item.id && (
                       <ul className="absolute right-0 top-full z-10  border border-gray-300 bg-white p-2 shadow-lg">
                         <li className="cursor-pointer rounded-md p-2 ">
-                          <button 
-                          type="button"
-                          onClick={()=>{
-                            handleUpdateClick(item.id)
-                          }}
-                          >수정하기</button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleUpdateClick(item.id);
+                            }}
+                          >
+                            수정하기
+                          </button>
                         </li>
 
                         <li className="cursor-pointer rounded-md p-2 text-red-700 ">
@@ -91,7 +93,7 @@ function MyFeedList() {
                       </ul>
                     )}
                   </figure>
-                  <Link to={`/feed/content/${item.id}`}>
+                  <Link to={`/feed/contents/${item.id}`}>
                     <figure className="w-full ">
                       <img
                         src={getPbImageURL(item, 'feed_image')}

@@ -1,7 +1,7 @@
 import { useComments, useReply } from '@/hooks';
 import { bool, object } from 'prop-types';
 
-function ModalReply({ data, state, value }) {
+function ModalReply({ data, state }) {
   const { handleSubmitReply, replyInputRef } = useComments(data);
   const { handleCloseModal } = useReply();
 
@@ -10,7 +10,7 @@ function ModalReply({ data, state, value }) {
       onSubmit={handleSubmitReply}
       className={`${
         state ? 'visible h-[150px] w-2/3' : 'invisible h-0 w-0'
-      } absolute bottom-[20%] left-1/2 -translate-x-[50%] border-2 transition-all duration-200`}
+      } absolute bottom-[20%] left-1/2 z-10 -translate-x-[50%] border-2 transition-all duration-200`}
     >
       <label htmlFor="insertReply"></label>
       <input
@@ -19,9 +19,9 @@ function ModalReply({ data, state, value }) {
         id="insertReply"
         name="reply"
         placeholder="답글을 입력해주세요."
-        className="h-[100px] w-full whitespace-normal pl-3 text-lionly-md"
+        className="preventCloseModal h-[100px] w-full whitespace-normal pl-3 text-lionly-md"
       />
-      <div className="flex h-[50px] justify-center gap-x-10 border-b-2 bg-lionly-gray-1 p-1">
+      <div className="preventCloseModal flex h-[50px] justify-center gap-x-10 border-b-2 bg-lionly-gray-1 p-1">
         <button
           role="button"
           aria-label="답글 달기"

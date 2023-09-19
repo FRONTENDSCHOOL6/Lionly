@@ -1,13 +1,13 @@
-import { ReactComponent as SignOutSVG } from '@/assets/signOut_MyPage.svg';
 import { ReactComponent as ButtonPrevSVG } from '@/assets/buttonPrev_MyPage.svg';
-import pb from './../../api/pocketbase';
+import { ReactComponent as SignOutSVG } from '@/assets/signOut_MyPage.svg';
 import useStorageData from '@/hooks/useStorageData';
-import LinkButton from '../Button/LinkButton';
+import { handleKeyboardArrowControl } from '@/utils';
 import { shape, string } from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import { handleTabArrowControl } from '@/utils';
-import { ProfileImage } from '../button';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import LinkButton from '../Button/LinkButton';
+import { ProfileImage } from '../button';
+import pb from './../../api/pocketbase';
 import ProfileEdit from './ProfileEdit';
 
 function MyPageHeader() {
@@ -31,8 +31,8 @@ function MyPageHeader() {
           >
             <ButtonPrevSVG
               aria-hidden
-              onKeyDown={handleTabArrowControl}
-              tabindex="0"
+              onKeyDown={handleKeyboardArrowControl}
+              tabIndex="0"
             />
           </button>
           <h1 className="text-lionly-lg text-lionly-white">마이페이지</h1>
@@ -44,8 +44,8 @@ function MyPageHeader() {
           >
             <SignOutSVG
               aria-hidden
-              onKeyDown={handleTabArrowControl}
-              tabindex="0"
+              onKeyDown={handleKeyboardArrowControl}
+              tabIndex="0"
             />
           </button>
         </div>
