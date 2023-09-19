@@ -53,13 +53,11 @@ function Comments({ data }) {
                     comment.expand.commenter.profile_image,
                   ]}
                 />
-
                 <div className="flex flex-col gap-y-px">
                   <div className="flex gap-x-2">
                     <span className="text-lionly-sm-bold">
                       {comment.expand.commenter.nickname}
                     </span>
-
                     <span className="text-lionly-sm text-lionly-gray-2">
                       {calcTimeDifference(comment.created)}
                     </span>
@@ -77,7 +75,6 @@ function Comments({ data }) {
                   </span>
                 </div>
               </div>
-
               {comment.expand.reply && (
                 <ul>
                   {comment.expand.reply.map((reply) => (
