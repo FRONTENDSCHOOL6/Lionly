@@ -93,7 +93,7 @@ function MyFeedList() {
                       </ul>
                     )}
                   </figure>
-                  <Link to={`/feed/content/${item.id}`}>
+                  <Link to={`/feed/contents/${item.id}`}>
                     <figure className="w-full ">
                       <img
                         src={getPbImageURL(item, 'feed_image')}
