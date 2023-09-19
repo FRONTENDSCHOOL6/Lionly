@@ -56,9 +56,9 @@ function MyPageHeader() {
         </div>
 
         <figure className="flex flex-col items-center">
-          <ProfileImage imageName={[id, profile_image]} />
+          <ProfileImage size={70} imageName={[id, profile_image]} />
           <figcaption className="flex flex-col items-center">
-            <p className="mb-2 mt-3 text-lionly-xs text-lionly-gray-2">
+            <p className="mb-2 mt-3 text-lionly-sm-bold text-lionly-gray-2">
               <u>{email}</u>
             </p>
             <p className="mb-7 items-center text-lionly-lg text-lionly-black">
