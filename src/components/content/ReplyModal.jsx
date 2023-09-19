@@ -1,12 +1,22 @@
-import { useComments, useReply } from '@/hooks';
+import { useCreateComment, useReply } from '@/hooks';
 import { handlePreventTabControl } from '@/utils';
 import { bool, object } from 'prop-types';
 
 function ReplyModal({ data, state }) {
-  const { handleSubmitReply, replyInputRef } = useComments(data);
+  const { replyInputRef, handleSubmitComment } = useCreateComment(data);
   const { openModal, setOpenModal } = useReply();
+  const handleInputReply = (e) => {
+    const textarea = e.currentTarget;
+    textarea.style.height = '';
+    textarea.style.height = textarea.scrollHeight + 'px';
+
+    e.target.maxLength < e.target.value.length
+      ? (e.target.value = e.target.value.slice(0, e.target.maxLength))
+      : null;
+  };
 
   if (openModal === true) {
+    replyInputRef.current.style.height = '';
     replyInputRef.current.focus();
   }
 
@@ -16,27 +26,34 @@ function ReplyModal({ data, state }) {
       role="dialog"
       aria-labelledby="replyModal"
       className={`${
-        state ? 'visible h-[150px] w-2/3' : 'invisible h-0 w-0'
+        state ? 'visible w-2/3' : 'invisible w-0'
       } absolute bottom-[20%] left-1/2 z-10 -translate-x-[50%] border-2 border-lionly-gray-2 transition-all duration-200`}
     >
-      <form onSubmit={handleSubmitReply}>
+      <form
+        id="insertReplyForm"
+        onSubmit={(e) => handleSubmitComment(e, 'reply')}
+        className="flex h-full flex-col"
+      >
         <label id="replyModal" htmlFor="insertReply"></label>
-        <input
+        <textarea
           tabIndex={0}
-          type="text"
           ref={replyInputRef}
           id="insertReply"
           name="reply"
+          form="insertReplyForm"
+          rows="2"
+          maxLength="100"
+          onInput={handleInputReply}
           placeholder="답글을 입력해주세요."
           onKeyDown={(e) => handlePreventTabControl(e, true)}
-          className="preventCloseModal h-[100px] w-full whitespace-normal pl-3 text-lionly-md"
+          className="w-full resize-none overflow-hidden px-3 text-lionly-md"
         />
-        <div className="preventCloseModal flex h-[46px] justify-center gap-x-10 bg-lionly-gray-1 p-1">
+        <div className="z-10 flex justify-around bg-lionly-gray-1 py-3">
           <button
             role="button"
             aria-label="답글 달기"
             type="submit"
-            className="h-5/6 w-1/3 self-center rounded-full border bg-lionly-gray-3 p-2 text-lionly-sm-bold text-lionly-white"
+            className="w-1/3 self-center rounded-full border bg-lionly-gray-3 p-2 text-lionly-sm-bold text-lionly-white"
           >
             작성하기
           </button>
@@ -48,7 +65,7 @@ function ReplyModal({ data, state }) {
             onClick={() => {
               setOpenModal(false);
             }}
-            className="h-5/6 w-1/3 self-center rounded-full border bg-lionly-gray-3 p-2 text-lionly-sm-bold text-lionly-white"
+            className="w-1/3 self-center rounded-full border bg-lionly-gray-3 p-2 text-lionly-sm-bold text-lionly-white"
           >
             취소하기
           </button>
