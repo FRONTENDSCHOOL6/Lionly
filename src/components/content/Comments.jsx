@@ -1,7 +1,8 @@
 import getContent from '@/api/getContent';
 import pb from '@/api/pocketbase';
 import { ProfileImage } from '@/components/button';
-import { useComments, useReply } from '@/hooks';
+import { useDeleteComment, useModal, useReply } from '@/hooks';
+import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
 import { useEffect } from 'react';
@@ -9,14 +10,10 @@ import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
 function Comments({ data }) {
-  const {
-    storageData,
-    handleDeleteComment,
-    comments,
-    setComments,
-    handleOpenModal,
-  } = useComments(data);
-  const { openModal } = useReply();
+  const { comments, setComments } = useModal(data);
+  const { handleDeleteComment } = useDeleteComment();
+  const storageData = useStorageData();
+  const { openModal, handleOpenModal } = useReply();
 
   useEffect(() => {
     (async function subscribeComments() {
@@ -31,6 +28,7 @@ function Comments({ data }) {
         });
       });
     })();
+
     (async function subscribeReply() {
       await pb.collection('comments').subscribe('*', async ({ action }) => {
         if (action === 'update') {
@@ -89,9 +87,9 @@ function Comments({ data }) {
                     role="button"
                     aria-haspopup="true"
                     aria-pressed={openModal ? true : false}
-                    onKeyDown={(e) => handleOpenModal(e, comment.id)}
-                    onClick={(e) => handleOpenModal(e, comment.id)}
-                    className="preventCloseModal w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
+                    onKeyDown={(e) => handleOpenModal(e, data)}
+                    onClick={(e) => handleOpenModal(e, data)}
+                    className="w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
                   >
                     답글 달기
                   </span>

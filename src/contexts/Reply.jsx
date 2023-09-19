@@ -5,6 +5,26 @@ export const ReplyContext = createContext({});
 
 function ReplyProvider({ displayName = 'ReplyContext', children }) {
   const [openModal, setOpenModal] = useState(false);
+  const [selectedComment, setSelectedComment] = useState({});
+
+  const handleOpenModal = (e, data) => {
+    const commentIndex = e.target.id.slice(-1);
+
+    if (openModal === false) {
+      if (e.key === 'Enter' || e.type === 'click') {
+        setOpenModal(true);
+      }
+      scrollTo({ top: 100000, behavior: 'smooth' });
+
+      setSelectedComment({
+        id: data?.expand.comments[commentIndex].id,
+        nickname: data?.expand.comments[commentIndex].expand.commenter.nickname,
+        reply: data?.expand.comments[commentIndex].reply,
+      });
+
+      return;
+    }
+  };
 
   return (
     <ReplyContext.Provider
@@ -12,6 +32,9 @@ function ReplyProvider({ displayName = 'ReplyContext', children }) {
       value={{
         openModal,
         setOpenModal,
+        selectedComment,
+        setSelectedComment,
+        handleOpenModal,
       }}
     >
       {children}
