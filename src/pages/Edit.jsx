@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import plus from '@/assets/PlusButton_Writing.svg'
 import { maxLengthCheck } from '@/utils/maxLengthCheck';
+import { useCallback } from 'react';
 
 function Edit() {
   const { postId } = useParams();
@@ -43,20 +44,21 @@ function Edit() {
     }
   }, [data]);
  
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     // 버튼 클릭 시 file input을 트리거
     fileInputRef.current.click();
-  };
+  },[]);
 
-  const handleFileUpload = async (e) => {
+  const handleFileUpload = useCallback(async (e) => {
     const renderfile = e.target.files[0];
     setChangeImage(renderfile);
 
     if (renderfile) {
       setSelectedImage(URL.createObjectURL(renderfile)); // 선택된 이미지의 URL 생성
     }
-  };
-  const handleUpdateClick = async () => {
+  },[]);
+
+  const handleUpdateClick = useCallback(async () => {
     
       if(textValue === ''){
         toast.error('텍스트를 입력해 주세요.');
@@ -82,18 +84,18 @@ function Edit() {
       toast.success('게시글이 성공적으로 수정 되었습니다!');
       navigate('/mypage');
       window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
-  };
+  },[navigate, textValue, changeImage]);
 
-  const handleTextChange = (e) => {
+  const handleTextChange = useCallback((e) => {
     setTextValue(e.target.value);
     maxLengthCheck(e.target);
     setTextLength(e.target.value.length);
-  };
+  },[]);
 
-  const handleDeleteAllClick = () => {
+  const handleDeleteAllClick = useCallback(() => {
     setTextValue('');
     setTextLength(0);
-  };
+  });
 
 
   return (
@@ -135,7 +137,7 @@ function Edit() {
               className="mx-auto mb-4 h-10 w-[130px] rounded-full border  border-lionly-white text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
               onClick={handleButtonClick}
             >
-              <img src={plus} alt="사진 변경하기 이미지" className='inline pr-1' /> 사진 변경하기
+              <img src={plus} alt="사진 변경하기 버튼" className='inline pr-1' /> 사진 변경하기
             </button>
           </div>
           <input
