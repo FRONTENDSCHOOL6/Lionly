@@ -34,12 +34,7 @@ function Login() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     try {
-      const response = await pb
-        .collection('users')
-        .authWithPassword(email, password);
-
-      console.log(response);
-      console.log(pb.authStore.isValid);
+      await pb.collection('users').authWithPassword(email, password);
 
       if (pb.authStore.isValid) {
         navigate('/feed');
@@ -100,8 +95,7 @@ function Login() {
           name="password"
           onChange={handleInput}
         />
-        <div className="mb-14 ">
-        </div>
+        <div className="mb-14 "></div>
 
         <div className="flex w-full flex-col gap-2">
           <LinkButton type={'submit'} text={'로그인'} />
