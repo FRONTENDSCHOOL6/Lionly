@@ -12,7 +12,7 @@ function Header({ data, pathname }) {
         role="button"
         tabIndex="0"
         onClick={() => {
-          navigate(pathname);
+          navigate(-1);
         }}
         className="absolute cursor-pointer fill-lionly-primary-color transition-all hover:scale-125"
       />
