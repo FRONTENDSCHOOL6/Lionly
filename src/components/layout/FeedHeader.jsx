@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LogoutButton, ProfileImage, WritingButton } from '../button';
 import { ReactComponent as LionHeadLogoSVG } from '/src/assets/lionHeadLogo_common.svg';
 import { ReactComponent as ProfileEditSVG } from '/src/assets/profileEdit_Feed.svg';
+import { motion } from 'framer-motion';
 
 function FeedHeader() {
   const navigate = useNavigate();
@@ -11,10 +12,27 @@ function FeedHeader() {
   return (
     <header className="bg-lionly-primary-color px-4">
       <div className="flex items-center justify-between border-b border-lionly-secondary-color">
-        <div className="flex items-center gap-x-2.5">
+        <motion.div
+          className="flex items-center gap-x-2.5"
+          initial={{
+            x: -100,
+            opacity: 0,
+          }}
+          animate={{
+            x: 0,
+            opacity: 1,
+          }}
+          whileHover={{
+            scale: 1.1,
+          }}
+          transition={{
+            opacity: { ease: 'easeOut', duration: 1.25 },
+            x: { type: 'spring', stiffness: 120, damping: 30 },
+          }}
+        >
           <LionHeadLogoSVG aria-hidden />
           <h1 className="text-lionly-xl text-white">Lionly</h1>
-        </div>
+        </motion.div>
         <ProfileEditSVG
           aria-hidden
           tabIndex="0"
