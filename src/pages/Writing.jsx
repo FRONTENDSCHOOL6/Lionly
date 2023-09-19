@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { useRef } from 'react';
 import check from '@/assets/check.svg';
 import plus from '@/assets/plus.svg';
-// import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import createFeedData from '@/api/createFeedData';
@@ -39,6 +38,15 @@ function Writing() {
     const channelsValue = channelsRef.current.value;
     const authorValue = id;
 
+    if (!textValue.trim()) {
+      toast.error('글을 작성해주세요.', { icon: '✏️' });
+      return;
+    }
+    if (!imageValue) {
+      toast.error('이미지를 선택해주세요.', { icon: '🖼️' });
+      return;
+    }
+
     const formData = new FormData();
     formData.append('feed_image', imageValue);
     formData.append('text', textValue);
@@ -50,6 +58,7 @@ function Writing() {
       if (confirm('게시물을 업로드 하시겠습니까?')) {
         toast.success('게시물이 업로드 되었습니다.');
         navigate('/feed');
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
@@ -80,6 +89,7 @@ function Writing() {
           className="mt-2"
           aria-label="뒤로 가기"
           role="button"
+          tabIndex="0"
           onClick={handleWritingCancel}
         />
 
@@ -130,7 +140,16 @@ function Writing() {
             </div>
 
             <div className="flex gap-10">
+              <label
+                htmlFor="channelsSelect"
+                aria-hidden="true"
+                className="hidden"
+              >
+                채널 선택:
+              </label>
               <select
+                name="channelsSelect"
+                id="channelsSelect"
                 className="w-[100px] pl-4 text-sm"
                 ref={channelsRef}
                 tabIndex="0"
@@ -150,6 +169,9 @@ function Writing() {
             </div>
           </div>
 
+          <label htmlFor="content" aria-hidden="true" className="hidden">
+            게시물 내용:
+          </label>
           <textarea
             name="content"
             placeholder="글을 작성해주세요.✏️"
@@ -157,6 +179,7 @@ function Writing() {
             maxLength={textareaMaxLength}
             onChange={handleInputCount}
             ref={textareaRef}
+            aria-labelledby="content"
           ></textarea>
         </div>
       </main>
