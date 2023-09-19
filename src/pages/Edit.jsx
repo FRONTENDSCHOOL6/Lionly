@@ -9,6 +9,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import plus from '@/assets/PlusButton_Writing.svg'
+import { maxLengthCheck } from '@/utils/maxLengthCheck';
 
 function Edit() {
   const { postId } = useParams();
@@ -82,10 +83,11 @@ function Edit() {
       navigate('/mypage');
       window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
   };
-  console.log(data)
+
   const handleTextChange = (e) => {
-    setTextLength(e.target.value.length);
     setTextValue(e.target.value);
+    maxLengthCheck(e.target);
+    setTextLength(e.target.value.length);
   };
 
   const handleDeleteAllClick = () => {
@@ -175,7 +177,7 @@ function Edit() {
           <textarea 
           className='w-full flex-grow p-6 placeholder:text-center placeholder:pt-[10%] focus:outline-none resize-none rounded-b-xl'
           placeholder="글을 작성해주세요.✏️"
-          maxLength='199' 
+          maxLength='200' 
           value={textValue}
           onChange={handleTextChange}
             />
