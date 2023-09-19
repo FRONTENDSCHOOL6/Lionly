@@ -30,9 +30,9 @@ function MyFeedList() {
   }
   console.log(data);
 
-  const handleUpdateClick = (postId)=>{
+  const handleUpdateClick = (postId) => {
     navigate(`/edit/${postId}`);
-  }
+  };
 
   return (
     data && (
@@ -70,17 +70,19 @@ function MyFeedList() {
                       <KebabButtonSVG aria-hidden />
                     </button>
                     {drop == item.id && (
-                      <ul className="absolute right-0 top-full z-10  border border-gray-300 bg-white p-2 shadow-lg">
-                        <li className="cursor-pointer rounded-md p-2 ">
-                          <button 
-                          type="button"
-                          onClick={()=>{
-                            handleUpdateClick(item.id)
-                          }}
-                          >수정하기</button>
+                      <ul className="absolute right-0 top-full z-10 rounded-md border border-gray-300 bg-white p-2 shadow-lg">
+                        <li className="cursor-pointer rounded-md p-2 duration-300 hover:bg-gray-200/80">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleUpdateClick(item.id);
+                            }}
+                          >
+                            수정하기
+                          </button>
                         </li>
 
-                        <li className="cursor-pointer rounded-md p-2 text-red-700 ">
+                        <li className="cursor-pointer rounded-md p-2 text-red-700 duration-300 hover:bg-gray-200/80 ">
                           <button
                             type="button"
                             onClick={() => deleteMyFeed(item.id, item.comments)}
@@ -91,7 +93,7 @@ function MyFeedList() {
                       </ul>
                     )}
                   </figure>
-                  <Link to={`/feed/content/${item.id}`}>
+                  <Link to={`/feed/contents/${item.id}`}>
                     <figure className="w-full ">
                       <img
                         src={getPbImageURL(item, 'feed_image')}
