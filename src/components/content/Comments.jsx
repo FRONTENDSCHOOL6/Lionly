@@ -6,9 +6,11 @@ import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
 import { useEffect } from 'react';
 import ReplyModal from './ReplyModal';
+import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
 function Comments({ data }) {
-  const { comments, setComments } = useComments(data);
+  const { storageData, handleDeleteComment, comments, setComments } =
+    useComments(data);
   const { openModal, handleOpenModal } = useReply();
 
   useEffect(() => {
@@ -44,7 +46,7 @@ function Comments({ data }) {
 
         {comments &&
           comments.map((comment, index) => (
-            <li key={comment.id} className="flex flex-col">
+            <li key={comment.id} className="relative flex flex-col">
               <div className="flex gap-x-3">
                 <ProfileImage
                   nickname={comment.expand.commenter.nickname}
@@ -61,6 +63,17 @@ function Comments({ data }) {
                     <span className="text-lionly-sm text-lionly-gray-2">
                       {calcTimeDifference(comment.created)}
                     </span>
+                    {storageData.id === comment.expand.commenter.id ? (
+                      <TrashCan
+                        tabIndex="0"
+                        role="button"
+                        type="button"
+                        onClick={() =>
+                          handleDeleteComment('comments', comment.id)
+                        }
+                        className="w-3 fill-lionly-primary-color transition-all hover:scale-125 focus:scale-125"
+                      />
+                    ) : null}
                   </div>
 
                   <p className="text-lionly-sm">{comment.comment}</p>
@@ -100,6 +113,17 @@ function Comments({ data }) {
                           <span className="text-lionly-sm text-lionly-gray-2">
                             {calcTimeDifference(reply.created)}
                           </span>
+                          {storageData.id === comment.expand.commenter.id ? (
+                            <TrashCan
+                              tabIndex="0"
+                              role="button"
+                              type="button"
+                              onClick={() =>
+                                handleDeleteComment('reply', reply.id)
+                              }
+                              className="w-3 fill-lionly-primary-color transition-all hover:scale-125 focus:scale-125"
+                            />
+                          ) : null}
                         </div>
 
                         <p className="text-lionly-sm">{reply.comment}</p>

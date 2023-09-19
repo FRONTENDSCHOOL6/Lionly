@@ -3,6 +3,7 @@ import updateComment from '@/api/updateComment';
 import { useRef, useState } from 'react';
 import useStorageData from './useStorageData';
 import { useReply } from '@/hooks';
+import pb from '@/api/pocketbase';
 
 function useComments(data) {
   const commentInputRef = useRef(null);
@@ -67,6 +68,16 @@ function useComments(data) {
     return;
   };
 
+  const handleDeleteComment = async (collection, recordId) => {
+    if (
+      confirm(
+        `${collection === 'comments' ? '댓글' : '답글'}을 삭제하시겠습니까?`
+      )
+    ) {
+      await pb.collection(collection).delete(recordId);
+    }
+  };
+
   const [comments, setComments] = useState(data.expand.comments);
   return {
     commentInputRef,
@@ -74,6 +85,7 @@ function useComments(data) {
     storageData,
     handleSubmitComment,
     handleSubmitReply,
+    handleDeleteComment,
     comments,
     setComments,
   };
