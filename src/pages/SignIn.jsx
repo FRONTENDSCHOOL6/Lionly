@@ -22,7 +22,7 @@ function SignIn() {
       }}
       >
         <h2 className="mt-[30px] pb-4 text-lionly-2xl text-lionly-white"
-        tabIndex='1'>
+        tabIndex='0'>
           로그인
         </h2>
         <Login />
