@@ -8,10 +8,12 @@ import deleteMyFeed from '@/api/deleteMyFeed';
 import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
 import Spinner from '../Spinner';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function MyFeedList() {
   const [drop, setDrop] = useState(null);
   const { isLoading, data } = useInfiniteMyFeed();
+  const navigate = useNavigate();
   const handleDrop = useCallback((id) => {
     setDrop((prevId) => (prevId === id ? null : id));
   }, []);
@@ -27,6 +29,11 @@ function MyFeedList() {
     );
   }
   console.log(data);
+
+  const handleUpdateClick = (postId)=>{
+    navigate(`/edit/${postId}`);
+  }
+
   return (
     data && (
       <main>
@@ -65,7 +72,12 @@ function MyFeedList() {
                     {drop == item.id && (
                       <ul className="absolute right-0 top-full z-10  border border-gray-300 bg-white p-2 shadow-lg">
                         <li className="cursor-pointer rounded-md p-2 ">
-                          <button type="button">수정하기</button>
+                          <button 
+                          type="button"
+                          onClick={()=>{
+                            handleUpdateClick(item.id)
+                          }}
+                          >수정하기</button>
                         </li>
 
                         <li className="cursor-pointer rounded-md p-2 text-red-700 ">
