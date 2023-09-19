@@ -7,6 +7,7 @@ import renderImg from '@/utils/getImageData';
 import pb from '@/api/pocketbase';
 import toast from 'react-hot-toast';
 import useDropDown from '@/hooks/useDropDown';
+import FormInput from '../input/FormInput';
 // import { useAnimation, motion } from 'framer-motion';
 
 function ProfileEdit({ onClose }) {
@@ -84,13 +85,12 @@ function ProfileEdit({ onClose }) {
               onChange={handleFileUpload}
             />
             {/* 닉네임 변경 */}
-            <label htmlFor="nickname"></label>
-            <input
-              id="nickname"
+            <FormInput
               type="text"
               label="닉네임"
-              name="nickname"
+              name="usernickname"
               placeholder="변경할 닉네임을 입력하세요."
+              errorMessage="한글 3~8자로 입력해주세요."
               className="h-9 w-52 gap-2 rounded-lg border bg-lionly-gray-4 px-3 py-3 text-center text-lionly-sm  outline-none  placeholder:text-lionly-gray-2"
               minLength="3"
               maxLength="8"
