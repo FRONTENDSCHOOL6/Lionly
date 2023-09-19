@@ -9,9 +9,14 @@ import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
 function Comments({ data }) {
-  const { storageData, handleDeleteComment, comments, setComments } =
-    useComments(data);
-  const { openModal, handleOpenModal } = useReply();
+  const {
+    storageData,
+    handleDeleteComment,
+    comments,
+    setComments,
+    handleOpenModal,
+  } = useComments(data);
+  const { openModal } = useReply();
 
   useEffect(() => {
     (async function subscribeComments() {

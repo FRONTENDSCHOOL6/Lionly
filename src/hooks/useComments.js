@@ -37,8 +37,31 @@ function useComments(data) {
   };
 
   const replyInputRef = useRef(null);
-  const { setOpenModal, selectedComment } = useReply();
+  const { openModal, setOpenModal } = useReply();
+  const [selectedComment, setSelectedComment] = useState({});
 
+  const handleOpenModal = (e, commentId) => {
+    if (openModal === false) {
+      if (e.key === 'Enter' || e.type === 'click') {
+        setOpenModal(true);
+      }
+      scrollTo({ top: 100000, behavior: 'smooth' });
+
+      (async () => {
+        const commentData = await pb.collection('comments').getOne(commentId, {
+          expand: 'commenter, reply',
+        });
+
+        setSelectedComment({
+          id: commentData.id,
+          nickname: commentData.expand.commenter.nickname,
+          reply: commentData.reply,
+        });
+      })();
+
+      return;
+    }
+  };
   const handleSubmitReply = async (e) => {
     e.preventDefault();
 
@@ -88,6 +111,7 @@ function useComments(data) {
     handleDeleteComment,
     comments,
     setComments,
+    handleOpenModal,
   };
 }
 
