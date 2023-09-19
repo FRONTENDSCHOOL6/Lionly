@@ -10,8 +10,11 @@ function ReplyProvider({ displayName = 'ReplyContext', children }) {
 
   const handleOpenModal = (e, commentId) => {
     if (openModal === false) {
-      setOpenModal(true);
+      if (e.key === 'Enter' || e.type === 'click') {
+        setOpenModal(true);
+      }
       scrollTo({ top: 100000, behavior: 'smooth' });
+
       (async () => {
         const commentData = await pb.collection('comments').getOne(commentId, {
           expand: 'commenter, reply',
@@ -25,13 +28,7 @@ function ReplyProvider({ displayName = 'ReplyContext', children }) {
       })();
 
       return;
-    } else {
-      setOpenModal(false);
     }
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
   };
 
   return (
@@ -41,7 +38,6 @@ function ReplyProvider({ displayName = 'ReplyContext', children }) {
         openModal,
         setOpenModal,
         handleOpenModal,
-        handleCloseModal,
         selectedComment,
       }}
     >

@@ -1,22 +1,19 @@
 import { useChannel, useInfiniteFeed } from '@/hooks';
-import { getDate, getPbImageURL } from '@/utils';
+import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../Spinner';
 
 function FeedList() {
   const navigate = useNavigate();
-  const { isLoading, data } = useInfiniteFeed();
+  const { isLoading, data, hasNextPage } = useInfiniteFeed();
   const { channelList } = useChannel();
 
   if (isLoading) {
     return (
-      <div className="h-screen">
+      <div className="min-h-[calc(100vh-280px)] pt-10">
         <Spinner size={'50%'} />
-        <p
-          role="status"
-          className="-mt-20 text-center text-lionly-md text-lionly-red"
-        >
+        <p role="status" className="text-center text-lionly-md text-lionly-red">
           게시글을 불러오는 중입니다.
         </p>
       </div>
@@ -25,14 +22,14 @@ function FeedList() {
 
   return (
     data && (
-      <main>
+      <main className="min-h-[calc(100vh-280px)]">
         <ul
           id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
           role="tabpanel"
           aria-labelledby={`tab-${
             Object.values(channelList).indexOf(true) + 1
           }`}
-          className="mx-auto flex min-h-[72vh] flex-col gap-y-6 px-2"
+          className="mx-auto flex flex-col gap-y-6 px-2"
         >
           <h4 className="sr-only">피드 리스트</h4>
           {data.pages.map((feed, index) => (
@@ -43,6 +40,7 @@ function FeedList() {
                     tabIndex={0}
                     key={item.id}
                     id={item.id}
+                    onKeyDown={handleKeyboardArrowControl}
                     onClick={() => {
                       navigate(`/feed/contents/${item.id}`);
                     }}
@@ -87,7 +85,7 @@ function FeedList() {
                   </li>
                 ))
               ) : (
-                <div className="h-screen pt-[30%] text-center">
+                <div className="pt-[30%] text-center">
                   <p className="text-lionly-xl text-lionly-red">
                     게시글이 없습니다.
                   </p>
@@ -98,6 +96,14 @@ function FeedList() {
               )}
             </Fragment>
           ))}
+          {!hasNextPage && data.pages[0].totalPages !== 0 ? (
+            <p
+              role="status"
+              className="pt-6 text-center text-lionly-base text-lionly-red"
+            >
+              마지막 게시글입니다.
+            </p>
+          ) : null}
         </ul>
       </main>
     )

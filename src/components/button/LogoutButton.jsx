@@ -1,11 +1,13 @@
 import pb from '@/api/pocketbase';
 import useChannel from '@/hooks/useChannel';
+import { handleKeyboardArrowControl } from '@/utils';
 
 function LogoutButton() {
   const { initialState, setChannelList } = useChannel();
 
   return (
     <button
+      onKeyDown={handleKeyboardArrowControl}
       onClick={() => {
         setChannelList(() => ({ ...initialState }));
         pb.authStore.clear();

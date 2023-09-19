@@ -31,7 +31,7 @@ function Contents() {
 
         <h1 className="sr-only">Lionly</h1>
 
-        <div className="flex min-h-screen flex-col justify-between bg-lionly-white">
+        <div className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white">
           <div>
             <Header data={data} />
             <Content data={data} />

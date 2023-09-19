@@ -5,7 +5,7 @@ import { useComments, useReply } from '@/hooks';
 import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
 import { useEffect } from 'react';
-import ModalReply from './ModalReply';
+import ReplyModal from './ReplyModal';
 
 function Comments({ data }) {
   const { comments, setComments } = useComments(data);
@@ -40,7 +40,7 @@ function Comments({ data }) {
     <section className="px-4">
       <h3 className="sr-only">Comments</h3>
       <ul className="flex flex-col gap-y-3">
-        <ModalReply data={data} state={openModal} />
+        <ReplyModal data={data} state={openModal} />
 
         {comments &&
           comments.map((comment, index) => (
@@ -68,6 +68,10 @@ function Comments({ data }) {
                   <span
                     id={`writeReply${index}`}
                     tabIndex="0"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-pressed={openModal ? true : false}
+                    onKeyDown={(e) => handleOpenModal(e, comment.id)}
                     onClick={(e) => handleOpenModal(e, comment.id)}
                     className="preventCloseModal w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
                   >
@@ -99,16 +103,6 @@ function Comments({ data }) {
                         </div>
 
                         <p className="text-lionly-sm">{reply.comment}</p>
-
-                        <span
-                          tabIndex="0"
-                          onClick={() => {
-                            console.log('답글 달기');
-                          }}
-                          className="w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
-                        >
-                          답글 달기
-                        </span>
                       </div>
                     </li>
                   ))}

@@ -1,4 +1,5 @@
 import { ReactComponent as PenSVG } from '@/assets/pen_Writing.svg';
+import { handleKeyboardArrowControl } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 
 function WritingButton() {
@@ -7,6 +8,7 @@ function WritingButton() {
   return (
     <button
       type="button"
+      onKeyDown={handleKeyboardArrowControl}
       onClick={() => {
         navigate('/writing');
       }}

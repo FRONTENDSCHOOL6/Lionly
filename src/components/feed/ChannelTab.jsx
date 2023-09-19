@@ -22,7 +22,7 @@ function ChannelTab() {
             return (
               <li
                 key={item}
-                className="shrink py-1 transition-all hover:scale-125 focus:scale-125"
+                className="shrink py-1 transition-all hover:scale-125"
               >
                 <NavLink
                   to={
@@ -41,8 +41,8 @@ function ChannelTab() {
                   role="tab"
                   aria-selected={channelList[item] === true ? true : false}
                   aria-controls={`tabpanel-${index + 1}`}
+                  onKeyDown={(e) => handleKeyboardArrowControl(e, 'parentNode')}
                   onClick={handleChangeChannel}
-                  onKeyDown={handleKeyboardArrowControl}
                   className={`rounded-[4px] border border-lionly-secondary-color px-1 py-2 text-lionly-md outline-4 outline-lionly-black ${
                     channelList[item] === true
                       ? 'bg-lionly-secondary-color'

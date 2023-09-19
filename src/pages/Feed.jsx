@@ -1,4 +1,3 @@
-import { ReactComponent as DownArrowSVG } from '@/assets/arrow_Feed_down.svg';
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ChannelTab, FeedHeader } from '@/components/feed';
 import useIsLogin from '@/contexts/AuthProvider';
@@ -8,14 +7,9 @@ import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
-  const { hasNextPage, fetchNextPage } = useInfiniteFeed();
+  const { fetchNextPage } = useInfiniteFeed();
   const { listEndRef } = useObserveScroll(fetchNextPage);
-  const {
-    showScrollTopButton,
-    showScrollBottomButton,
-    handleScrollTop,
-    handleScrollBottom,
-  } = useScroll();
+  const { showScrollTopButton, handleScrollTop } = useScroll();
 
   let title;
   switch (window.location.pathname) {
@@ -52,25 +46,12 @@ function Feed() {
           <ChannelTab />
         </div>
 
-        {showScrollBottomButton ? (
-          <div className="sticky left-[100%] top-[93.5%] inline pr-6">
-            <button
-              role="button"
-              aria-label="하단으로 이동"
-              type="button"
-              onClick={handleScrollBottom}
-              className="rounded-full transition-all hover:scale-125 focus:scale-125"
-            >
-              <DownArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
-            </button>
-          </div>
-        ) : null}
-
         {showScrollTopButton ? (
-          <div className="sticky left-[100%] top-[26.5%] inline pr-6">
+          <div className="sticky left-[100%] top-[27.5%] inline pr-6">
             <button
               role="button"
               aria-label="상단으로 이동"
+              tabIndex="0"
               type="button"
               onClick={handleScrollTop}
               className="rounded-full transition-all hover:scale-125 focus:scale-125"
@@ -82,14 +63,6 @@ function Feed() {
 
         <Outlet />
 
-        {!hasNextPage ? (
-          <p
-            role="status"
-            className="pt-6 text-center text-lionly-base text-lionly-red"
-          >
-            마지막 게시글입니다.
-          </p>
-        ) : null}
         <div ref={listEndRef} className="absolute bottom-[300px]"></div>
       </div>
     </>
