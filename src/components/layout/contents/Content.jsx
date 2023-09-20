@@ -1,11 +1,25 @@
 import { ProfileImage } from '@/components/button';
 import { getDate, getPbImageURL } from '@/utils';
 import { object } from 'prop-types';
+import { motion } from 'framer-motion';
 
 function Content({ data }) {
   return (
-    <main className="flex flex-col gap-y-2.5 px-4 py-3">
-      <h3 className="sr-only">Content</h3>
+    <motion.main
+      className="flex flex-col gap-y-2.5 px-4 py-3"
+      initial={{
+        opacity: 0,
+        y: -50,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+    >
+      <h4 className="sr-only">Content</h4>
 
       <figure className="flex w-full gap-x-3">
         <ProfileImage
@@ -35,7 +49,7 @@ function Content({ data }) {
           </p>
         </figcaption>
       </figure>
-    </main>
+    </motion.main>
   );
 }
 
