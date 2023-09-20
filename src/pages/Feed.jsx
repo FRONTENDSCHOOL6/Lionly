@@ -1,5 +1,5 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
-import { ChannelTab, FeedHeader } from '@/components/feed';
+import { ChannelTab, FeedHeader } from '@/components/layout/feed';
 import useIsLogin from '@/contexts/AuthProvider';
 import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
 import { Helmet } from 'react-helmet-async';

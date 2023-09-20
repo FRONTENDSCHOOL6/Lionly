@@ -28,7 +28,7 @@ function InsertComment({ data }) {
         className="flex justify-center gap-x-2"
       >
         <label htmlFor="insertComment">
-          <h3 className="sr-only">댓글 달기</h3>
+          <h4 className="sr-only">댓글 달기</h4>
           <ProfileImage nickname={nickname} imageName={[id, profile_image]} />
         </label>
         <textarea

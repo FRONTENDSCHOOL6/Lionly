@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import FeedList from './components/feed/FeedList.jsx';
 import BeforeLogin from './components/layout/BeforeLogin.jsx';
 import RootLayout from './components/layout/RootLayout.jsx';
 import {
@@ -14,6 +13,7 @@ import {
 } from './pages';
 import ProtectedRoute from './components/ProtecteRoute.jsx';
 import Edit from './pages/Edit.jsx';
+import FeedList from './components/layout/feed/FeedList.jsx';
 
 const router = createBrowserRouter([
   {

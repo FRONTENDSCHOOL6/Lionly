@@ -43,7 +43,7 @@ function Comments({ data }) {
 
   return (
     <section className="px-4">
-      <h3 className="sr-only">Comments</h3>
+      <h4 className="sr-only">Comments</h4>
       <ul className="flex flex-col gap-y-3">
         <ReplyModal data={data} state={openModal} />
 

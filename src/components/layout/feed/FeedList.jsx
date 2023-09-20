@@ -2,7 +2,7 @@ import { useChannel, useInfiniteFeed } from '@/hooks';
 import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../Spinner';
+import Spinner from '../../Spinner';
 
 function FeedList() {
   const navigate = useNavigate();

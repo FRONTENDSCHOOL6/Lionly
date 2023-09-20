@@ -5,7 +5,7 @@ import { object } from 'prop-types';
 function Content({ data }) {
   return (
     <main className="flex flex-col gap-y-2.5 px-4 py-3">
-      <h3 className="sr-only">Content</h3>
+      <h4 className="sr-only">Content</h4>
 
       <figure className="flex w-full gap-x-3">
         <ProfileImage

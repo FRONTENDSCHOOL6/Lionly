@@ -1,5 +1,10 @@
 import Spinner from '@/components/Spinner';
-import { Comments, Content, Header, InsertComment } from '@/components/content';
+import {
+  Comments,
+  Content,
+  Header,
+  InsertComment,
+} from '@/components/layout/content';
 import { useContent } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
