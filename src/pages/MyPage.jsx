@@ -36,12 +36,15 @@ function MyPage() {
       <Helmet>
         <title>마이페이지</title>
       </Helmet>
-      <MyPageHeader />
+      <header className="sticky top-0 z-10">
+        <MyPageHeader />
+        <div className=" bg-lionly-white">
+          <p className="mx-2 border-b-4 border-lionly-black bg-lionly-white px-11 py-3 text-center text-lionly-lg text-lionly-black">
+            내가 쓴 글
+          </p>
+        </div>
+      </header>
       <div className="z-10 h-full bg-lionly-white">
-        <p className="mx-4 mb-4 mt-9 border-b-4 border-lionly-black px-11 py-3 text-center text-lionly-lg text-lionly-black">
-          내가 쓴 글
-        </p>
-
         {showScrollBottomButton ? (
           <button
             role="button"
@@ -55,15 +58,18 @@ function MyPage() {
         ) : null}
 
         {showScrollTopButton ? (
-          <button
-            role="button"
-            aria-label="상단으로 이동"
-            type="button"
-            onClick={handleScrollTop}
-            className="sticky left-[100%] top-[26.5%] mr-6 rounded-full shadow-lg"
-          >
-            <UpArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all hover:scale-125 focus:scale-125" />
-          </button>
+          <div className="sticky left-[100%] top-[370px] inline pr-6">
+            <button
+              role="button"
+              aria-label="상단으로 이동"
+              tabIndex="0"
+              type="button"
+              onClick={handleScrollTop}
+              className="rounded-full transition-all hover:scale-125 focus:scale-125"
+            >
+              <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
+            </button>
+          </div>
         ) : null}
 
         <MyFeedList />
