@@ -14,7 +14,6 @@ function ReplyProvider({ displayName = 'ReplyContext', children }) {
       if (e.key === 'Enter' || e.type === 'click') {
         setOpenModal(true);
       }
-      scrollTo({ top: 100000, behavior: 'smooth' });
 
       setSelectedComment({
         id: data?.expand.comments[commentIndex]?.id,
@@ -23,6 +22,7 @@ function ReplyProvider({ displayName = 'ReplyContext', children }) {
         reply: data?.expand.comments[commentIndex]?.reply,
       });
 
+      scrollTo({ top: 10000 });
       return;
     }
   };
