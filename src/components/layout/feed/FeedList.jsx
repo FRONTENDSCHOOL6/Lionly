@@ -3,6 +3,7 @@ import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../Spinner';
+import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
 
 function FeedList() {
   const navigate = useNavigate();
@@ -57,14 +58,27 @@ function FeedList() {
                           className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border-2"
                         />
 
-                        <figcaption className="w-full">
-                          <p className="font-bold text-lionly-black">
-                            {item.expand.author.nickname}
-                          </p>
-
-                          <p className="text-lionly-sm text-lionly-gray-1">
-                            {`${getDate(item.created)}`}
-                          </p>
+                        <figcaption className="flex gap-x-3">
+                          <div className="flex flex-col">
+                            <p className="font-bold text-lionly-black">
+                              {item.expand.author.nickname}
+                            </p>
+                            <p className="text-lionly-sm text-lionly-gray-1">
+                              {`${getDate(item.created)}`}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-x-1 pt-6 ">
+                            <Comment
+                              aria-hidden
+                              className="w-3 fill-lionly-gray-1"
+                            />
+                            <span
+                              aria-label="댓글 수"
+                              className="text-lionly-sm-bold text-lionly-black"
+                            >
+                              {item.comments.length}
+                            </span>
+                          </div>
                         </figcaption>
                       </figure>
 
