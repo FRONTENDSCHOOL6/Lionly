@@ -28,7 +28,6 @@ function MyFeedList() {
       </div>
     );
   }
-  console.log(data);
 
   const handleUpdateClick = (postId) => {
     navigate(`/edit/${postId}`);
@@ -43,6 +42,7 @@ function MyFeedList() {
             <Fragment key={index}>
               {feed?.items.map((item) => (
                 <li
+                  tabIndex="0"
                   key={item.id}
                   id={item.id}
                   onClick={() => {}}
