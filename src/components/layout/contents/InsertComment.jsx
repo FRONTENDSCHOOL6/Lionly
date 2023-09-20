@@ -19,7 +19,6 @@ function InsertComment({ data }) {
       ? (e.target.value = e.target.value.slice(0, e.target.maxLength))
       : null;
   };
-
   return (
     <section className="sticky bottom-0 bg-lionly-white px-4 py-[18px]">
       <form
@@ -37,7 +36,7 @@ function InsertComment({ data }) {
           form="insertCommentForm"
           name="comment"
           rows="1"
-          onChange={handleInputComment}
+          onInput={handleInputComment}
           placeholder={`${nickname}(으)로 댓글 달기`}
           maxLength={100}
           className="peer h-10 w-full resize-none overflow-hidden rounded-3xl border border-lionly-gray-3 px-5 py-2 placeholder:text-center"

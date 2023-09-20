@@ -29,7 +29,7 @@ function Comments({ data }) {
       });
 
       setOpenModal(true);
-      scrollTo({ top: 10000 });
+      scrollTo({ top: 10000, behavior: 'smooth' });
     }
     return;
   };

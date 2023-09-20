@@ -8,7 +8,7 @@ function useCreateComment(data) {
   const storageData = useStorageData();
   const commentInputRef = useRef(null);
   const replyInputRef = useRef(null);
-  const commentArray = data.comments;
+  const commentArray = data?.comments;
   const { setOpenModal, selectedComment } = useContent();
 
   const handleSubmitComment = async (e, collection) => {
@@ -32,6 +32,7 @@ function useCreateComment(data) {
       commenter: storageData.id,
     });
 
+    collection === 'comments' ? null : setOpenModal(false);
     (collection === 'comments' ? commentArray : selectedComment.reply)?.push(
       commentId
     );
@@ -42,12 +43,15 @@ function useCreateComment(data) {
         ? { comments: commentArray }
         : { reply: selectedComment?.reply }
     );
+
     (collection === 'comments'
       ? commentInputRef
       : replyInputRef
     ).current.value = '';
 
-    collection === 'comments' ? null : setOpenModal(false);
+    commentInputRef.current.style.height = '40px';
+    commentInputRef.current.style.transform = 'translateY(0px)';
+    commentInputRef.current.style.marginTop = '0px';
 
     return;
   };

@@ -18,7 +18,7 @@ function Header({ data }) {
         role="button"
         tabIndex="0"
         onClick={handleGoBack}
-        className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer fill-lionly-primary-color transition-all hover:scale-125"
+        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer fill-lionly-primary-color transition-all hover:scale-125"
       />
       <div className="flex flex-col items-center">
         <h2 className="text-lionly-sm text-lionly-white">{data.channels}</h2>

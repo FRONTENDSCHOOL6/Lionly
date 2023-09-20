@@ -1,6 +1,7 @@
 import { useContent, useCreateComment } from '@/hooks';
 import { handlePreventTabControl } from '@/utils';
 import { bool, object } from 'prop-types';
+import { useEffect } from 'react';
 
 function ReplyModal({ data, state }) {
   const { replyInputRef, handleSubmitComment } = useCreateComment(data);
@@ -15,10 +16,12 @@ function ReplyModal({ data, state }) {
       : null;
   };
 
-  if (openModal === true) {
-    replyInputRef.current.style.height = '';
-    replyInputRef.current.focus();
-  }
+  useEffect(() => {
+    if (openModal === true) {
+      replyInputRef.current.focus();
+      replyInputRef.current.style.height = '';
+    }
+  }, [openModal, replyInputRef]);
 
   return (
     <div
@@ -26,8 +29,8 @@ function ReplyModal({ data, state }) {
       role="dialog"
       aria-labelledby="replyModal"
       className={`${
-        state ? 'visible w-2/3' : 'invisible w-0'
-      } absolute bottom-[20%] left-1/2 z-10 -translate-x-[50%] border-2 border-lionly-gray-2 transition-all duration-200`}
+        state ? 'block w-2/3' : 'hidden w-0'
+      } absolute bottom-[25%] left-1/2 z-10 -translate-x-[50%] border-2 border-lionly-gray-2`}
     >
       <form
         id="insertReplyForm"
