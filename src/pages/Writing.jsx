@@ -10,12 +10,14 @@ import useStorageData from '@/hooks/useStorageData';
 import useUpLoadImage from '@/hooks/useUploadImage';
 import useTextarea from '@/hooks/useTextarea';
 import { motion } from 'framer-motion';
+import useInfiniteFeed from '@/hooks/useInfiniteFeed';
 
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
     useUpLoadImage();
   const { handleInputCount, handleTextDelete, inputCount, textareaRef } =
     useTextarea();
+  const { refetch } = useInfiniteFeed();
 
   const textareaMaxLength = 200;
 
@@ -59,9 +61,9 @@ function Writing() {
 
         await createFeedData(formData);
 
+        await refetch();
         toast.success('게시물이 업로드 되었습니다.');
         navigate('/feed');
-        window.location.reload();
       } catch (error) {
         console.error(error);
       }
@@ -123,7 +125,7 @@ function Writing() {
           </figure>
           <input
             type="file"
-            className="sr-only"
+            className="hidden"
             ref={imageInput}
             accept="*.jpg,*.png,*.jpeg,*.webp,*.avif, *.gif"
             name="img"
@@ -135,9 +137,15 @@ function Writing() {
         <div className="flex w-full flex-1 flex-col rounded-xl bg-lionly-white px-[35px]">
           <div className="flex justify-between py-[23px]">
             <div className="flex gap-2">
-              <h2>게시물 작성</h2>
-              <span className="font-thin text-lionly-red">{inputCount}</span>
-              <span className="text-lionly-base font-thin text-lionly-gray-3">
+              <h2 tabIndex="0">게시물 작성</h2>
+              <span className="font-thin text-lionly-red" aria-live="assertive">
+                {inputCount}
+              </span>
+              <span
+                className="text-lionly-base font-thin text-lionly-gray-3"
+                tabIndex="0"
+                aria-label="최대 글자 수 200"
+              >
                 / {textareaMaxLength}
               </span>
             </div>
