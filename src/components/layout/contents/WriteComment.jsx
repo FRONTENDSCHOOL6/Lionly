@@ -1,11 +1,12 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ProfileImage } from '@/components/button';
-import useModal from '@/hooks/useComments';
-import { object } from 'prop-types';
+import { useCreateComment } from '@/hooks';
+import useStorageData from '@/hooks/useStorageData';
 
-function WriteComment({ data }) {
-  const { commentInputRef, storageData, handleSubmitComment } = useModal(data);
+function WriteComment() {
+  const storageData = useStorageData();
   const { id, nickname, profile_image } = storageData;
+  const { handleSubmitComment, commentInputRef } = useCreateComment();
 
   return (
     <section className="sticky bottom-0 bg-lionly-white px-4 py-[18px]">
@@ -43,9 +44,5 @@ function WriteComment({ data }) {
     </section>
   );
 }
-
-WriteComment.propTypes = {
-  data: object,
-};
 
 export default WriteComment;

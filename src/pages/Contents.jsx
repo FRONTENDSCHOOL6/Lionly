@@ -6,6 +6,7 @@ import {
   Header,
   InsertComment,
 } from '@/components/layout/contents';
+import { useContent } from '@/hooks';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -13,9 +14,11 @@ import { useParams } from 'react-router-dom';
 
 function Contents() {
   const { contentId } = useParams();
-  const { isLoading, data } = useQuery({
-    queryKey: ['content'],
+  const { commentData, setCommentData } = useContent();
+  const { isLoading } = useQuery({
+    queryKey: ['content', contentId],
     queryFn: () => getContent(contentId),
+    onSuccess: (data) => setCommentData(data),
   });
 
   if (isLoading) {
@@ -33,10 +36,10 @@ function Contents() {
   }
 
   return (
-    data && (
+    commentData && (
       <>
         <Helmet>
-          <title>{data.expand.author.nickname}의 게시글</title>
+          <title>{`${commentData.expand?.author.nickname}`}의 게시글</title>
         </Helmet>
 
         <h1 className="sr-only">Lionly</h1>
@@ -56,12 +59,12 @@ function Contents() {
           }}
         >
           <div>
-            <Header data={data} />
-            <Content data={data} />
-            <Comments data={data} />
+            <Header data={commentData} />
+            <Content data={commentData} />
+            <Comments data={commentData} />
           </div>
         </motion.div>
-        <InsertComment data={data} />
+        <InsertComment data={commentData} />
       </>
     )
   );

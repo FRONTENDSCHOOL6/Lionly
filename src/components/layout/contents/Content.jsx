@@ -10,17 +10,25 @@ function Content({ data }) {
       <figure className="flex w-full gap-x-3">
         <ProfileImage
           size={40}
-          nickname={data.expand.author.nickname}
-          imageName={[data.expand.author.id, data.expand.author.profile_image]}
+          nickname={data.expand?.author.nickname}
+          imageName={[
+            data.expand?.author.id,
+            data.expand?.author.profile_image,
+          ]}
         />
 
-        <figcaption>
-          <p className="font-bold text-lionly-black">
-            {data.expand.author.nickname}
-          </p>
-          <p className="text-lionly-sm text-lionly-gray-1">{`${getDate(
-            data.created
-          )}`}</p>
+        <figcaption className="flex flex-col">
+          <span className="font-bold text-lionly-black">
+            {data.expand?.author.nickname}
+          </span>
+          <div className="flex gap-x-1">
+            <span className="text-lionly-sm text-lionly-gray-1">{`${getDate(
+              data.created
+            )}`}</span>
+            <span className="text-lionly-sm-bold text-lionly-black">
+              {data.create !== data.updated ? '수정됨' : null}
+            </span>
+          </div>
         </figcaption>
       </figure>
       <figure className="flex w-full flex-col gap-y-[14px]">

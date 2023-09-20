@@ -1,27 +1,31 @@
 import getContent from '@/api/getContent';
 import pb from '@/api/pocketbase';
 import { ProfileImage } from '@/components/button';
-import { useContent, useDeleteComment, useModal } from '@/hooks';
+import { useContent, useDeleteComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
 function Comments({ data }) {
-  const { comments, setComments } = useModal(data);
+  const contentId = useParams();
+  const { setCommentData } = useContent();
   const { handleDeleteComment } = useDeleteComment(data);
   const storageData = useStorageData();
   const { openModal, setOpenModal, setSelectedComment } = useContent();
+
   const handleOpenModal = (e) => {
     if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
       const commentIndex = e.target.id.slice(-1);
 
       setSelectedComment({
-        id: comments[commentIndex]?.id,
-        nickname: comments[commentIndex]?.expand.commenter.nickname,
-        reply: comments[commentIndex]?.reply,
+        id: data.expand?.comments[commentIndex]?.id,
+        nickname:
+          data.expand?.comments[commentIndex]?.expand.commenter.nickname,
+        reply: data.expand?.comments[commentIndex]?.reply,
       });
 
       setOpenModal(true);
@@ -32,11 +36,10 @@ function Comments({ data }) {
 
   useEffect(() => {
     (async function subscribeComments() {
-      await pb.collection('feeds').subscribe('*', async ({ action }) => {
-        if (action === 'update') {
-          const content = await getContent(data?.id);
-          setComments(content.expand.comments);
-        }
+      await pb.collection('comments').subscribe('*', async () => {
+        const content = await getContent(contentId.contentId);
+        setCommentData(content);
+
         scrollTo({
           top: 1000000,
           behavior: 'smooth',
@@ -44,14 +47,14 @@ function Comments({ data }) {
       });
     })();
 
-    (async function subscribeReply() {
-      await pb.collection('comments').subscribe('*', async ({ action }) => {
-        if (action === 'update') {
-          const content = await getContent(data?.id);
-          setComments(content.expand.comments);
-        }
-      });
-    })();
+    // (async function subscribeReply() {
+    //   await pb.collection('comments').subscribe('*', async ({ action }) => {
+    //     if (action === 'update') {
+    //       const content = await getContent(data?.id);
+    //       setComments(content.expand.comments);
+    //     }
+    //   });
+    // })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -62,8 +65,8 @@ function Comments({ data }) {
       <ul className="flex flex-col gap-y-3">
         <ReplyModal data={data} state={openModal} />
 
-        {comments &&
-          comments.map((comment, index) => (
+        {data &&
+          data.expand?.comments?.map((comment, index) => (
             <li key={comment.id} className="relative flex flex-col">
               <div className="flex gap-x-3">
                 <ProfileImage
