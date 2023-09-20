@@ -17,9 +17,10 @@ function ReplyProvider({ displayName = 'ReplyContext', children }) {
       scrollTo({ top: 100000, behavior: 'smooth' });
 
       setSelectedComment({
-        id: data?.expand.comments[commentIndex].id,
-        nickname: data?.expand.comments[commentIndex].expand.commenter.nickname,
-        reply: data?.expand.comments[commentIndex].reply,
+        id: data?.expand.comments[commentIndex]?.id,
+        nickname:
+          data?.expand.comments[commentIndex]?.expand.commenter.nickname,
+        reply: data?.expand.comments[commentIndex]?.reply,
       });
 
       return;

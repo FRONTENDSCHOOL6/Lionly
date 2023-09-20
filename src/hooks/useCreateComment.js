@@ -29,7 +29,7 @@ function useCreateComment(data) {
       id: commentId,
       comment: (collection === 'comments' ? commentInputRef : replyInputRef)
         .current?.value,
-      commenter: storageData.id,
+      commenter: storageData?.id,
     });
 
     (collection === 'comments' ? commentArray : selectedComment.reply)?.push(
@@ -38,10 +38,10 @@ function useCreateComment(data) {
 
     await updateComment(
       collection === 'comments' ? 'feeds' : 'comments',
-      collection === 'comments' ? data.id : selectedComment.id,
+      collection === 'comments' ? data?.id : selectedComment?.id,
       collection === 'comments'
         ? { comments: commentArray }
-        : { reply: selectedComment.reply }
+        : { reply: selectedComment?.reply }
     );
 
     (collection === 'comments'

@@ -11,7 +11,7 @@ import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
 function Comments({ data }) {
   const { comments, setComments } = useModal(data);
-  const { handleDeleteComment } = useDeleteComment();
+  const { handleDeleteComment } = useDeleteComment(data);
   const storageData = useStorageData();
   const { openModal, handleOpenModal } = useReply();
 
