@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
-import { AuthProvider, ChannelProvider, ReplyProvider } from './contexts';
+import { AuthProvider, ChannelProvider, ContentProvider } from './contexts';
 import router from './routes.jsx';
 
 const queryClient = new QueryClient();
@@ -15,11 +15,11 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <ChannelProvider>
-              <ReplyProvider>
+              <ContentProvider>
                 <AnimatePresence>
                   <RouterProvider router={router} />
                 </AnimatePresence>
-              </ReplyProvider>
+              </ContentProvider>
             </ChannelProvider>
           </AuthProvider>
         </QueryClientProvider>

@@ -1,11 +1,11 @@
 import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
-import { useReply } from '@/hooks';
+import { useContent } from '@/hooks';
 import { object } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 function Header({ data }) {
   const navigate = useNavigate();
-  const { setOpenModal } = useReply();
+  const { setOpenModal } = useContent();
 
   const handleGoBack = () => {
     setOpenModal(false);
@@ -23,7 +23,7 @@ function Header({ data }) {
       <div className="flex flex-col items-center">
         <h2 className="text-lionly-sm text-lionly-white">{data.channels}</h2>
         <h3 className="w-full text-center text-lionly-base font-bold text-lionly-black">
-          {data.expand.author.nickname}의 게시글
+          {data.expand?.author.nickname}의 게시글
         </h3>
       </div>
     </header>
