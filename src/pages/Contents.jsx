@@ -4,7 +4,7 @@ import {
   Content,
   Header,
   InsertComment,
-} from '@/components/layout/content';
+} from '@/components/layout/contents';
 import { useContent } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';

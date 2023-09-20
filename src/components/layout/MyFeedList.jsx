@@ -70,8 +70,8 @@ function MyFeedList() {
                       <KebabButtonSVG aria-hidden />
                     </button>
                     {drop == item.id && (
-                      <ul className="absolute right-0 top-full z-10  border border-gray-300 bg-white p-2 shadow-lg">
-                        <li className="cursor-pointer rounded-md p-2 ">
+                      <ul className="absolute right-0 top-full z-10 rounded-md border border-gray-300 bg-white p-2 shadow-lg">
+                        <li className="cursor-pointer rounded-md p-2 duration-300 hover:bg-gray-200/80">
                           <button
                             type="button"
                             onClick={() => {
