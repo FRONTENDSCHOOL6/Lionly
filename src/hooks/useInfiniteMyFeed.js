@@ -2,7 +2,7 @@ import getMyFeedList from '@/api/getMyFeedList';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 function useInfiniteMyFeed() {
-  const { isLoading, isSuccess, data, hasNextPage, fetchNextPage } =
+  const { isLoading, isSuccess, data, hasNextPage, fetchNextPage,refetch } =
     useInfiniteQuery({
       queryKey: ['MyfeedList'],
       queryFn: ({ pageParam = 1 }) => getMyFeedList(pageParam),
@@ -17,7 +17,7 @@ function useInfiniteMyFeed() {
       refetchOnMount: false,
     });
 
-  return { isLoading, isSuccess, data, hasNextPage, fetchNextPage };
+  return { isLoading, isSuccess, data, hasNextPage, fetchNextPage,refetch };
 }
 
 export default useInfiniteMyFeed;
