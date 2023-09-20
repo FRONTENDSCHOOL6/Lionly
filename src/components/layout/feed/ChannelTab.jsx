@@ -1,5 +1,5 @@
-import useChannel from '@/hooks/useChannel';
-import handleKeyboardArrowControl from '@/utils/handleTabArrowControl';
+import { useChannel } from '@/hooks';
+import { handleKeyboardArrowControl } from '@/utils';
 import { NavLink } from 'react-router-dom';
 
 function ChannelTab() {
@@ -20,7 +20,10 @@ function ChannelTab() {
         >
           {channels?.map((item, index) => {
             return (
-              <li key={item} className="shrink py-1">
+              <li
+                key={item}
+                className="shrink py-1 transition-all hover:scale-125"
+              >
                 <NavLink
                   to={
                     item === '힐링방'
@@ -38,8 +41,8 @@ function ChannelTab() {
                   role="tab"
                   aria-selected={channelList[item] === true ? true : false}
                   aria-controls={`tabpanel-${index + 1}`}
+                  onKeyDown={(e) => handleKeyboardArrowControl(e, 'parentNode')}
                   onClick={handleChangeChannel}
-                  onKeyDown={handleKeyboardArrowControl}
                   className={`rounded-[4px] border border-lionly-secondary-color px-1 py-2 text-lionly-md outline-4 outline-lionly-black ${
                     channelList[item] === true
                       ? 'bg-lionly-secondary-color'

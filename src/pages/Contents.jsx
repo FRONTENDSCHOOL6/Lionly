@@ -1,5 +1,10 @@
 import Spinner from '@/components/Spinner';
-import { Comments, Content, Header, InsertComment } from '@/components/content';
+import {
+  Comments,
+  Content,
+  Header,
+  InsertComment,
+} from '@/components/layout/contents';
 import { useContent } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
@@ -31,7 +36,7 @@ function Contents() {
 
         <h1 className="sr-only">Lionly</h1>
 
-        <div className="flex min-h-screen flex-col justify-between bg-lionly-white">
+        <div className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white">
           <div>
             <Header data={data} />
             <Content data={data} />
