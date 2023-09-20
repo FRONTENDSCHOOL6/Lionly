@@ -1,4 +1,3 @@
-import { ReactComponent as DownArrowSVG } from '@/assets/arrow_Feed_down.svg';
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import MyFeedList from '@/components/layout/MyFeedList';
 import MyPageHeader from '@/components/layout/MyPageHeader';
@@ -12,12 +11,7 @@ function MyPage() {
   useIsLogin();
   const { hasNextPage, fetchNextPage } = useInfiniteMyFeed();
   const { listEndRef } = useObserveScroll(fetchNextPage);
-  const {
-    showScrollTopButton,
-    showScrollBottomButton,
-    handleScrollTop,
-    handleScrollBottom,
-  } = useScroll();
+  const { showScrollTopButton, handleScrollTop } = useScroll();
 
   return (
     <motion.div
@@ -34,7 +28,7 @@ function MyPage() {
       }}
     >
       <Helmet>
-        <title>마이페이지</title>
+        <title>Lionly - MyPage</title>
       </Helmet>
       <MyPageHeader />
       <div className="z-10 h-full bg-lionly-white">
@@ -42,28 +36,19 @@ function MyPage() {
           내가 쓴 글
         </p>
 
-        {showScrollBottomButton ? (
-          <button
-            role="button"
-            aria-label="하단으로 이동"
-            type="button"
-            onClick={handleScrollBottom}
-            className="sticky left-[100%] top-[93.5%] mr-6 rounded-full shadow-lg"
-          >
-            <DownArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all  hover:scale-125 focus:scale-125" />
-          </button>
-        ) : null}
-
         {showScrollTopButton ? (
-          <button
-            role="button"
-            aria-label="상단으로 이동"
-            type="button"
-            onClick={handleScrollTop}
-            className="sticky left-[100%] top-[26.5%] mr-6 rounded-full shadow-lg"
-          >
-            <UpArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all hover:scale-125 focus:scale-125" />
-          </button>
+          <div className="sticky left-[100%] top-[30px] inline pr-6">
+            <button
+              role="button"
+              aria-label="상단으로 이동"
+              tabIndex="0"
+              type="button"
+              onClick={handleScrollTop}
+              className="rounded-full transition-all hover:scale-125 focus:scale-125"
+            >
+              <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
+            </button>
+          </div>
         ) : null}
 
         <MyFeedList />
