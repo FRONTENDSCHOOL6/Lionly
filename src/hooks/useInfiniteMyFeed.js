@@ -14,7 +14,7 @@ function useInfiniteMyFeed() {
       staleTime: 3 * 1000,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-      refetchOnMount: false,
+      refetchOnMount: true,
     });
 
   return { isLoading, isSuccess, data, hasNextPage, fetchNextPage,refetch };
