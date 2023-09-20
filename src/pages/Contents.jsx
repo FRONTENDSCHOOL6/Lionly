@@ -63,8 +63,8 @@ function Contents() {
             <Content data={commentData} />
             <Comments data={commentData} />
           </div>
+          <InsertComment data={commentData} />
         </motion.div>
-        <InsertComment data={commentData} />
       </>
     )
   );

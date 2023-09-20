@@ -1,4 +1,3 @@
-import pb from '@/api/pocketbase';
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ChannelTab, FeedHeader } from '@/components/layout/feed';
 import useIsLogin from '@/contexts/AuthProvider';
@@ -9,7 +8,6 @@ import {
   useScroll,
 } from '@/hooks';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
@@ -23,19 +21,6 @@ function Feed() {
   const channelArray = Object.keys(channelList);
   const activatedChannel =
     channelArray[Object.values(channelList).indexOf(true)];
-
-  useEffect(() => {
-    (async function subscribeFeeds() {
-      await pb
-        .collection('feeds')
-        .subscribe('*', async ({ record, action }) => {
-          console.log(record);
-          if (action === 'update') {
-            // const feedList = await getFeedList(1, activatedChannel);
-          }
-        });
-    })();
-  }, []);
 
   return (
     <>

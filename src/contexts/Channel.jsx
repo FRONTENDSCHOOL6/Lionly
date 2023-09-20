@@ -65,8 +65,6 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
     const target = e.target.textContent;
 
     if (!channelList[target]) {
-      scrollTo({ top: 0, behavior: 'smooth' });
-
       setChannelList(() => ({
         ...allFalseState,
         [target]: true,

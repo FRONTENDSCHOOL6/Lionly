@@ -29,7 +29,7 @@ function Comments({ data }) {
       });
 
       setOpenModal(true);
-      scrollTo({ top: 100000, behavior: 'smooth' });
+      scrollTo({ top: 10000 });
     }
     return;
   };
@@ -41,23 +41,11 @@ function Comments({ data }) {
         setCommentData(content);
 
         scrollTo({
-          top: 1000000,
-          behavior: 'smooth',
+          top: 10000,
         });
       });
     })();
-
-    // (async function subscribeReply() {
-    //   await pb.collection('comments').subscribe('*', async ({ action }) => {
-    //     if (action === 'update') {
-    //       const content = await getContent(data?.id);
-    //       setComments(content.expand.comments);
-    //     }
-    //   });
-    // })();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [contentId.contentId, setCommentData]);
 
   return (
     <section className="px-4">

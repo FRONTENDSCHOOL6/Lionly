@@ -42,7 +42,10 @@ function useCreateComment(data) {
         ? { comments: commentArray }
         : { reply: selectedComment?.reply }
     );
-    (collection === 'comments').current.value = '';
+    (collection === 'comments'
+      ? commentInputRef
+      : replyInputRef
+    ).current.value = '';
 
     collection === 'comments' ? null : setOpenModal(false);
 

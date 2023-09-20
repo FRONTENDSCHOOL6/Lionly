@@ -58,7 +58,7 @@ function FeedList() {
                           className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border-2"
                         />
 
-                        <figcaption className="flex gap-x-3">
+                        <figcaption className="flex gap-x-1">
                           <div className="flex flex-col">
                             <p className="font-bold text-lionly-black">
                               {content.expand.author.nickname}
@@ -67,21 +67,30 @@ function FeedList() {
                               {`${getDate(content.created)}`}
                             </p>
                           </div>
-                          <div className="flex items-center gap-x-1 pt-6 ">
-                            <Comment
-                              aria-hidden
-                              className="w-3 fill-lionly-gray-1"
-                            />
-                            <span
-                              aria-label="댓글 수"
-                              className="text-lionly-sm-bold text-lionly-black"
-                            >
-                              {content.expand.comments
-                                ? content.expand.comments
-                                    .map((comment) => 1 + comment.reply?.length)
-                                    .reduce((acc, cur) => acc + cur)
-                                : 0}
+                          <div className="flex h-fit items-center gap-x-3 py-6">
+                            <span className="text-lionly-sm-bold text-lionly-gray-2">
+                              {content.created !== content.updated
+                                ? '수정됨'
+                                : null}
                             </span>
+                            <div className="flex items-center gap-x-1">
+                              <Comment
+                                aria-hidden
+                                className="h-fit w-3 items-center fill-lionly-black"
+                              />
+                              <span
+                                aria-label="댓글 수"
+                                className="text-lionly-sm-bold text-lionly-black"
+                              >
+                                {content.expand.comments
+                                  ? content.expand.comments
+                                      .map(
+                                        (comment) => 1 + comment.reply?.length
+                                      )
+                                      .reduce((acc, cur) => acc + cur)
+                                  : 0}
+                              </span>
+                            </div>
                           </div>
                         </figcaption>
                       </figure>
