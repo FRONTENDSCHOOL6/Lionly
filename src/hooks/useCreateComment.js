@@ -49,9 +49,11 @@ function useCreateComment(data) {
       : replyInputRef
     ).current.value = '';
 
-    commentInputRef.current.style.height = '40px';
-    commentInputRef.current.style.transform = 'translateY(0px)';
-    commentInputRef.current.style.marginTop = '0px';
+    if (collection === 'comments') {
+      commentInputRef.current.style.height = '40px';
+      commentInputRef.current.style.transform = 'translateY(0px)';
+      commentInputRef.current.style.marginTop = '0px';
+    }
 
     return;
   };
