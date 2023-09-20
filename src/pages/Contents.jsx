@@ -45,7 +45,7 @@ function Contents() {
         <h1 className="sr-only">Lionly</h1>
 
         <motion.div
-          className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white"
+          className="flex min-h-[calc(100vh)] flex-col justify-between bg-lionly-white"
           initial={{
             opacity: 0,
             y: -50,
