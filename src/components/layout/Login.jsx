@@ -8,7 +8,6 @@ import { toast } from 'react-hot-toast';
 import { useAnimation, motion } from 'framer-motion';
 function Login() {
   const navigate = useNavigate();
-  // useRef 사용해서 자동 완성 기능 동작하게 하기.
   const emailRef = useRef();
   const passwordRef = useRef();
   const controls = useAnimation();
@@ -30,7 +29,6 @@ function Login() {
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-    // const { email, password } = formState; => 자동 완성 기능 사용 못함.
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     try {
@@ -41,8 +39,6 @@ function Login() {
         toast.success(`안녕하세요! ${pb.authStore.model.name}님`, {
           icon: '👏',
         });
-      } else {
-        // 로그인 실패시 로직 필요 시 적기.
       }
     } catch (error) {
       console.error(error);
@@ -55,7 +51,6 @@ function Login() {
   };
 
   const handleInput = debounce((e) => {
-    // input value 입력 후 0.4초 간 동작 없으면 페이지 랜더링
     const { name, value } = e.target;
     setFormState({
       ...formState,
