@@ -1,16 +1,17 @@
 import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
-import { useReply } from '@/hooks';
+import { useContent } from '@/hooks';
 import { object } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 function Header({ data }) {
   const navigate = useNavigate();
-  const { setOpenModal } = useReply();
+  const { setOpenModal } = useContent();
 
   const handleGoBack = () => {
     setOpenModal(false);
     navigate(-1);
   };
+
   return (
     <header className="sticky top-0 z-10 flex justify-center bg-lionly-primary-color px-4 py-3">
       <LeftArrow

@@ -1,7 +1,7 @@
 import getContent from '@/api/getContent';
 import pb from '@/api/pocketbase';
 import { ProfileImage } from '@/components/button';
-import { useDeleteComment, useModal, useReply } from '@/hooks';
+import { useContent, useDeleteComment, useModal } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
 import { object } from 'prop-types';
@@ -13,7 +13,22 @@ function Comments({ data }) {
   const { comments, setComments } = useModal(data);
   const { handleDeleteComment } = useDeleteComment(data);
   const storageData = useStorageData();
-  const { openModal, handleOpenModal } = useReply();
+  const { openModal, setOpenModal, setSelectedComment } = useContent();
+  const handleOpenModal = (e) => {
+    if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
+      const commentIndex = e.target.id.slice(-1);
+
+      setSelectedComment({
+        id: comments[commentIndex]?.id,
+        nickname: comments[commentIndex]?.expand.commenter.nickname,
+        reply: comments[commentIndex]?.reply,
+      });
+
+      setOpenModal(true);
+      scrollTo({ top: 100000, behavior: 'smooth' });
+    }
+    return;
+  };
 
   useEffect(() => {
     (async function subscribeComments() {
@@ -116,7 +131,7 @@ function Comments({ data }) {
                           <span className="text-lionly-sm text-lionly-gray-2">
                             {calcTimeDifference(reply.created)}
                           </span>
-                          {storageData.id === comment.expand.commenter.id ? (
+                          {storageData.id === reply.expand.commenter.id ? (
                             <TrashCan
                               tabIndex="0"
                               role="button"

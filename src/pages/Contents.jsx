@@ -1,3 +1,4 @@
+import getContent from '@/api/getContent';
 import Spinner from '@/components/Spinner';
 import {
   Comments,
@@ -5,13 +6,17 @@ import {
   Header,
   InsertComment,
 } from '@/components/layout/contents';
-import { useContent } from '@/hooks';
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 function Contents() {
-  const { feedId } = useParams();
-  const { isLoading, data } = useContent(feedId);
+  const { contentId } = useParams();
+  const { isLoading, data } = useQuery({
+    queryKey: ['content'],
+    queryFn: () => getContent(contentId),
+  });
 
   if (isLoading) {
     return (
@@ -36,14 +41,27 @@ function Contents() {
 
         <h1 className="sr-only">Lionly</h1>
 
-        <div className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white">
+        <motion.div
+          className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white"
+          initial={{
+            opacity: 0,
+            y: -50,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+        >
           <div>
             <Header data={data} />
             <Content data={data} />
             <Comments data={data} />
           </div>
-          <InsertComment data={data} />
-        </div>
+        </motion.div>
+        <InsertComment data={data} />
       </>
     )
   );

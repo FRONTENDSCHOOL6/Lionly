@@ -1,9 +1,9 @@
+import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
 import { useChannel, useInfiniteFeed } from '@/hooks';
 import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../Spinner';
-import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
 
 function FeedList() {
   const navigate = useNavigate();
@@ -36,23 +36,23 @@ function FeedList() {
           {data.pages.map((feed, index) => (
             <Fragment key={index}>
               {feed.totalPages !== 0 ? (
-                feed.items.map((item) => (
+                feed.items.map((content) => (
                   <li
                     tabIndex={0}
-                    key={item.id}
-                    id={item.id}
+                    key={content.id}
+                    id={content.id}
                     onKeyDown={handleKeyboardArrowControl}
                     onClick={() => {
-                      navigate(`/feed/contents/${item.id}`);
+                      navigate(`/feed/contents/${content.id}`);
                     }}
                     className="cursor-pointer"
                   >
                     <div className="flex flex-col gap-y-2.5">
                       <figure className="flex h-10 w-full gap-x-3">
                         <img
-                          alt={`${item.expand.author.nickname}의 프로필 이미지`}
+                          alt={`${content.expand.author.nickname}의 프로필 이미지`}
                           src={getPbImageURL(
-                            item.expand.author,
+                            content.expand.author,
                             'profile_image'
                           )}
                           className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border-2"
@@ -61,10 +61,10 @@ function FeedList() {
                         <figcaption className="flex gap-x-3">
                           <div className="flex flex-col">
                             <p className="font-bold text-lionly-black">
-                              {item.expand.author.nickname}
+                              {content.expand.author.nickname}
                             </p>
                             <p className="text-lionly-sm text-lionly-gray-1">
-                              {`${getDate(item.created)}`}
+                              {`${getDate(content.created)}`}
                             </p>
                           </div>
                           <div className="flex items-center gap-x-1 pt-6 ">
@@ -76,7 +76,11 @@ function FeedList() {
                               aria-label="댓글 수"
                               className="text-lionly-sm-bold text-lionly-black"
                             >
-                              {item.comments.length}
+                              {content.expand.comments
+                                ? content.expand.comments
+                                    .map((comment) => 1 + comment.reply?.length)
+                                    .reduce((acc, cur) => acc + cur)
+                                : 0}
                             </span>
                           </div>
                         </figcaption>
@@ -84,14 +88,14 @@ function FeedList() {
 
                       <figure className="flex w-full flex-col gap-y-[14px]">
                         <img
-                          alt={`${item.expand.author.nickname}의 피드 이미지`}
-                          src={getPbImageURL(item, 'feed_image')}
+                          alt={`${content.expand.author.nickname}의 피드 이미지`}
+                          src={getPbImageURL(content, 'feed_image')}
                           className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
                         />
 
                         <figcaption>
                           <p className="w-full text-lionly-md text-lionly-gray-1">
-                            {item.text}
+                            {content.text}
                           </p>
                         </figcaption>
                       </figure>
