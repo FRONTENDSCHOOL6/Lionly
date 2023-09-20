@@ -59,11 +59,11 @@ function Contents() {
           }}
         >
           <div>
-            <Header data={contentData} />
-            <Content data={contentData} />
-            <Comments data={contentData} />
+            <Header />
+            <Content />
+            <Comments />
           </div>
-          <InsertComment data={contentData} />
+          <InsertComment />
         </motion.div>
       </>
     )

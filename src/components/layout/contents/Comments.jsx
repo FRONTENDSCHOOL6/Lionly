@@ -11,21 +11,21 @@ import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 import { useState } from 'react';
 
-function Comments({ data }) {
+function Comments() {
   const contentId = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const { setContentData, setSelectedComment } = useContent();
-  const { handleDeleteComment } = useDeleteComment(data);
+  const { contentData, setContentData, setSelectedComment } = useContent();
+  const { handleDeleteComment } = useDeleteComment(contentData);
   const storageData = useStorageData();
   const handleOpenModal = (e) => {
     if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
       const commentIndex = e.target.id.slice(-1);
 
       setSelectedComment({
-        id: data.expand?.comments[commentIndex]?.id,
+        id: contentData.expand?.comments[commentIndex]?.id,
         nickname:
-          data.expand?.comments[commentIndex]?.expand.commenter.nickname,
-        reply: data.expand?.comments[commentIndex]?.reply,
+          contentData.expand?.comments[commentIndex]?.expand.commenter.nickname,
+        reply: contentData.expand?.comments[commentIndex]?.reply,
       });
 
       setOpenModal(true);
@@ -52,13 +52,13 @@ function Comments({ data }) {
       <h4 className="sr-only">Comments</h4>
       <ul className="flex flex-col gap-y-3">
         <ReplyModal
-          data={data}
+          contentData={contentData}
           openModal={openModal}
           setOpenModal={setOpenModal}
         />
 
-        {data &&
-          data.expand?.comments?.map((comment, index) => (
+        {contentData &&
+          contentData.expand?.comments?.map((comment, index) => (
             <li key={comment.id} className="relative flex flex-col">
               <div className="flex gap-x-3">
                 <ProfileImage
@@ -97,8 +97,8 @@ function Comments({ data }) {
                     role="button"
                     aria-haspopup="true"
                     aria-pressed={openModal ? true : false}
-                    onKeyDown={(e) => handleOpenModal(e, data)}
-                    onClick={(e) => handleOpenModal(e, data)}
+                    onKeyDown={(e) => handleOpenModal(e, contentData)}
+                    onClick={(e) => handleOpenModal(e, contentData)}
                     className="w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
                   >
                     답글 달기
@@ -153,7 +153,7 @@ function Comments({ data }) {
 }
 
 Comments.propTypes = {
-  data: object,
+  contentData: object,
 };
 
 export default Comments;

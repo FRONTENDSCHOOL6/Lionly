@@ -3,9 +3,9 @@ import { useChannel, useContent } from '@/hooks';
 import { object } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function Header({ data }) {
+function Header() {
   const navigate = useNavigate();
-  // const { setOpenModal } = useContent();
+  const { contentData } = useContent();
   const { channelList } = useChannel();
   const activatedChannelIndex = Object.values(channelList).indexOf(true);
 
@@ -43,10 +43,12 @@ function Header({ data }) {
       />
 
       <div className="flex flex-col items-center">
-        <h2 className="text-lionly-sm text-lionly-white">{data.channels}</h2>
+        <h2 className="text-lionly-sm text-lionly-white">
+          {contentData.channels}
+        </h2>
 
         <h3 className="w-full text-center text-lionly-base font-bold text-lionly-black">
-          {data.expand?.author.nickname}의 게시글
+          {contentData.expand?.author.nickname}의 게시글
         </h3>
       </div>
     </header>
