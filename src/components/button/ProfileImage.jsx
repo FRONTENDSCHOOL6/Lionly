@@ -25,8 +25,8 @@ function ProfileImage({
         style={{
           width: `${size}px`,
           height: `${size}px`,
-          'min-width': `${size}px`,
-          'min-height': `${size}px`,
+          minWidth: `${size}px`,
+          minHeight: `${size}px`,
         }}
       />
 

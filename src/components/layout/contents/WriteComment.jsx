@@ -1,11 +1,10 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ProfileImage } from '@/components/button';
-import useComments from '@/hooks/useComments';
+import useModal from '@/hooks/useComments';
 import { object } from 'prop-types';
 
 function WriteComment({ data }) {
-  const { commentInputRef, storageData, handleSubmitComment } =
-    useComments(data);
+  const { commentInputRef, storageData, handleSubmitComment } = useModal(data);
   const { id, nickname, profile_image } = storageData;
 
   return (
