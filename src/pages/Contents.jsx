@@ -1,3 +1,4 @@
+import getContent from '@/api/getContent';
 import Spinner from '@/components/Spinner';
 import {
   Comments,
@@ -6,12 +7,19 @@ import {
   InsertComment,
 } from '@/components/layout/contents';
 import { useContent } from '@/hooks';
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 function Contents() {
-  const { feedId } = useParams();
-  const { isLoading, data } = useContent(feedId);
+  const { contentId } = useParams();
+  const { commentData, setCommentData } = useContent();
+  const { isLoading } = useQuery({
+    queryKey: ['content', contentId],
+    queryFn: () => getContent(contentId),
+    onSuccess: (data) => setCommentData(data),
+  });
 
   if (isLoading) {
     return (
@@ -28,22 +36,35 @@ function Contents() {
   }
 
   return (
-    data && (
+    commentData && (
       <>
         <Helmet>
-          <title>{data.expand.author.nickname}의 게시글</title>
+          <title>{`${commentData.expand?.author.nickname}`}의 게시글</title>
         </Helmet>
 
         <h1 className="sr-only">Lionly</h1>
 
-        <div className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white">
+        <motion.div
+          className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white"
+          initial={{
+            opacity: 0,
+            y: -50,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+        >
           <div>
-            <Header data={data} />
-            <Content data={data} />
-            <Comments data={data} />
+            <Header data={commentData} />
+            <Content data={commentData} />
+            <Comments data={commentData} />
           </div>
-          <InsertComment data={data} />
-        </div>
+          <InsertComment data={commentData} />
+        </motion.div>
       </>
     )
   );

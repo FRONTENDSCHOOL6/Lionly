@@ -30,14 +30,21 @@ function MyPage() {
       <Helmet>
         <title>Lionly - MyPage</title>
       </Helmet>
-      <MyPageHeader />
+      <header className="sticky top-0 z-10">
+        <MyPageHeader />
+        <div className=" bg-lionly-white">
+          <p className="mx-2 border-b-4 border-lionly-black bg-lionly-white px-11 py-3 text-center text-lionly-lg text-lionly-black">
+            내가 쓴 글
+          </p>
+        </div>
+      </header>
       <div className="z-10 h-full bg-lionly-white">
         <p className="mx-4 mb-4 mt-9 border-b-4 border-lionly-black px-11 py-3 text-center text-lionly-lg text-lionly-black">
           내가 쓴 글
         </p>
 
         {showScrollTopButton ? (
-          <div className="sticky left-[100%] top-[30px] inline pr-6">
+          <div className="sticky left-[100%] top-[370px] inline pr-6">
             <button
               role="button"
               aria-label="상단으로 이동"

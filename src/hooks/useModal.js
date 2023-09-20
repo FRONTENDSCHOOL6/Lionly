@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 function useModal(data) {
-  const [comments, setComments] = useState(data?.expand.comments);
+  // const [comments, setComments] = useState(data?.expand.comments);
 
   return {
-    comments,
-    setComments,
+    // comments,
+    // setComments,
   };
 }
 

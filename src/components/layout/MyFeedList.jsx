@@ -48,7 +48,7 @@ function MyFeedList() {
                   onClick={() => {}}
                   className="mb-[22px] cursor-pointer"
                 >
-                  <figure className="relative mb-[10px] flex h-10 w-full">
+                  <figure className="relative my-[10px] flex h-10 w-full">
                     <img
                       src={getPbImageURL(item.expand.author, 'profile_image')}
                       aria-hidden
