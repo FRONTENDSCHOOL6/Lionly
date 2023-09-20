@@ -37,7 +37,6 @@ function useInfiniteFeed() {
       staleTime: 3 * 1000,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-      refetchOnMount: false,
     });
 
   return { isLoading, isSuccess, data, hasNextPage, fetchNextPage, refetch };

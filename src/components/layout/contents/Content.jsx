@@ -1,40 +1,34 @@
 import { ProfileImage } from '@/components/button';
 import { getDate, getPbImageURL } from '@/utils';
 import { object } from 'prop-types';
-import { motion } from 'framer-motion';
 
 function Content({ data }) {
   return (
-    <motion.main
-      className="flex flex-col gap-y-2.5 px-4 py-3"
-      initial={{
-        opacity: 0,
-        y: -50,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: 1,
-      }}
-    >
+    <main className="flex flex-col gap-y-2.5 px-4 py-3">
       <h4 className="sr-only">Content</h4>
 
       <figure className="flex w-full gap-x-3">
         <ProfileImage
           size={40}
-          nickname={data.expand.author.nickname}
-          imageName={[data.expand.author.id, data.expand.author.profile_image]}
+          nickname={data.expand?.author.nickname}
+          imageName={[
+            data.expand?.author.id,
+            data.expand?.author.profile_image,
+          ]}
         />
 
-        <figcaption>
-          <p className="font-bold text-lionly-black">
-            {data.expand.author.nickname}
-          </p>
-          <p className="text-lionly-sm text-lionly-gray-1">{`${getDate(
-            data.created
-          )}`}</p>
+        <figcaption className="flex flex-col">
+          <span className="font-bold text-lionly-black">
+            {data.expand?.author.nickname}
+          </span>
+          <div className="flex gap-x-1">
+            <span className="text-lionly-sm text-lionly-gray-1">{`${getDate(
+              data.created
+            )}`}</span>
+            <span className="text-lionly-sm-bold text-lionly-black">
+              {data.create !== data.updated ? '수정됨' : null}
+            </span>
+          </div>
         </figcaption>
       </figure>
       <figure className="flex w-full flex-col gap-y-[14px]">
@@ -49,7 +43,7 @@ function Content({ data }) {
           </p>
         </figcaption>
       </figure>
-    </motion.main>
+    </main>
   );
 }
 

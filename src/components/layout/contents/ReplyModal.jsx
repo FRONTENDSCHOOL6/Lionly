@@ -1,10 +1,10 @@
-import { useCreateComment, useReply } from '@/hooks';
+import { useContent, useCreateComment } from '@/hooks';
 import { handlePreventTabControl } from '@/utils';
 import { bool, object } from 'prop-types';
 
 function ReplyModal({ data, state }) {
   const { replyInputRef, handleSubmitComment } = useCreateComment(data);
-  const { openModal, setOpenModal } = useReply();
+  const { openModal, setOpenModal } = useContent();
   const handleInputReply = (e) => {
     const textarea = e.currentTarget;
     textarea.style.height = '';
