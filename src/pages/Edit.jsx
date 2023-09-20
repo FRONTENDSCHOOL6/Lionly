@@ -13,6 +13,7 @@ import { maxLengthCheck } from '@/utils/maxLengthCheck';
 import { useCallback } from 'react';
 import useIsLogin from '@/contexts/AuthProvider';
 import { motion } from 'framer-motion';
+import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
 
 function Edit() {
   useIsLogin();
@@ -25,6 +26,7 @@ function Edit() {
   const [textLength, setTextLength] = useState(0);
   const [textValue, setTextValue] = useState('');
   const navigate = useNavigate();
+  const { refetch } = useInfiniteMyFeed();
 
   // 수정할 feeds의 필드 값들 구하기
   useEffect(() => {
@@ -66,26 +68,22 @@ function Edit() {
       toast.error('텍스트를 입력해 주세요.');
       return;
     }
-    if (changeImage === null && textValue) {
-      await pb.collection('feeds').update(data.id, {
-        text: textValue,
-        channels: channelsRef.current.value,
-      });
-    } else if (changeImage && textValue === null) {
-      await pb.collection('feeds').update(data.id, {
-        feed_image: changeImage,
-        channels: channelsRef.current.value,
-      });
-    } else if (changeImage && textValue) {
-      await pb.collection('feeds').update(data.id, {
-        feed_image: changeImage,
-        text: textValue,
-        channels: channelsRef.current.value,
-      });
+    const updateData = { channels: channelsRef.current.value };
+  
+    if (changeImage !== null) {
+      updateData.feed_image = changeImage;
     }
+    if (textValue) {
+      updateData.text = textValue;
+    }
+
+    await pb.collection('feeds').update(data.id, updateData);
+  
+    await refetch();
     toast.success('게시글이 성공적으로 수정 되었습니다!');
     navigate('/mypage');
-    window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
+
+    // window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
   }, [navigate, textValue, changeImage]);
 
   const handleTextChange = useCallback((e) => {
@@ -175,7 +173,6 @@ function Edit() {
                     게시물 수정
                   </h2>
                   <div className="ml-3 inline text-xl font-thin">
-                    {/* assertlive로 글자 수 변경때마다 현재 글자 수 말해주기 */}
                     <span
                       className="text-lionly-base font-thin text-lionly-red "
                       aria-live="assertive"
