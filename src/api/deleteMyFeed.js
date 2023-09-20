@@ -17,8 +17,6 @@ async function deleteMyFeed(item, id, commentArray) {
     toast('삭제되었습니다');
     location.reload();
   }
-  // console.log(item.expand.comments[0].reply);
-  console.log(commentArray);
 
   return deleteFeed;
 }
