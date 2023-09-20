@@ -45,8 +45,6 @@ function useIsLogin(){ // 로그인 인증여부
     } 
     if(!isLoading && !isLoggedIn){ // 만약 로딩이 끝났는데도 불구하고 로그인이 안 되어 있다면,
       navigate('/signin'); // 사용자를 로그인 페이지로 리다이렉트 
-    }else if(isLoggedIn && !isLoading){
-      // <Spinner/>
     }
   }, [isLoading, isLoggedIn]) 
 }

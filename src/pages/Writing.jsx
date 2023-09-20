@@ -47,21 +47,24 @@ function Writing() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('feed_image', imageValue);
-    formData.append('text', textValue);
-    formData.append('channels', channelsValue);
-    formData.append('author', authorValue);
+    const uploadConfirm = confirm('게시물을 업로드 하시겠습니까?');
 
-    await createFeedData(formData);
-    try {
-      if (confirm('게시물을 업로드 하시겠습니까?')) {
+    if (uploadConfirm) {
+      try {
+        const formData = new FormData();
+        formData.append('feed_image', imageValue);
+        formData.append('text', textValue);
+        formData.append('channels', channelsValue);
+        formData.append('author', authorValue);
+
+        await createFeedData(formData);
+
         toast.success('게시물이 업로드 되었습니다.');
         navigate('/feed');
         window.location.reload();
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -86,7 +89,7 @@ function Writing() {
 
       <header className="mt-4 flex justify-between px-4 pb-3">
         <LeftArrow
-          className="mt-2"
+          className="mt-2 hover:scale-125"
           aria-label="뒤로 가기"
           role="button"
           tabIndex="0"
@@ -110,7 +113,7 @@ function Writing() {
             className="flex aspect-[9/4] w-full justify-center rounded-xl bg-cover bg-center bg-no-repeat"
           >
             <button
-              className="border-lionly-white-2 mt-[33%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
+              className="border-lionly-white-2 mt-[32%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
               type="button"
               onClick={handleImageUpload}
             >
