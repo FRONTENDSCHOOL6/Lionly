@@ -5,7 +5,7 @@ export const ContentContext = createContext({});
 
 function ContentProvider({ displayName = 'ContentContext', children }) {
   const [openModal, setOpenModal] = useState(false);
-  const [commentData, setCommentData] = useState({});
+  const [contentData, setContentData] = useState({});
   const [selectedComment, setSelectedComment] = useState({});
 
   return (
@@ -14,8 +14,8 @@ function ContentProvider({ displayName = 'ContentContext', children }) {
       value={{
         openModal,
         setOpenModal,
-        commentData,
-        setCommentData,
+        contentData,
+        setContentData,
         selectedComment,
         setSelectedComment,
       }}

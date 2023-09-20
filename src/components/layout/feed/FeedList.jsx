@@ -60,37 +60,37 @@ function FeedList() {
 
                         <figcaption className="flex gap-x-1">
                           <div className="flex flex-col">
-                            <p className="font-bold text-lionly-black">
-                              {content.expand.author.nickname}
-                            </p>
-                            <p className="text-lionly-sm text-lionly-gray-1">
-                              {`${getDate(content.created)}`}
-                            </p>
-                          </div>
-                          <div className="flex h-fit items-center gap-x-3 py-6">
-                            <span className="text-lionly-sm-bold text-lionly-gray-2">
-                              {content.created !== content.updated
-                                ? '수정됨'
-                                : null}
-                            </span>
-                            <div className="flex items-center gap-x-1">
-                              <Comment
-                                aria-hidden
-                                className="h-fit w-3 items-center fill-lionly-black"
-                              />
-                              <span
-                                aria-label="댓글 수"
-                                className="text-lionly-sm-bold text-lionly-black"
-                              >
-                                {content.expand.comments
-                                  ? content.expand.comments
-                                      .map(
-                                        (comment) => 1 + comment.reply?.length
-                                      )
-                                      .reduce((acc, cur) => acc + cur)
-                                  : 0}
-                              </span>
+                            <div className="flex gap-x-2">
+                              <p className="font-bold text-lionly-black">
+                                {content.expand.author.nickname}
+                              </p>
+                              <div className="flex items-center gap-x-1">
+                                <Comment
+                                  aria-hidden
+                                  className="h-fit w-3 items-center fill-lionly-black"
+                                />
+                                <span
+                                  aria-label="댓글 수"
+                                  className="text-lionly-sm-bold text-lionly-black"
+                                >
+                                  {content.expand.comments
+                                    ? content.expand.comments
+                                        .map(
+                                          (comment) => 1 + comment.reply?.length
+                                        )
+                                        .reduce((acc, cur) => acc + cur)
+                                    : 0}
+                                </span>
+                              </div>
                             </div>
+                            <p className="flex gap-x-1 text-lionly-sm text-lionly-gray-1">
+                              {`${getDate(content.created)}`}
+                              <span className="text-lionly-sm-bold text-lionly-gray-2">
+                                {content.created !== content.updated
+                                  ? '수정됨'
+                                  : null}
+                              </span>
+                            </p>
                           </div>
                         </figcaption>
                       </figure>

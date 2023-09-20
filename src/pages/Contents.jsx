@@ -14,11 +14,11 @@ import { useParams } from 'react-router-dom';
 
 function Contents() {
   const { contentId } = useParams();
-  const { commentData, setCommentData } = useContent();
+  const { contentData, setContentData } = useContent();
   const { isLoading } = useQuery({
     queryKey: ['content', contentId],
     queryFn: () => getContent(contentId),
-    onSuccess: (data) => setCommentData(data),
+    onSuccess: (data) => setContentData(data),
   });
 
   if (isLoading) {
@@ -36,10 +36,10 @@ function Contents() {
   }
 
   return (
-    commentData && (
+    contentData && (
       <>
         <Helmet>
-          <title>{`${commentData.expand?.author.nickname}`}의 게시글</title>
+          <title>{`${contentData.expand?.author.nickname}`}의 게시글</title>
         </Helmet>
 
         <h1 className="sr-only">Lionly</h1>
@@ -59,11 +59,11 @@ function Contents() {
           }}
         >
           <div>
-            <Header data={commentData} />
-            <Content data={commentData} />
-            <Comments data={commentData} />
+            <Header data={contentData} />
+            <Content data={contentData} />
+            <Comments data={contentData} />
           </div>
-          <InsertComment data={commentData} />
+          <InsertComment data={contentData} />
         </motion.div>
       </>
     )
