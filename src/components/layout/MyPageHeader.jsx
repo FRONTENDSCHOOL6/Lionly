@@ -9,7 +9,6 @@ import LinkButton from '../Button/LinkButton';
 import { ProfileImage } from '../button';
 import pb from './../../api/pocketbase';
 import ProfileEdit from './ProfileEdit';
-// import toast from 'react-hot-toast';
 
 function MyPageHeader() {
   const navigate = useNavigate();
@@ -38,6 +37,7 @@ function MyPageHeader() {
             }}
           >
             <ButtonPrevSVG
+              aria-label="피드로 이동"
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
               tabIndex="0"
@@ -47,6 +47,7 @@ function MyPageHeader() {
           <h1 className="text-lionly-lg text-lionly-white">마이페이지</h1>
           <button type="button" onClick={handleSignOut}>
             <SignOutSVG
+              aria-label="로그아웃"
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
               tabIndex="0"
@@ -70,6 +71,7 @@ function MyPageHeader() {
         {openModal == true ? <ProfileEdit onClose={modalClose} /> : null}
         <div className="mx-[65px] px-[35px] pb-5">
           <LinkButton
+            aria-label="프로필 편집"
             text="프로필 편집"
             onClick={() => {
               setOpenModal(!openModal);
