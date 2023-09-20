@@ -21,7 +21,8 @@ function SignIn() {
         duration: 1,
       }}
       >
-        <h2 className="mt-[30px] pb-4 text-lionly-2xl text-lionly-white">
+        <h2 className="mt-[30px] pb-4 text-lionly-2xl text-lionly-white"
+        tabIndex='0'>
           로그인
         </h2>
         <Login />
