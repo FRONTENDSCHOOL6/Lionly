@@ -4,6 +4,7 @@ import useIsLogin from '@/contexts/AuthProvider';
 import { useInfiniteFeed, useObserveScroll, useScroll } from '@/hooks';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 function Feed() {
   useIsLogin();
@@ -36,8 +37,20 @@ function Feed() {
       <Helmet>
         <title>Feed - {title}</title>
       </Helmet>
-
-      <div className="z-10 h-full bg-lionly-white pb-6">
+      <motion.div
+        className="z-10 h-full bg-lionly-white pb-6"
+        initial={{
+          opacity: 0,
+          y: -50,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+      >
         <div className="sticky top-0 z-10">
           <FeedHeader />
 
@@ -64,7 +77,7 @@ function Feed() {
         <Outlet />
 
         <div ref={listEndRef} className="absolute bottom-[300px]"></div>
-      </div>
+      </motion.div>
     </>
   );
 }
