@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Header({ data }) {
   const navigate = useNavigate();
-  const { setOpenModal } = useContent();
+  // const { setOpenModal } = useContent();
   const { channelList } = useChannel();
   const activatedChannelIndex = Object.values(channelList).indexOf(true);
 
@@ -27,7 +27,7 @@ function Header({ data }) {
         navigate('/feed/healing');
         break;
     }
-    setOpenModal(false);
+    // setOpenModal(false);
 
     return;
   };

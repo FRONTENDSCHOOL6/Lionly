@@ -9,14 +9,14 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
+import { useState } from 'react';
 
 function Comments({ data }) {
   const contentId = useParams();
-  const { setCommentData } = useContent();
+  const [openModal, setOpenModal] = useState(false);
+  const { setContentData, setSelectedComment } = useContent();
   const { handleDeleteComment } = useDeleteComment(data);
   const storageData = useStorageData();
-  const { openModal, setOpenModal, setSelectedComment } = useContent();
-
   const handleOpenModal = (e) => {
     if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
       const commentIndex = e.target.id.slice(-1);
@@ -38,20 +38,24 @@ function Comments({ data }) {
     (async function subscribeComments() {
       await pb.collection('comments').subscribe('*', async () => {
         const content = await getContent(contentId.contentId);
-        setCommentData(content);
+        setContentData(content);
 
         scrollTo({
           top: 10000,
         });
       });
     })();
-  }, [contentId.contentId, setCommentData]);
+  }, [contentId.contentId, setContentData]);
 
   return (
     <section className="px-4">
       <h4 className="sr-only">Comments</h4>
       <ul className="flex flex-col gap-y-3">
-        <ReplyModal data={data} state={openModal} />
+        <ReplyModal
+          data={data}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+        />
 
         {data &&
           data.expand?.comments?.map((comment, index) => (

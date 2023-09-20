@@ -9,7 +9,7 @@ function useCreateComment(data) {
   const commentInputRef = useRef(null);
   const replyInputRef = useRef(null);
   const commentArray = data?.comments;
-  const { setOpenModal, selectedComment } = useContent();
+  const { selectedComment } = useContent();
 
   const handleSubmitComment = async (e, collection) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ function useCreateComment(data) {
       commenter: storageData.id,
     });
 
-    collection === 'comments' ? null : setOpenModal(false);
+    // collection === 'comments' ? null : setOpenModal(false);
     (collection === 'comments' ? commentArray : selectedComment.reply)?.push(
       commentId
     );

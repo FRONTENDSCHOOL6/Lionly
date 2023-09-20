@@ -4,7 +4,6 @@ import { createContext, useState } from 'react';
 export const ContentContext = createContext({});
 
 function ContentProvider({ displayName = 'ContentContext', children }) {
-  const [openModal, setOpenModal] = useState(false);
   const [contentData, setContentData] = useState({});
   const [selectedComment, setSelectedComment] = useState({});
 
@@ -12,8 +11,6 @@ function ContentProvider({ displayName = 'ContentContext', children }) {
     <ContentContext.Provider
       displayName={displayName}
       value={{
-        openModal,
-        setOpenModal,
         contentData,
         setContentData,
         selectedComment,
