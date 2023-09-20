@@ -25,7 +25,7 @@ function useInfiniteFeed() {
       break;
   }
 
-  const { isLoading, isSuccess, data, hasNextPage, fetchNextPage } =
+  const { isLoading, isSuccess, data, hasNextPage, fetchNextPage, refetch } =
     useInfiniteQuery({
       queryKey: ['feedList', window.location.pathname],
       queryFn: ({ pageParam = 1 }) => getFeedList(pageParam, channelName),
@@ -40,7 +40,7 @@ function useInfiniteFeed() {
       refetchOnMount: false,
     });
 
-  return { isLoading, isSuccess, data, hasNextPage, fetchNextPage };
+  return { isLoading, isSuccess, data, hasNextPage, fetchNextPage, refetch };
 }
 
 export default useInfiniteFeed;

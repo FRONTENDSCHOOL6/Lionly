@@ -30,7 +30,7 @@ function MyPageHeader() {
   return (
     <>
       <div className="mx-auto bg-lionly-primary-color">
-        <div className="mx-4 mb-[30px] mt-4 flex justify-between ">
+        <div className="mx-4 mb-[30px] flex justify-between pt-4 ">
           <button
             type="button"
             onClick={() => {
@@ -61,14 +61,14 @@ function MyPageHeader() {
             <p className="mb-2 mt-3 text-lionly-sm-bold text-lionly-gray-2">
               <u>{email}</u>
             </p>
-            <p className="mb-7 items-center text-lionly-lg text-lionly-black">
+            <p className="mb-3 items-center text-lionly-lg text-lionly-black">
               {nickname}
             </p>
           </figcaption>
         </figure>
 
         {openModal == true ? <ProfileEdit onClose={modalClose} /> : null}
-        <div className="mx-[65px] px-[35px]">
+        <div className="mx-[65px] px-[35px] pb-5">
           <LinkButton
             text="프로필 편집"
             onClick={() => {
