@@ -140,10 +140,13 @@ function SignUp() {
       }}
     >
       <Helmet>
-        <title>Lionly - SignIn</title>
+        <title>Lionly - SignUp</title>
       </Helmet>
       <div className="flex flex-col gap-y-[26px] px-8">
-        <h2 className="mt-[30px] text-lionly-2xl text-lionly-white">
+        <h2
+          className="mt-[30px] text-lionly-2xl text-lionly-white"
+          tabIndex="0"
+        >
           회원가입
         </h2>
 

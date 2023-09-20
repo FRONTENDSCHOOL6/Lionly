@@ -1,6 +1,5 @@
 export { default as useChannel } from './useChannel';
 export { default as useModal } from './useModal';
-// export { default as useContent } from './useContent1';
 export { default as useCreateComment } from './useCreateComment';
 export { default as useDeleteComment } from './useDeleteComment';
 export { default as useInfiniteFeed } from './useInfiniteFeed';

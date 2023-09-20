@@ -35,7 +35,6 @@ function useCreateComment(data) {
     (collection === 'comments' ? commentArray : selectedComment.reply)?.push(
       commentId
     );
-    console.log('update 전');
     await updateComment(
       collection === 'comments' ? 'feeds' : 'comments',
       collection === 'comments' ? data?.id : selectedComment?.id,
@@ -43,12 +42,7 @@ function useCreateComment(data) {
         ? { comments: commentArray }
         : { reply: selectedComment?.reply }
     );
-    console.log('update 후');
-
-    (collection === 'comments'
-      ? commentInputRef
-      : replyInputRef
-    ).current.value = '';
+    (collection === 'comments').current.value = '';
 
     collection === 'comments' ? null : setOpenModal(false);
 

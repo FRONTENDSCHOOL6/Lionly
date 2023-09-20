@@ -11,7 +11,6 @@ function Header({ data }) {
     setOpenModal(false);
     navigate(-1);
   };
-
   return (
     <header className="sticky top-0 z-10 flex justify-center bg-lionly-primary-color px-4 py-3">
       <LeftArrow
