@@ -4,8 +4,8 @@ import { createContext, useState } from 'react';
 export const ContentContext = createContext({});
 
 function ContentProvider({ displayName = 'ContentContext', children }) {
-  const [selectedComment, setSelectedComment] = useState({});
   const [contentData, setContentData] = useState({});
+  const [selectedComment, setSelectedComment] = useState({});
 
   return (
     <ContentContext.Provider
