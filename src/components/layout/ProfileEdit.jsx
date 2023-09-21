@@ -10,6 +10,7 @@ import useDropDown from '@/hooks/useDropDown';
 import FormInput from '../input/FormInput';
 import { nickNameReg } from '@/utils/validation';
 import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
+import { handlePreventTabControl } from '@/utils';
 
 function ProfileEdit({ onClose }) {
   const { profile_image, id, nickName } = useStorageData();
@@ -83,11 +84,16 @@ function ProfileEdit({ onClose }) {
         mx-auto h-[320px]
       w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-lionly-white pt-1"
       >
-        <h3 className="sr-only" id="ProfileEdit">
+        <h3 className="sr-only " id="ProfileEdit">
           프로필 편집
         </h3>
-        <button type="button" onClick={onClose}>
-          <DeleteSVG className="absolute right-4" />
+        <button
+          type="button"
+          onClick={onClose}
+          className="ml-[258px]"
+          aria-label="닫기"
+        >
+          <DeleteSVG />
         </button>
         <div className="flex flex-col items-center gap-2">
           <button
@@ -137,6 +143,7 @@ function ProfileEdit({ onClose }) {
           <button
             className="h-9 w-52 rounded-lg bg-lionly-primary-color px-2 py-2 text-lionly-md text-lionly-white"
             type="submit"
+            onKeyDown={(e) => handlePreventTabControl(e)}
             onClick={() => {
               handleUpdate();
             }}
