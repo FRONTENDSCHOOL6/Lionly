@@ -42,7 +42,6 @@ function useCreateComment() {
         ? { comments: commentArray }
         : { reply: selectedComment?.reply }
     );
-
     (collection === 'comments'
       ? commentInputRef
       : replyInputRef

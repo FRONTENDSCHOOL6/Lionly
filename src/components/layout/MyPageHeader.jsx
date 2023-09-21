@@ -30,7 +30,7 @@ function MyPageHeader() {
   return (
     <>
       <div className="mx-auto bg-lionly-primary-color">
-        <div className="mx-4 mb-[30px] flex justify-between pt-4 ">
+        <div className="mx-4 mb-[10px] flex justify-between pt-4 ">
           <button
             type="button"
             onClick={() => {
