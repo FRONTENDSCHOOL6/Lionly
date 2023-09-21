@@ -34,7 +34,8 @@ function FeedHeader() {
           <h1 className="text-lionly-xl text-white">Lionly</h1>
         </motion.div>
         <ProfileEditSVG
-          aria-hidden
+          aria-label="마이 페이지"
+          role="button"
           tabIndex="0"
           width={24}
           height={24}
