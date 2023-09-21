@@ -35,6 +35,7 @@ function useCreateComment() {
     (collection === 'comments' ? commentArray : selectedComment.reply)?.push(
       commentId
     );
+    console.log(commentArray);
     await updateComment(
       collection === 'comments' ? 'feeds' : 'comments',
       collection === 'comments' ? contentData?.id : selectedComment?.id,
