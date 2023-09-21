@@ -30,28 +30,28 @@ function ChannelProvider({ displayName = 'ChannelContext', children }) {
         }));
         break;
 
-      case '/feed/dailys':
+      case '/feed/daily':
         setChannelList(() => ({
           ...allFalseState,
           일상방: true,
         }));
         break;
 
-      case '/feed/foods':
+      case '/feed/food':
         setChannelList(() => ({
           ...allFalseState,
           맛집방: true,
         }));
         break;
 
-      case '/feed/jobs':
+      case '/feed/job':
         setChannelList(() => ({
           ...allFalseState,
           취업방: true,
         }));
         break;
 
-      case '/feed/healings':
+      case '/feed/healing':
         setChannelList(() => ({
           ...allFalseState,
           힐링방: true,
