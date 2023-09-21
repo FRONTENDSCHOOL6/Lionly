@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
-function Comments() {
+function Comments({ data }) {
   const contentId = useParams();
   const [openModal, setOpenModal] = useState(false);
   const { contentData, setContentData, setSelectedComment } = useContent();
@@ -147,5 +147,9 @@ function Comments() {
     </section>
   );
 }
+
+Comments.propTypes = {
+  data: object,
+};
 
 export default Comments;
