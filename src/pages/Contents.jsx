@@ -13,12 +13,15 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 function Contents() {
-  const { contentId } = useParams();
   const { contentData, setContentData } = useContent();
+  const { contentId } = useParams();
   const { isLoading } = useQuery({
     queryKey: ['content', contentId],
     queryFn: () => getContent(contentId),
-    onSuccess: (data) => setContentData(data),
+
+    onSuccess: (data) => {
+      setContentData(data);
+    },
   });
 
   if (isLoading) {

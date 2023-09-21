@@ -4,12 +4,10 @@ import { ProfileImage } from '@/components/button';
 import { useContent, useDeleteComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
-import { object } from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
-import { useState } from 'react';
 
 function Comments() {
   const contentId = useParams();
@@ -151,9 +149,5 @@ function Comments() {
     </section>
   );
 }
-
-Comments.propTypes = {
-  contentData: object,
-};
 
 export default Comments;

@@ -1,12 +1,12 @@
 import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
 import { useChannel, useContent } from '@/hooks';
-import { object } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const navigate = useNavigate();
-  const { contentData } = useContent();
   const { channelList } = useChannel();
+  const { contentData } = useContent();
+
   const activatedChannelIndex = Object.values(channelList).indexOf(true);
 
   const handleGoBack = () => {
@@ -27,7 +27,6 @@ function Header() {
         navigate('/feed/healing');
         break;
     }
-    // setOpenModal(false);
 
     return;
   };
@@ -54,9 +53,5 @@ function Header() {
     </header>
   );
 }
-
-Header.propTypes = {
-  data: object,
-};
 
 export default Header;

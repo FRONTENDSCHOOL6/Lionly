@@ -1,7 +1,6 @@
 import { ProfileImage } from '@/components/button';
 import { useContent } from '@/hooks';
 import { getDate, getPbImageURL } from '@/utils';
-import { object } from 'prop-types';
 
 function Content() {
   const { contentData } = useContent();
@@ -49,9 +48,5 @@ function Content() {
     </main>
   );
 }
-
-Content.propTypes = {
-  contentData: object,
-};
 
 export default Content;
