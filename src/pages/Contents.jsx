@@ -6,6 +6,7 @@ import {
   Header,
   InsertComment,
 } from '@/components/layout/contents';
+import { useContent } from '@/hooks';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -13,9 +14,12 @@ import { useParams } from 'react-router-dom';
 
 function Contents() {
   const { contentId } = useParams();
+  const { setContentData } = useContent();
   const { isLoading, data } = useQuery({
     queryKey: ['content', contentId],
     queryFn: () => getContent(contentId),
+
+    onSuccess: (data) => setContentData(data),
   });
 
   if (isLoading) {

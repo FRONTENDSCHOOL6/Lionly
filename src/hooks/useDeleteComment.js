@@ -8,9 +8,10 @@ function useDeleteComment(data) {
       )
     ) {
       await pb.collection(collection).delete(recordId);
-      const commentData = data.expand.comments?.filter(
+      const commentData = data?.expand.comments?.filter(
         (comment) => comment.id === recordId
       );
+
       if (commentData[0]?.reply.length > 0)
         commentData[0].reply.forEach(
           async (reply) => await pb.collection('reply').delete(reply)

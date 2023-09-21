@@ -4,12 +4,12 @@ import { useContent } from '@/hooks';
 import { useRef } from 'react';
 import useStorageData from './useStorageData';
 
-function useCreateComment(data) {
+function useCreateComment() {
   const storageData = useStorageData();
   const commentInputRef = useRef(null);
   const replyInputRef = useRef(null);
-  const { selectedComment } = useContent();
-  const commentArray = data?.comments;
+  const { contentData, selectedComment } = useContent();
+  const commentArray = contentData?.comments;
 
   const handleSubmitComment = async (e, collection) => {
     e.preventDefault();
@@ -35,9 +35,10 @@ function useCreateComment(data) {
     (collection === 'comments' ? commentArray : selectedComment.reply)?.push(
       commentId
     );
+    console.log(commentArray);
     await updateComment(
       collection === 'comments' ? 'feeds' : 'comments',
-      collection === 'comments' ? data?.id : selectedComment?.id,
+      collection === 'comments' ? contentData?.id : selectedComment?.id,
       collection === 'comments'
         ? { comments: commentArray }
         : { reply: selectedComment?.reply }

@@ -5,11 +5,14 @@ export const ContentContext = createContext({});
 
 function ContentProvider({ displayName = 'ContentContext', children }) {
   const [selectedComment, setSelectedComment] = useState({});
+  const [contentData, setContentData] = useState({});
 
   return (
     <ContentContext.Provider
       displayName={displayName}
       value={{
+        contentData,
+        setContentData,
         selectedComment,
         setSelectedComment,
       }}
