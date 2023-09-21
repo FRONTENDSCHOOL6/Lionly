@@ -82,8 +82,7 @@ function Edit() {
     await refetch();
     toast.success('게시글이 성공적으로 수정 되었습니다!');
     navigate('/mypage');
-
-    // window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
+    window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
   }, [navigate, textValue, changeImage]);
 
   const handleTextChange = useCallback((e) => {
@@ -147,7 +146,7 @@ function Edit() {
             >
               <h3 className="sr-only">로그인 된 사용자 게시물</h3>
               <button
-                className="mx-auto mb-4 h-10 w-[130px] rounded-full border  border-lionly-white text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
+                className="mx-auto mb-4 h-10 w-[130px] rounded-full border  border-lionly-white text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color max-[365px]:w-[100px] max-[365px]:text-lionly-xs max-[365px]:h-8"
                 onClick={handleButtonClick}
               >
                 <img
@@ -167,20 +166,20 @@ function Edit() {
           </main>
           <footer className="flex  w-full flex-grow flex-col">
             <div className="w-full rounded-t-xl bg-lionly-white ">
-              <div className="flex justify-between p-6">
-                <div>
+              <div className=" flex justify-between p-6 max-[365px]:text-[12px] max-[365px]:p-4">
+                <div >
                   <h2 className="inline" tabIndex="0">
                     게시물 수정
                   </h2>
                   <div className="ml-3 inline text-xl font-thin">
                     <span
-                      className="text-lionly-base font-thin text-lionly-red "
+                      className="text-lionly-base font-thin text-lionly-red max-[365px]:text-[12px] "
                       aria-live="assertive"
                     >
                       {textLength}
                     </span>
                     <span
-                      className="text-lionly-base font-thin text-lionly-gray-3"
+                      className="text-lionly-base font-thin text-lionly-gray-3 max-[365px]:text-[12px]"
                       aria-label="최대 글자 수 200"
                       tabIndex="0"
                     >
@@ -188,9 +187,9 @@ function Edit() {
                     </span>
                   </div>
                 </div>
-                <div>
+                <div className=''>
                   <select
-                    className="mr-10 w-[100px] pl-4 text-sm"
+                    className="mr-10 w-[100px] pl-4 text-sm max-[365px]:text-[12px] max-[365px]:pt-1 max-[365px]:pr-0 max-[365px]:mt-1 max-[365px]:w-[85px] max-[365px]:mr-3"
                     ref={channelsRef}
                     tabIndex="0"
                     aria-label="게시글 채널 선택"
@@ -201,16 +200,16 @@ function Edit() {
                     <option value="힐링방">힐링방 ☘️</option>
                   </select>
                   <button
-                    className="text-lionly-sm-bold text-lionly-gray-3 hover:text-lionly-black"
+                    className="text-lionly-sm-bold text-lionly-gray-3 hover:text-lionly-black max-[365px]:text-[12px] "
                     onClick={handleDeleteAllClick}
                   >
-                    전체 삭제
+                    <span className=''>전체 삭제</span>
                   </button>
                 </div>
               </div>
             </div>
             <textarea
-              className="w-full flex-grow resize-none rounded-b-xl p-6 placeholder:pt-[10%] placeholder:text-center focus:outline-none"
+              className="w-full flex-grow resize-none rounded-b-xl p-6 placeholder:pt-[10%] placeholder:text-center focus:outline-none max-[365px]:text-[10px]"
               placeholder="글을 작성해주세요.✏️"
               maxLength="200"
               value={textValue}

@@ -52,6 +52,7 @@ function Feed() {
         {showScrollTopButton ? (
           <div className="sticky left-[100%] top-[265px] inline pr-6">
             <button
+              id="scrollTobButton"
               role="button"
               aria-label="상단으로 이동"
               tabIndex="0"

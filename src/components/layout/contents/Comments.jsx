@@ -4,32 +4,30 @@ import { ProfileImage } from '@/components/button';
 import { useContent, useDeleteComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
-import { object } from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
-function Comments({ data }) {
+function Comments() {
   const contentId = useParams();
-  const { setCommentData } = useContent();
-  const { handleDeleteComment } = useDeleteComment(data);
+  const [openModal, setOpenModal] = useState(false);
+  const { contentData, setContentData, setSelectedComment } = useContent();
+  const { handleDeleteComment } = useDeleteComment(contentData);
   const storageData = useStorageData();
-  const { openModal, setOpenModal, setSelectedComment } = useContent();
-
   const handleOpenModal = (e) => {
     if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
       const commentIndex = e.target.id.slice(-1);
 
       setSelectedComment({
-        id: data.expand?.comments[commentIndex]?.id,
+        id: contentData.expand?.comments[commentIndex]?.id,
         nickname:
-          data.expand?.comments[commentIndex]?.expand.commenter.nickname,
-        reply: data.expand?.comments[commentIndex]?.reply,
+          contentData.expand?.comments[commentIndex]?.expand.commenter.nickname,
+        reply: contentData.expand?.comments[commentIndex]?.reply,
       });
 
       setOpenModal(true);
-      scrollTo({ top: 10000 });
+      scrollTo({ top: 10000, behavior: 'smooth' });
     }
     return;
   };
@@ -38,23 +36,27 @@ function Comments({ data }) {
     (async function subscribeComments() {
       await pb.collection('comments').subscribe('*', async () => {
         const content = await getContent(contentId.contentId);
-        setCommentData(content);
+        setContentData(content);
 
         scrollTo({
           top: 10000,
         });
       });
     })();
-  }, [contentId.contentId, setCommentData]);
+  }, [contentId.contentId, setContentData]);
 
   return (
     <section className="px-4">
       <h4 className="sr-only">Comments</h4>
       <ul className="flex flex-col gap-y-3">
-        <ReplyModal data={data} state={openModal} />
+        <ReplyModal
+          contentData={contentData}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+        />
 
-        {data &&
-          data.expand?.comments?.map((comment, index) => (
+        {contentData &&
+          contentData.expand?.comments?.map((comment, index) => (
             <li key={comment.id} className="relative flex flex-col">
               <div className="flex gap-x-3">
                 <ProfileImage
@@ -80,7 +82,7 @@ function Comments({ data }) {
                         onClick={() =>
                           handleDeleteComment('comments', comment.id)
                         }
-                        className="w-3 fill-lionly-primary-color transition-all hover:scale-125 focus:scale-125"
+                        className="w-3 fill-lionly-primary-color transition-all hover:scale-125"
                       />
                     ) : null}
                   </div>
@@ -93,8 +95,8 @@ function Comments({ data }) {
                     role="button"
                     aria-haspopup="true"
                     aria-pressed={openModal ? true : false}
-                    onKeyDown={(e) => handleOpenModal(e, data)}
-                    onClick={(e) => handleOpenModal(e, data)}
+                    onKeyDown={(e) => handleOpenModal(e, contentData)}
+                    onClick={(e) => handleOpenModal(e, contentData)}
                     className="w-fit cursor-pointer text-lionly-sm text-lionly-gray-2"
                   >
                     답글 달기
@@ -130,7 +132,7 @@ function Comments({ data }) {
                               onClick={() =>
                                 handleDeleteComment('reply', reply.id)
                               }
-                              className="w-3 fill-lionly-primary-color transition-all hover:scale-125 focus:scale-125"
+                              className="w-3 fill-lionly-primary-color transition-all hover:scale-125"
                             />
                           ) : null}
                         </div>
@@ -147,9 +149,5 @@ function Comments({ data }) {
     </section>
   );
 }
-
-Comments.propTypes = {
-  data: object,
-};
 
 export default Comments;

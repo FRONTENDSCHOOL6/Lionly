@@ -9,7 +9,7 @@ import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
 import Spinner from '../Spinner';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
 function MyFeedList() {
   const [drop, setDrop] = useState(null);
   const { isLoading, data } = useInfiniteMyFeed();
@@ -58,10 +58,34 @@ function MyFeedList() {
                       <p className="font-bold text-lionly-black">
                         {item.expand.author.nickname}
                       </p>
-                      <p className="text-lionly-sm text-lionly-gray-1">
-                        {getDate(item.created)}
-                      </p>
+                      <div className='flex '>
+                        <p className="text-lionly-sm text-lionly-gray-1">
+                          {getDate(item.created)}
+                        </p>
+                        <div className="flex items-center gap-x-3 ml-1 ">
+                          <span className="text-lionly-sm-bold text-lionly-gray-2">
+                            {item.created !== item.updated ? '수정됨' : null}
+                          </span>
+                          <div className="flex items-center gap-x-1">
+                            <Comment
+                              aria-hidden
+                              className="h-fit w-3 items-center fill-lionly-black"
+                            />
+                            <span
+                              aria-label="댓글 수"
+                              className="text-lionly-sm-bold text-lionly-black"
+                            >
+                              {item.expand.comments
+                                ? item.expand.comments
+                                    .map((comment) => 1 + comment.reply?.length)
+                                    .reduce((acc, cur) => acc + cur)
+                                : 0}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </figcaption>
+
                     <button
                       type="button"
                       className="absolute right-0 h-9 w-9"
