@@ -1,11 +1,12 @@
 import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
-import { useChannel, useContent } from '@/hooks';
+import { useChannel } from '@/hooks';
+import { object } from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Header() {
+function Header({ data }) {
   const navigate = useNavigate();
   const { channelList } = useChannel();
-  const { contentData } = useContent();
+  // const { contentData } = useContent();
 
   const activatedChannelIndex = Object.values(channelList).indexOf(true);
 
@@ -44,16 +45,18 @@ function Header() {
       </Link>
 
       <div className="flex flex-col items-center">
-        <h2 className="text-lionly-sm text-lionly-white">
-          {contentData.channels}
-        </h2>
+        <h2 className="text-lionly-sm text-lionly-white">{data.channels}</h2>
 
         <h3 className="w-full text-center text-lionly-base font-bold text-lionly-black">
-          {contentData.expand?.author.nickname}의 게시글
+          {data.expand?.author.nickname}의 게시글
         </h3>
       </div>
     </header>
   );
 }
+
+Header.propTypes = {
+  data: object,
+};
 
 export default Header;

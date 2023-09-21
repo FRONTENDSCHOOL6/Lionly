@@ -4,26 +4,28 @@ import { ProfileImage } from '@/components/button';
 import { useContent, useDeleteComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
+import { object } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
-function Comments() {
+function Comments({ data }) {
   const contentId = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const { contentData, setContentData, setSelectedComment } = useContent();
-  const { handleDeleteComment } = useDeleteComment(contentData);
+  const [contentData, setContentData] = useState(data);
+  const { setSelectedComment } = useContent();
+  const { handleDeleteComment } = useDeleteComment(data);
   const storageData = useStorageData();
   const handleOpenModal = (e) => {
     if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
       const commentIndex = e.target.id.slice(-1);
 
       setSelectedComment({
-        id: contentData.expand?.comments[commentIndex]?.id,
+        id: data?.expand?.comments[commentIndex]?.id,
         nickname:
-          contentData.expand?.comments[commentIndex]?.expand.commenter.nickname,
-        reply: contentData.expand?.comments[commentIndex]?.reply,
+          data?.expand?.comments[commentIndex]?.expand.commenter.nickname,
+        reply: data?.expand?.comments[commentIndex]?.reply,
       });
 
       setOpenModal(true);
@@ -50,7 +52,7 @@ function Comments() {
       <h4 className="sr-only">Comments</h4>
       <ul className="flex flex-col gap-y-3">
         <ReplyModal
-          contentData={contentData}
+          data={data}
           openModal={openModal}
           setOpenModal={setOpenModal}
         />
@@ -149,5 +151,9 @@ function Comments() {
     </section>
   );
 }
+
+Comments.propTypes = {
+  data: object,
+};
 
 export default Comments;
