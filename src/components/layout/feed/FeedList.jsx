@@ -21,10 +21,10 @@ function FeedList() {
       </div>
     );
   }
-
+  console.log(data);
   return (
     data && (
-      <main className="mt-6 min-h-[calc(100vh-280px)]">
+      <main className="min-h-[calc(100vh-280px)]">
         <ul
           id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
           role="tabpanel"
@@ -42,17 +42,13 @@ function FeedList() {
                     tabIndex={0}
                     key={content.id}
                     id={content.id}
-                    onKeyDown={(e) => {
-                      e.key === 'Enter'
-                        ? navigate(`/feed/contents/${content.id}`)
-                        : handleKeyboardArrowControl(e);
-                    }}
+                    onKeyDown={handleKeyboardArrowControl}
                     onClick={() => {
                       navigate(`/feed/contents/${content.id}`);
                     }}
                     className="cursor-pointer"
                   >
-                    <a className="flex flex-col gap-y-2.5">
+                    <div className="flex flex-col gap-y-2.5">
                       <figure className="flex h-10 w-full gap-x-3">
                         <ProfileImage
                           size={40}
@@ -82,8 +78,10 @@ function FeedList() {
                                 aria-hidden
                                 className="h-fit w-3 items-center fill-lionly-black"
                               />
-                              <span className="text-lionly-sm text-lionly-black">
-                                <span className="sr-only">댓글 수</span>
+                              <span
+                                aria-label="댓글 수"
+                                className="text-lionly-sm text-lionly-black"
+                              >
                                 {content.expand.comments
                                   ? content.expand.comments
                                       .map(
@@ -99,7 +97,7 @@ function FeedList() {
 
                       <figure className="flex w-full flex-col gap-y-[14px]">
                         <img
-                          aria-hidden
+                          alt={`${content.expand.author.nickname}의 피드 이미지`}
                           src={getPbImageURL(content, 'feed_image')}
                           className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
                         />
@@ -110,7 +108,7 @@ function FeedList() {
                           </p>
                         </figcaption>
                       </figure>
-                    </a>
+                    </div>
                   </li>
                 ))
               ) : (
@@ -128,7 +126,6 @@ function FeedList() {
           {!hasNextPage && data.pages[0].totalPages !== 0 ? (
             <p
               id="lastContent"
-              tabIndex="0"
               role="status"
               className="pt-6 text-center text-lionly-base text-lionly-red"
             >

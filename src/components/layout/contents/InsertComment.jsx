@@ -1,13 +1,14 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ProfileImage } from '@/components/button';
-import { useCreateComment } from '@/hooks';
+import { useContent, useCreateComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
-import { object } from 'prop-types';
 
-function InsertComment({ data }) {
+function InsertComment() {
   const storageData = useStorageData();
+  const { contentData } = useContent();
   const { id, nickname, profile_image } = storageData;
-  const { commentInputRef, handleSubmitComment } = useCreateComment(data);
+  const { commentInputRef, handleSubmitComment } =
+    useCreateComment(contentData);
   const handleInputComment = (e) => {
     const textarea = e.currentTarget;
     textarea.style.height = '';
@@ -53,9 +54,5 @@ function InsertComment({ data }) {
     </section>
   );
 }
-
-InsertComment.propTypes = {
-  data: object,
-};
 
 export default InsertComment;
