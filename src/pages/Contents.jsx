@@ -16,7 +16,7 @@ function Contents() {
   const { contentData, setContentData } = useContent();
   const { contentId } = useParams();
   const { isLoading } = useQuery({
-    queryKey: ['content', contentId],
+    queryKey: ['content'],
     queryFn: () => getContent(contentId),
 
     onSuccess: (data) => {

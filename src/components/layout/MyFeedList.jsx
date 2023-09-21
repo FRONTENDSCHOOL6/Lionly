@@ -45,6 +45,7 @@ function MyFeedList() {
                   tabIndex="0"
                   key={item.id}
                   id={item.id}
+                  onKeyDown={(e) => console.log(e.target)}
                   onClick={() => {}}
                   className="mb-[22px] cursor-pointer"
                 >
@@ -52,6 +53,7 @@ function MyFeedList() {
                     <img
                       src={getPbImageURL(item.expand.author, 'profile_image')}
                       aria-hidden
+                      tabIndex="-1"
                       className="h-[40px] w-[40px] rounded-full"
                     />
                     <figcaption className="ml-3 w-full">
