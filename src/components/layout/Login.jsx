@@ -60,11 +60,13 @@ function Login() {
 
   return (
     <div>
-      <form
-        onSubmit={handleSignIn}
-        className="flex flex-col items-center gap-1"
-      >
-        <label htmlFor="login"></label>
+      <form onSubmit={handleSignIn} className="flex flex-col  gap-1">
+        <label
+          htmlFor="login"
+          className=" block text-lionly-sm-bold text-lionly-white"
+        >
+          아이디
+        </label>
         <motion.input
           animate={controls}
           className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
@@ -78,8 +80,10 @@ function Login() {
 
         <label
           htmlFor="password"
-          className=" block text-lionly-sm-bold text-lionly-white"
-        ></label>
+          className=" mt-1 block text-lionly-sm-bold text-lionly-white"
+        >
+          비밀번호
+        </label>
         <motion.input
           animate={controls}
           className="mb-1 h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"

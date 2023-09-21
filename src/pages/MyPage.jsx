@@ -1,4 +1,3 @@
-import { ReactComponent as DownArrowSVG } from '@/assets/arrow_Feed_down.svg';
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import MyFeedList from '@/components/layout/MyFeedList';
 import MyPageHeader from '@/components/layout/MyPageHeader';
@@ -12,12 +11,7 @@ function MyPage() {
   useIsLogin();
   const { hasNextPage, fetchNextPage } = useInfiniteMyFeed();
   const { listEndRef } = useObserveScroll(fetchNextPage);
-  const {
-    showScrollTopButton,
-    showScrollBottomButton,
-    handleScrollTop,
-    handleScrollBottom,
-  } = useScroll();
+  const { showScrollTopButton, handleScrollTop } = useScroll();
 
   return (
     <motion.div
@@ -34,7 +28,7 @@ function MyPage() {
       }}
     >
       <Helmet>
-        <title>마이페이지</title>
+        <title>Lionly - MyPage</title>
       </Helmet>
       <header className="sticky top-0 z-10">
         <MyPageHeader />
@@ -45,18 +39,6 @@ function MyPage() {
         </div>
       </header>
       <div className="z-10 h-full bg-lionly-white">
-        {showScrollBottomButton ? (
-          <button
-            role="button"
-            aria-label="하단으로 이동"
-            type="button"
-            onClick={handleScrollBottom}
-            className="sticky left-[100%] top-[93.5%] mr-6 rounded-full shadow-lg"
-          >
-            <DownArrowSVG className="h-7 w-7 rounded-full shadow-lg transition-all  hover:scale-125 focus:scale-125" />
-          </button>
-        ) : null}
-
         {showScrollTopButton ? (
           <div className="sticky left-[100%] top-[370px] inline pr-6">
             <button
