@@ -8,19 +8,19 @@ function useInfiniteFeed() {
       channelName = '';
       break;
 
-    case '/feed/dailys':
+    case '/feed/daily':
       channelName = '일상방';
       break;
 
-    case '/feed/foods':
+    case '/feed/food':
       channelName = '맛집방';
       break;
 
-    case '/feed/jobs':
+    case '/feed/job':
       channelName = '취업방';
       break;
 
-    case '/feed/healings':
+    case '/feed/healing':
       channelName = '힐링방';
       break;
   }
