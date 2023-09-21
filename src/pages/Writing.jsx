@@ -90,13 +90,14 @@ function Writing() {
       </Helmet>
 
       <header className="mt-4 flex justify-between px-4 pb-3">
-        <LeftArrow
+        <button
+          type="button"
           className="mt-2 hover:scale-125"
           aria-label="뒤로 가기"
-          role="button"
-          tabIndex="0"
           onClick={handleWritingCancel}
-        />
+        >
+          <LeftArrow />
+        </button>
 
         <button
           type="submit"

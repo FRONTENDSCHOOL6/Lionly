@@ -21,7 +21,7 @@ function FeedList() {
       </div>
     );
   }
-
+  console.log(data);
   return (
     data && (
       <main className="mt-6 min-h-[calc(100vh-280px)]">
