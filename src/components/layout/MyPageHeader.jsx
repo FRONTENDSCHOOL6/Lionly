@@ -9,7 +9,6 @@ import LinkButton from '../Button/LinkButton';
 import { ProfileImage } from '../button';
 import pb from './../../api/pocketbase';
 import ProfileEdit from './ProfileEdit';
-// import toast from 'react-hot-toast';
 
 function MyPageHeader() {
   const navigate = useNavigate();
@@ -32,6 +31,7 @@ function MyPageHeader() {
       <div className="mx-auto bg-lionly-primary-color">
         <div className="mx-4 mb-[10px] flex justify-between pt-4 ">
           <button
+            aria-label="피드로 이동"
             type="button"
             onClick={() => {
               navigate('/feed');
@@ -44,8 +44,13 @@ function MyPageHeader() {
               className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
-          <h1 className="text-lionly-lg text-lionly-white">마이페이지</h1>
-          <button type="button" onClick={handleSignOut}>
+          <h1
+            className="text-lionly-lg text-lionly-white"
+            aria-label="마이페이지"
+          >
+            마이페이지
+          </h1>
+          <button type="button" aria-label="로그아웃" onClick={handleSignOut}>
             <SignOutSVG
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
@@ -70,6 +75,7 @@ function MyPageHeader() {
         {openModal == true ? <ProfileEdit onClose={modalClose} /> : null}
         <div className="mx-[65px] px-[35px] pb-5">
           <LinkButton
+            aria-label="프로필 편집"
             text="프로필 편집"
             onClick={() => {
               setOpenModal(!openModal);

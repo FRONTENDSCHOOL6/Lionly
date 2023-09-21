@@ -59,7 +59,7 @@ function ProfileEdit({ onClose }) {
         });
       }
 
-      toast('변경되었습니다!');
+      toast.success('변경되었습니다!');
       location.reload();
     } catch (error) {
       if (error.response.code === 400) {
@@ -75,11 +75,17 @@ function ProfileEdit({ onClose }) {
   return (
     <div className="fixed left-0 top-0 z-20 h-full w-full bg-gray-800/40">
       <div
+        role="dialog"
+        aria-labelledby="ProfileEdit"
+        aria-modal="true"
         ref={modalRef}
         className="absolute  left-1/2 top-1/2 z-50
         mx-auto h-[320px]
-      w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-lionly-white pt-1  "
+      w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-lionly-white pt-1"
       >
+        <h3 className="sr-only" id="ProfileEdit">
+          프로필 편집
+        </h3>
         <button type="button" onClick={onClose}>
           <DeleteSVG className="absolute right-4" />
         </button>
@@ -109,9 +115,9 @@ function ProfileEdit({ onClose }) {
           <form>
             <label htmlFor="profileImage"></label>
             <input
+              type="file"
               id="profileImage"
               className="hidden"
-              type="file"
               ref={profileImageFile}
               onChange={handleFileUpload}
             />
@@ -138,7 +144,10 @@ function ProfileEdit({ onClose }) {
             변경하기
           </button>
         </div>
-        <LionLogoSVG className="absolute bottom-0 right-4 h-16 w-14" />
+        <LionLogoSVG
+          aria-hidden
+          className="absolute bottom-0 right-4 h-16 w-14"
+        />
       </div>
     </div>
   );
