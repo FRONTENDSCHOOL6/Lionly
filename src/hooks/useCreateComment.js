@@ -4,12 +4,12 @@ import { useContent } from '@/hooks';
 import { useRef } from 'react';
 import useStorageData from './useStorageData';
 
-function useCreateComment(data) {
+function useCreateComment() {
   const storageData = useStorageData();
   const commentInputRef = useRef(null);
   const replyInputRef = useRef(null);
-  const commentArray = data.comments;
-  const { setOpenModal, selectedComment } = useContent();
+  const { contentData, selectedComment } = useContent();
+  const commentArray = contentData?.comments;
 
   const handleSubmitComment = async (e, collection) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ function useCreateComment(data) {
     );
     await updateComment(
       collection === 'comments' ? 'feeds' : 'comments',
-      collection === 'comments' ? data?.id : selectedComment?.id,
+      collection === 'comments' ? contentData?.id : selectedComment?.id,
       collection === 'comments'
         ? { comments: commentArray }
         : { reply: selectedComment?.reply }
@@ -47,7 +47,11 @@ function useCreateComment(data) {
       : replyInputRef
     ).current.value = '';
 
-    collection === 'comments' ? null : setOpenModal(false);
+    if (collection === 'comments') {
+      commentInputRef.current.style.height = '40px';
+      commentInputRef.current.style.transform = 'translateY(0px)';
+      commentInputRef.current.style.marginTop = '0px';
+    }
 
     return;
   };

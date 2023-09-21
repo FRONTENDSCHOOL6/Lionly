@@ -13,12 +13,15 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 function Contents() {
+  const { contentData, setContentData } = useContent();
   const { contentId } = useParams();
-  const { commentData, setCommentData } = useContent();
   const { isLoading } = useQuery({
     queryKey: ['content', contentId],
     queryFn: () => getContent(contentId),
-    onSuccess: (data) => setCommentData(data),
+
+    onSuccess: (data) => {
+      setContentData(data);
+    },
   });
 
   if (isLoading) {
@@ -36,16 +39,16 @@ function Contents() {
   }
 
   return (
-    commentData && (
+    contentData && (
       <>
         <Helmet>
-          <title>{`${commentData.expand?.author.nickname}`}의 게시글</title>
+          <title>{`${contentData.expand?.author.nickname}`}의 게시글</title>
         </Helmet>
 
         <h1 className="sr-only">Lionly</h1>
 
         <motion.div
-          className="flex min-h-[calc(100vh-50px)] flex-col justify-between bg-lionly-white"
+          className="flex min-h-[calc(100vh)] flex-col justify-between bg-lionly-white"
           initial={{
             opacity: 0,
             y: -50,
@@ -59,11 +62,11 @@ function Contents() {
           }}
         >
           <div>
-            <Header data={commentData} />
-            <Content data={commentData} />
-            <Comments data={commentData} />
+            <Header />
+            <Content />
+            <Comments />
           </div>
-          <InsertComment data={commentData} />
+          <InsertComment />
         </motion.div>
       </>
     )
