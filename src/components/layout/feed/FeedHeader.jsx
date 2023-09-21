@@ -1,12 +1,11 @@
 import useStorageData from '@/hooks/useStorageData';
-import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { LogoutButton, ProfileImage, WritingButton } from '../../button';
 import { ReactComponent as LionHeadLogoSVG } from '/src/assets/lionHeadLogo_common.svg';
 import { ReactComponent as ProfileEditSVG } from '/src/assets/profileEdit_Feed.svg';
-import { motion } from 'framer-motion';
 
 function FeedHeader() {
-  const navigate = useNavigate();
   const { id, nickname, profile_image } = useStorageData();
 
   return (
@@ -33,17 +32,19 @@ function FeedHeader() {
           <LionHeadLogoSVG aria-hidden />
           <h1 className="text-lionly-xl text-white">Lionly</h1>
         </motion.div>
-        <ProfileEditSVG
+        <Link
           aria-label="마이 페이지"
           role="button"
           tabIndex="0"
-          width={24}
-          height={24}
-          onClick={() => {
-            navigate('/mypage');
-          }}
-          className="cursor-pointer bg-lionly-primary-color fill-lionly-white transition-all hover:scale-125"
-        />
+          to={'/mypage'}
+          className="cursor-pointer bg-lionly-primary-color transition-all hover:scale-125"
+        >
+          <ProfileEditSVG
+            width={24}
+            height={24}
+            className="fill-lionly-white"
+          />
+        </Link>
       </div>
 
       <div className="flex items-center justify-center gap-x-8 gap-y-2 py-8 text-lionly-white">

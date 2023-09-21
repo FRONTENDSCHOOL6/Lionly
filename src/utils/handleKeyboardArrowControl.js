@@ -10,10 +10,6 @@ const handleKeyboardArrowControl = (e, parentNode) => {
   } else {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.target.nextSibling?.focus();
-
-      if (e.target.nextSibling === document.querySelector('#lastContent')) {
-        document.querySelector('#scrollTobButton').focus();
-      }
       return;
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.target.previousSibling?.focus();
