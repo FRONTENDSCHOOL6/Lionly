@@ -41,7 +41,7 @@ function FeedHeader() {
           onClick={() => {
             navigate('/mypage');
           }}
-          className="cursor-pointer bg-lionly-primary-color fill-lionly-white transition-all hover:scale-125 focus:scale-125"
+          className="cursor-pointer bg-lionly-primary-color fill-lionly-white transition-all hover:scale-125"
         />
       </div>
 
