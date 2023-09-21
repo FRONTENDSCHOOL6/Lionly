@@ -11,6 +11,7 @@ import useUpLoadImage from '@/hooks/useUploadImage';
 import useTextarea from '@/hooks/useTextarea';
 import { motion } from 'framer-motion';
 import useInfiniteFeed from '@/hooks/useInfiniteFeed';
+import useIsLogin from '@/contexts/AuthProvider';
 
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
@@ -18,6 +19,7 @@ function Writing() {
   const { handleInputCount, handleTextDelete, inputCount, textareaRef } =
     useTextarea();
   const { refetch } = useInfiniteFeed();
+  useIsLogin();
 
   const textareaMaxLength = 200;
 
