@@ -36,16 +36,12 @@ function Comments({ data }) {
 
   useEffect(() => {
     (async function subscribeComments() {
-      await pb.collection('comments').subscribe('*', async () => {
+      await pb.collection('feeds').subscribe(contentData.id, async () => {
         const content = await getContent(contentId.contentId);
         setContentData(content);
-
-        scrollTo({
-          top: 10000,
-        });
       });
     })();
-  }, [contentId.contentId, contentData, setContentData]);
+  }, [contentId.contentId]);
 
   return (
     <section className="px-4">
