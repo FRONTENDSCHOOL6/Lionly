@@ -11,6 +11,7 @@ import useUpLoadImage from '@/hooks/useUploadImage';
 import useTextarea from '@/hooks/useTextarea';
 import { motion } from 'framer-motion';
 import useInfiniteFeed from '@/hooks/useInfiniteFeed';
+import useIsLogin from '@/contexts/AuthProvider';
 
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
@@ -18,6 +19,7 @@ function Writing() {
   const { handleInputCount, handleTextDelete, inputCount, textareaRef } =
     useTextarea();
   const { refetch } = useInfiniteFeed();
+  useIsLogin();
 
   const textareaMaxLength = 200;
 
@@ -90,13 +92,14 @@ function Writing() {
       </Helmet>
 
       <header className="mt-4 flex justify-between px-4 pb-3">
-        <LeftArrow
+        <button
+          type="button"
           className="mt-2 hover:scale-125"
           aria-label="뒤로 가기"
-          role="button"
-          tabIndex="0"
           onClick={handleWritingCancel}
-        />
+        >
+          <LeftArrow />
+        </button>
 
         <button
           type="submit"

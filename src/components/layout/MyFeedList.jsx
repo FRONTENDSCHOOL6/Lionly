@@ -1,5 +1,5 @@
 import getDate from '@/utils/getDate';
-import { getPbImageURL } from '@/utils';
+import { getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { shape, string } from 'prop-types';
 import { useState, Fragment } from 'react';
 import { ReactComponent as KebabButtonSVG } from '/src/assets/kebabMenuButton_FeedList.svg';
@@ -10,6 +10,7 @@ import Spinner from '../Spinner';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
+
 function MyFeedList() {
   const [drop, setDrop] = useState(null);
   const { isLoading, data } = useInfiniteMyFeed();
@@ -42,60 +43,86 @@ function MyFeedList() {
             <Fragment key={index}>
               {feed?.items.map((item) => (
                 <li
-                  tabIndex="0"
                   key={item.id}
                   id={item.id}
-                  onClick={() => {}}
-                  className="mb-[22px] cursor-pointer"
+                  className="relative mb-[22px] cursor-pointer"
                 >
-                  <figure className="relative my-[10px] flex h-10 w-full">
-                    <img
-                      src={getPbImageURL(item.expand.author, 'profile_image')}
-                      aria-hidden
-                      className="h-[40px] w-[40px] rounded-full"
-                    />
-                    <figcaption className="ml-3 w-full">
-                      <p className="font-bold text-lionly-black">
-                        {item.expand.author.nickname}
-                      </p>
-                      <div className="flex ">
-                        <p className="text-lionly-sm text-lionly-gray-1">
-                          {getDate(item.created)}
-                        </p>
-                        <div className="ml-1 flex items-center gap-x-2 ">
-                          <span className="text-lionly-sm text-lionly-gray-2">
-                            {item.created !== item.updated ? '수정됨' : null}
-                          </span>
-                          <div className="flex items-center gap-x-1">
-                            <Comment
-                              aria-hidden
-                              className="h-fit w-3 items-center fill-lionly-black"
-                            />
-                            <span
-                              aria-label="댓글 수"
-                              className="text-lionly-sm
-                               text-lionly-black"
-                            >
-                              {item.expand.comments
-                                ? item.expand.comments
-                                    .map((comment) => 1 + comment.reply?.length)
-                                    .reduce((acc, cur) => acc + cur)
-                                : 0}
-                            </span>
+                  <Link
+                    to={`/feed/contents/${item.id}`}
+                    onKeyDown={handleKeyboardArrowControl}
+                  >
+                    <div className="div">
+                      <figure className=" my-[10px] flex h-10 w-full">
+                        <img
+                          src={getPbImageURL(
+                            item.expand.author,
+                            'profile_image'
+                          )}
+                          aria-hidden
+                          className="h-[40px] w-[40px] rounded-full"
+                        />
+                        <figcaption className="ml-3 w-full">
+                          <p className="font-bold text-lionly-black">
+                            {item.expand.author.nickname}
+                          </p>
+                          <div className="flex ">
+                            <p className="text-lionly-sm text-lionly-gray-1">
+                              {getDate(item.created)}
+                            </p>
+                            <div className="ml-1 flex items-center gap-x-2 ">
+                              <span className="text-lionly-sm text-lionly-gray-2">
+                                {item.created !== item.updated
+                                  ? '수정됨'
+                                  : null}
+                              </span>
+                              <div className="flex items-center gap-x-1">
+                                <Comment
+                                  aria-hidden
+                                  className="h-fit w-3 items-center fill-lionly-black"
+                                />
+                                <span
+                                  aria-label="댓글 수"
+                                  className="text-lionly-sm
+                                 text-lionly-black"
+                                >
+                                  {item.expand.comments
+                                    ? item.expand.comments
+                                        .map(
+                                          (comment) => 1 + comment.reply?.length
+                                        )
+                                        .reduce((acc, cur) => acc + cur)
+                                    : 0}
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </figcaption>
-
+                        </figcaption>
+                      </figure>
+                      <figure className="w-full ">
+                        <img
+                          src={getPbImageURL(item, 'feed_image')}
+                          alt="피드 이미지"
+                          aria-hidden
+                          className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
+                        />
+                        <figcaption className="mt-[14px]">
+                          <p className="w-full text-lionly-md text-lionly-gray-1">
+                            {item.text}
+                          </p>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </Link>
+                  <div>
                     <button
                       type="button"
-                      className="absolute right-0 h-9 w-9"
+                      className="absolute right-0 top-5 h-9 w-9"
                       onClick={() => handleDrop(item.id)}
                     >
                       <KebabButtonSVG aria-hidden />
                     </button>
                     {drop == item.id && (
-                      <ul className="absolute right-0 top-full  rounded-md border border-gray-300 bg-white p-2 shadow-lg">
+                      <ul className="absolute right-0 top-[60px]  rounded-md border border-gray-300 bg-white p-2 shadow-lg">
                         <li className="cursor-pointer rounded-md p-2 duration-300 hover:bg-gray-200/80">
                           <button
                             type="button"
@@ -106,7 +133,6 @@ function MyFeedList() {
                             수정하기
                           </button>
                         </li>
-
                         <li className="cursor-pointer rounded-md p-2 text-red-700 duration-300 hover:bg-gray-200/80 ">
                           <button
                             type="button"
@@ -119,22 +145,7 @@ function MyFeedList() {
                         </li>
                       </ul>
                     )}
-                  </figure>
-                  <Link to={`/feed/contents/${item.id}`}>
-                    <figure className="w-full ">
-                      <img
-                        src={getPbImageURL(item, 'feed_image')}
-                        alt="피드 이미지"
-                        aria-hidden
-                        className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
-                      />
-                      <figcaption className="mt-[14px]">
-                        <p className="w-full text-lionly-md text-lionly-gray-1">
-                          {item.text}
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </Link>
+                  </div>
                 </li>
               ))}
             </Fragment>
