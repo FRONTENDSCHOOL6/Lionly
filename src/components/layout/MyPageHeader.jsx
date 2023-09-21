@@ -31,23 +31,27 @@ function MyPageHeader() {
       <div className="mx-auto bg-lionly-primary-color">
         <div className="mx-4 mb-[30px] flex justify-between pt-4 ">
           <button
+            aria-label="피드로 이동"
             type="button"
             onClick={() => {
               navigate('/feed');
             }}
           >
             <ButtonPrevSVG
-              aria-label="피드로 이동"
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
               tabIndex="0"
               className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
-          <h1 className="text-lionly-lg text-lionly-white">마이페이지</h1>
-          <button type="button" onClick={handleSignOut}>
+          <h1
+            className="text-lionly-lg text-lionly-white"
+            aria-label="마이페이지"
+          >
+            마이페이지
+          </h1>
+          <button type="button" aria-label="로그아웃" onClick={handleSignOut}>
             <SignOutSVG
-              aria-label="로그아웃"
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
               tabIndex="0"
