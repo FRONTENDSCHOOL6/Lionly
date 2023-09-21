@@ -4,6 +4,7 @@ import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../Spinner';
+import { ProfileImage } from '@/components/button';
 
 function FeedList() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function FeedList() {
       </div>
     );
   }
-
+  console.log(data);
   return (
     data && (
       <main className="min-h-[calc(100vh-280px)]">
@@ -49,13 +50,12 @@ function FeedList() {
                   >
                     <div className="flex flex-col gap-y-2.5">
                       <figure className="flex h-10 w-full gap-x-3">
-                        <img
-                          alt={`${content.expand.author.nickname}의 프로필 이미지`}
-                          src={getPbImageURL(
-                            content.expand.author,
-                            'profile_image'
-                          )}
-                          className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border-2"
+                        <ProfileImage
+                          size={40}
+                          imageName={[
+                            content.expand.author.id,
+                            content.expand.author.profile_image,
+                          ]}
                         />
 
                         <figcaption className="flex gap-x-1">

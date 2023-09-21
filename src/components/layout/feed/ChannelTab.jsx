@@ -27,17 +27,17 @@ function ChannelTab() {
                 <NavLink
                   to={
                     item === '힐링방'
-                      ? '/feed/healings'
+                      ? '/feed/healing'
                       : item === '일상방'
-                      ? '/feed/dailys'
+                      ? '/feed/daily'
                       : item === '맛집방'
-                      ? '/feed/foods'
+                      ? '/feed/food'
                       : item === '취업방'
-                      ? '/feed/jobs'
+                      ? '/feed/job'
                       : '/feed'
                   }
                   id={`tab-${index + 1}`}
-                  tabIndex={channelList[item] === true ? -1 : 0}
+                  tabIndex="0"
                   role="tab"
                   aria-selected={channelList[item] === true ? true : false}
                   aria-controls={`tabpanel-${index + 1}`}
