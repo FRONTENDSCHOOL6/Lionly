@@ -22,7 +22,7 @@ function ChannelTab() {
             return (
               <li
                 key={item}
-                className="shrink py-1 transition-all hover:scale-125"
+                className="shrink py-1 transition-all hover:scale-110"
               >
                 <NavLink
                   to={

@@ -115,7 +115,7 @@ function Writing() {
             className="flex aspect-[9/4] w-full justify-center rounded-xl bg-cover bg-center bg-no-repeat"
           >
             <button
-              className="border-lionly-white-2 mt-[32%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
+              className="border-lionly-white-2 mb-3 mt-[35%] h-10 w-[130px] rounded-full border-2 bg-none px-4 py-[11px] text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color"
               type="button"
               onClick={handleImageUpload}
             >
@@ -134,15 +134,15 @@ function Writing() {
           />
         </form>
 
-        <div className="flex w-full flex-1 flex-col rounded-xl bg-lionly-white px-[35px]">
-          <div className="flex justify-between py-[23px]">
+        <div className="flex w-full flex-1 flex-col rounded-xl bg-lionly-white px-[35px] max-[320px]:px-4">
+          <div className="flex justify-between py-[23px] max-[320px]:text-[12px]">
             <div className="flex gap-2">
               <h2 tabIndex="0">게시물 작성</h2>
               <span className="font-thin text-lionly-red" aria-live="assertive">
                 {inputCount}
               </span>
               <span
-                className="text-lionly-base font-thin text-lionly-gray-3"
+                className="text-lionly-base font-thin text-lionly-gray-3 max-[365px]:text-[12px]"
                 tabIndex="0"
                 aria-label="최대 글자 수 200"
               >
@@ -150,7 +150,7 @@ function Writing() {
               </span>
             </div>
 
-            <div className="flex gap-10">
+            <div className="flex gap-10 max-[365px]:gap-6">
               <label
                 htmlFor="channelsSelect"
                 aria-hidden="true"
@@ -161,7 +161,7 @@ function Writing() {
               <select
                 name="channelsSelect"
                 id="channelsSelect"
-                className="w-[100px] pl-4 text-sm"
+                className="w-[100px] pl-4 text-sm max-[365px]:w-[90px] max-[365px]:text-[12px]"
                 ref={channelsRef}
                 tabIndex="0"
               >
