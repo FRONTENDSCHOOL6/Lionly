@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
-function Comments({ data }) {
+function Comments() {
   const contentId = useParams();
   const [openModal, setOpenModal] = useState(false);
   const { contentData, setContentData, setSelectedComment } = useContent();
@@ -36,16 +36,12 @@ function Comments({ data }) {
 
   useEffect(() => {
     (async function subscribeComments() {
-      await pb.collection('comments').subscribe('*', async () => {
+      await pb.collection('feeds').subscribe(contentData.id, async () => {
         const content = await getContent(contentId.contentId);
         setContentData(content);
-
-        scrollTo({
-          top: 10000,
-        });
       });
     })();
-  }, [contentId.contentId, contentData, setContentData]);
+  }, [contentId.contentId]);
 
   return (
     <section className="px-4">
@@ -151,9 +147,5 @@ function Comments({ data }) {
     </section>
   );
 }
-
-Comments.propTypes = {
-  data: object,
-};
 
 export default Comments;
