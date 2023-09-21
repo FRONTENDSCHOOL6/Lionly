@@ -58,12 +58,12 @@ function MyFeedList() {
                       <p className="font-bold text-lionly-black">
                         {item.expand.author.nickname}
                       </p>
-                      <div className='flex '>
+                      <div className="flex ">
                         <p className="text-lionly-sm text-lionly-gray-1">
                           {getDate(item.created)}
                         </p>
-                        <div className="flex items-center gap-x-3 ml-1 ">
-                          <span className="text-lionly-sm-bold text-lionly-gray-2">
+                        <div className="ml-1 flex items-center gap-x-2 ">
+                          <span className="text-lionly-sm text-lionly-gray-2">
                             {item.created !== item.updated ? '수정됨' : null}
                           </span>
                           <div className="flex items-center gap-x-1">
@@ -73,7 +73,8 @@ function MyFeedList() {
                             />
                             <span
                               aria-label="댓글 수"
-                              className="text-lionly-sm-bold text-lionly-black"
+                              className="text-lionly-sm
+                               text-lionly-black"
                             >
                               {item.expand.comments
                                 ? item.expand.comments
