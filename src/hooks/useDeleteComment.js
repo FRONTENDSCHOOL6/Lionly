@@ -1,6 +1,9 @@
 import pb from '@/api/pocketbase';
+import useContent from './useContent';
 
-function useDeleteComment(data) {
+function useDeleteComment() {
+  const { contentData } = useContent();
+
   const handleDeleteComment = async (collection, recordId) => {
     if (
       confirm(
@@ -8,10 +11,9 @@ function useDeleteComment(data) {
       )
     ) {
       await pb.collection(collection).delete(recordId);
-      const commentData = data?.expand.comments?.filter(
+      const commentData = contentData.expand.comments?.filter(
         (comment) => comment.id === recordId
       );
-
       if (commentData[0]?.reply.length > 0)
         commentData[0].reply.forEach(
           async (reply) => await pb.collection('reply').delete(reply)

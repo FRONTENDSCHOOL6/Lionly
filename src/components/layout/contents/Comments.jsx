@@ -4,13 +4,12 @@ import { ProfileImage } from '@/components/button';
 import { useContent, useDeleteComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
-import { object } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
-function Comments({ data }) {
+function Comments() {
   const contentId = useParams();
   const [openModal, setOpenModal] = useState(false);
   const { contentData, setContentData, setSelectedComment } = useContent();
@@ -21,11 +20,10 @@ function Comments({ data }) {
       const commentIndex = e.target.id.slice(-1);
 
       setSelectedComment({
-        id: contentData?.expand?.comments[commentIndex]?.id,
+        id: contentData.expand?.comments[commentIndex]?.id,
         nickname:
-          contentData?.expand?.comments[commentIndex]?.expand.commenter
-            .nickname,
-        reply: contentData?.expand?.comments[commentIndex]?.reply,
+          contentData.expand?.comments[commentIndex]?.expand.commenter.nickname,
+        reply: contentData.expand?.comments[commentIndex]?.reply,
       });
 
       setOpenModal(true);
@@ -36,19 +34,23 @@ function Comments({ data }) {
 
   useEffect(() => {
     (async function subscribeComments() {
-      await pb.collection('feeds').subscribe(contentData.id, async () => {
+      await pb.collection('comments').subscribe('*', async () => {
         const content = await getContent(contentId.contentId);
         setContentData(content);
+
+        scrollTo({
+          top: 10000,
+        });
       });
     })();
-  }, [contentId.contentId]);
+  }, [contentId.contentId, setContentData]);
 
   return (
     <section className="px-4">
       <h4 className="sr-only">Comments</h4>
       <ul className="flex flex-col gap-y-3">
         <ReplyModal
-          data={contentData}
+          contentData={contentData}
           openModal={openModal}
           setOpenModal={setOpenModal}
         />
@@ -147,9 +149,5 @@ function Comments({ data }) {
     </section>
   );
 }
-
-Comments.propTypes = {
-  data: object,
-};
 
 export default Comments;
