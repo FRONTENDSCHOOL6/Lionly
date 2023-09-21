@@ -67,8 +67,8 @@ function FeedList() {
                               {`${getDate(content.created)}`}
                             </p>
                           </div>
-                          <div className="flex h-fit items-center gap-x-3 py-6">
-                            <span className="text-lionly-sm-bold text-lionly-gray-2">
+                          <div className="flex h-fit items-center gap-x-2 py-6">
+                            <span className="text-lionly-sm text-lionly-gray-2">
                               {content.created !== content.updated
                                 ? '수정됨'
                                 : null}
@@ -80,7 +80,7 @@ function FeedList() {
                               />
                               <span
                                 aria-label="댓글 수"
-                                className="text-lionly-sm-bold text-lionly-black"
+                                className="text-lionly-sm text-lionly-black"
                               >
                                 {content.expand.comments
                                   ? content.expand.comments
@@ -125,6 +125,7 @@ function FeedList() {
           ))}
           {!hasNextPage && data.pages[0].totalPages !== 0 ? (
             <p
+              id="lastContent"
               role="status"
               className="pt-6 text-center text-lionly-base text-lionly-red"
             >

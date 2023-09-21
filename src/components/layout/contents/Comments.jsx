@@ -82,7 +82,7 @@ function Comments() {
                         onClick={() =>
                           handleDeleteComment('comments', comment.id)
                         }
-                        className="w-3 fill-lionly-primary-color transition-all hover:scale-125 focus:scale-125"
+                        className="w-3 fill-lionly-primary-color transition-all hover:scale-125"
                       />
                     ) : null}
                   </div>
@@ -132,7 +132,7 @@ function Comments() {
                               onClick={() =>
                                 handleDeleteComment('reply', reply.id)
                               }
-                              className="w-3 fill-lionly-primary-color transition-all hover:scale-125 focus:scale-125"
+                              className="w-3 fill-lionly-primary-color transition-all hover:scale-125"
                             />
                           ) : null}
                         </div>
