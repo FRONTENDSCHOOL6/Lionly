@@ -34,7 +34,7 @@ function MyPageHeader() {
             aria-label="피드로 이동"
             type="button"
             onClick={() => {
-              navigate(-1);
+              navigate('/feed');
             }}
           >
             <ButtonPrevSVG
