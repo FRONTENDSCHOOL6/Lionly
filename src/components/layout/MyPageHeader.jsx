@@ -40,7 +40,6 @@ function MyPageHeader() {
             <ButtonPrevSVG
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
-              tabIndex="0"
               className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
@@ -54,7 +53,6 @@ function MyPageHeader() {
             <SignOutSVG
               aria-hidden
               onKeyDown={handleKeyboardArrowControl}
-              tabIndex="0"
               className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
