@@ -13,8 +13,7 @@ import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 function Comments({ data }) {
   const contentId = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const [contentData, setContentData] = useState(data);
-  const { setSelectedComment } = useContent();
+  const { contentData, setContentData, setSelectedComment } = useContent();
   const { handleDeleteComment } = useDeleteComment(contentData);
   const storageData = useStorageData();
   const handleOpenModal = (e) => {
@@ -34,7 +33,7 @@ function Comments({ data }) {
     }
     return;
   };
-  console.log(data.comments);
+
   useEffect(() => {
     (async function subscribeComments() {
       await pb.collection('comments').subscribe('*', async () => {
