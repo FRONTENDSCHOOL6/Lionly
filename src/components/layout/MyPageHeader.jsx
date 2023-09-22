@@ -9,6 +9,7 @@ import LinkButton from '../Button/LinkButton';
 import { ProfileImage } from '../button';
 import pb from './../../api/pocketbase';
 import ProfileEdit from './ProfileEdit';
+import { useChannel } from '@/hooks';
 
 function MyPageHeader() {
   const navigate = useNavigate();
@@ -26,6 +27,32 @@ function MyPageHeader() {
     }
   };
 
+  const { channelList } = useChannel();
+  const activatedChannelIndex = Object.values(channelList).indexOf(true);
+  let pathname;
+
+  switch (activatedChannelIndex) {
+    case 0:
+      pathname = '/feed';
+      break;
+
+    case 1:
+      pathname = '/feed/daily';
+      break;
+
+    case 2:
+      pathname = '/feed/food';
+      break;
+
+    case 3:
+      pathname = '/feed/job';
+      break;
+
+    case 4:
+      pathname = '/feed/healing';
+      break;
+  }
+
   return (
     <>
       <div className="mx-auto bg-lionly-primary-color">
@@ -34,7 +61,7 @@ function MyPageHeader() {
             aria-label="피드로 이동"
             type="button"
             onClick={() => {
-              navigate(-1);
+              navigate(pathname);
             }}
           >
             <ButtonPrevSVG
