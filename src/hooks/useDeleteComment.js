@@ -10,19 +10,6 @@ function useDeleteComment(comments) {
         `${collection === 'comments' ? '댓글' : '답글'}을 삭제하시겠습니까?`
       )
     ) {
-      collection === 'comments'
-        ? setComments((comments) =>
-            comments.filter((comment) => comment.id !== recordId)
-          )
-        : setComments((comments) =>
-            comments.map(
-              (comment) =>
-                (comment.reply = comment.reply.filter(
-                  (replyId) => replyId !== recordId
-                ))
-            )
-          );
-
       await pb.collection(collection).delete(recordId);
 
       comments.forEach((comment) =>
