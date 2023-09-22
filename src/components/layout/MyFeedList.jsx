@@ -59,7 +59,7 @@ function MyFeedList() {
                             'profile_image'
                           )}
                           aria-hidden
-                          className="h-[40px] w-[40px] rounded-full"
+                          className="h-[40px] min-h-[40px] w-[40px] min-w-[40px] rounded-full"
                         />
                         <figcaption className="ml-3 w-full">
                           <p className="font-bold text-lionly-black">
