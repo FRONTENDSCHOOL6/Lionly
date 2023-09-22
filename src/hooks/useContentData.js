@@ -1,9 +1,11 @@
 import getContent from '@/api/getContent';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import useContent from './useContent';
 
 function useContentData() {
   const { contentId } = useParams();
+  const { setContent } = useContent();
 
   const { isLoading, data, refetch } = useQuery({
     queryKey: ['content', contentId],
@@ -28,6 +30,10 @@ function useContentData() {
         },
         data.expand.comments,
       ];
+    },
+
+    onSuccess: (data) => {
+      setContent(data[0]);
     },
   });
 
