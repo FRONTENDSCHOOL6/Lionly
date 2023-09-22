@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
+import { Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
+import Spinner from './components/Spinner';
 import { AuthProvider, ChannelProvider, ContentProvider } from './contexts';
 import router from './routes.jsx';
-import { Suspense } from 'react';
-import Spinner from './components/Spinner';
 
 const queryClient = new QueryClient();
 
