@@ -58,7 +58,7 @@ function FeedList() {
                           ]}
                         />
 
-                        <figcaption className="flex items-start gap-x-2">
+                        <figcaption className="flex w-full items-start gap-x-2">
                           <div className="flex flex-col">
                             <p className="font-bold text-lionly-black">
                               {content.expand.author.nickname}
@@ -67,7 +67,7 @@ function FeedList() {
                               {`${getDate(content.created)}`}
                             </p>
                           </div>
-                          <div className="flex h-fit items-center gap-x-2 py-6">
+                          <div className="mt-1 flex h-full items-end">
                             <div className="flex items-center gap-x-1">
                               <Comment
                                 aria-hidden

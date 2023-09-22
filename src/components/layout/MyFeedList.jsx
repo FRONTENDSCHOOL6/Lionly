@@ -65,15 +65,15 @@ function MyFeedList() {
                           <p className="font-bold text-lionly-black">
                             {item.expand.author.nickname}
                           </p>
-                          <div className="flex ">
+                          <div className="flex items-center gap-x-2">
                             <p className="text-lionly-sm text-lionly-gray-1">
                               {getDate(item.created)}
                             </p>
-                            <div className="ml-1 flex items-center gap-x-2 ">
+                            <div className="mt-px flex h-full items-end">
                               <div className="flex items-center gap-x-1">
                                 <Comment
                                   aria-hidden
-                                  className="h-fit w-3 items-center fill-lionly-black"
+                                  className="mb-0.5 h-fit w-3 items-center fill-lionly-black"
                                 />
                                 <span
                                   aria-label="댓글 수"
