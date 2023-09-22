@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.35.0",
+    "browser-image-resizer": "^2.4.1",
     "framer-motion": "^10.16.2",
     "pocketbase": "^0.18.0",
     "prop-types": "^15.8.1",
