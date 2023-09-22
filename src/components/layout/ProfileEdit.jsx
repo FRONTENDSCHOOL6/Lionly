@@ -6,15 +6,13 @@ import { useRef, useState } from 'react';
 import renderImg from '@/utils/getImageData';
 import pb from '@/api/pocketbase';
 import toast from 'react-hot-toast';
-import useDropDown from '@/hooks/useDropDown';
 import FormInput from '../input/FormInput';
 import { nickNameReg } from '@/utils/validation';
 import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
 import { handlePreventTabControl } from '@/utils';
 
 function ProfileEdit({ onClose }) {
-  const { profile_image, id, nickName } = useStorageData();
-  const modalRef = useDropDown();
+  const { profile_image, id, nickname } = useStorageData();
   const [profileImage, setProfileImage] = useState();
   const profileImageFile = useRef(null);
   const [uploadImage, setUploadImage] = useState(null);
@@ -40,8 +38,17 @@ function ProfileEdit({ onClose }) {
 
   async function handleUpdate() {
     try {
-      if (changeNickName === '' || changeNickName == null) {
+      if (!uploadImage && (changeNickName === '' || changeNickName == null)) {
         toast.error('변경할 닉네임을 입력해주세요.', { icon: '⚠️' });
+        return;
+      }
+
+      if (uploadImage && !changeNickName) {
+        await pb.collection('users').update(id, {
+          profile_image: uploadImage,
+        });
+        toast.success('변경되었습니다.');
+        location.reload();
         return;
       }
 
@@ -49,6 +56,7 @@ function ProfileEdit({ onClose }) {
         toast.error('닉네임 형식이 올바르지 않습니다.');
         return;
       }
+
       if (!uploadImage && changeNickName) {
         await pb.collection('users').update(id, {
           nickname: changeNickName,
@@ -79,8 +87,7 @@ function ProfileEdit({ onClose }) {
         role="dialog"
         aria-labelledby="ProfileEdit"
         aria-modal="true"
-        ref={modalRef}
-        className="absolute  left-1/2 top-1/2 z-50
+        className="absolute left-1/2 top-1/2 z-50
         mx-auto h-[320px]
       w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-lionly-white pt-1"
       >
@@ -95,7 +102,7 @@ function ProfileEdit({ onClose }) {
         >
           <DeleteSVG />
         </button>
-        <div className="flex flex-col items-center gap-2">
+        <div className="relative flex flex-col items-center gap-2">
           <button
             className="mt-5 h-[70px] w-[70px] "
             onClick={() => handleButtonClick()}
@@ -132,7 +139,7 @@ function ProfileEdit({ onClose }) {
               type="text"
               label="닉네임"
               name="usernickname"
-              placeholder="변경할 닉네임을 입력하세요."
+              placeholder={nickname}
               errorMessage="한글 3~8자로 입력해주세요."
               className="h-9 w-52 gap-2 rounded-lg border bg-lionly-gray-4 px-3 py-3 text-center text-lionly-sm  outline-none  placeholder:text-lionly-gray-2"
               minLength="3"
@@ -141,7 +148,7 @@ function ProfileEdit({ onClose }) {
             />
           </form>
           <button
-            className="h-9 w-52 rounded-lg bg-lionly-primary-color px-2 py-2 text-lionly-md text-lionly-white"
+            className="absolute top-[180px] h-9 w-52 rounded-lg bg-lionly-primary-color px-2 py-2 text-lionly-md text-lionly-white"
             type="submit"
             onKeyDown={(e) => handlePreventTabControl(e)}
             onClick={() => {
