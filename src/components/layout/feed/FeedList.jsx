@@ -21,10 +21,10 @@ function FeedList() {
       </div>
     );
   }
-  console.log(data);
+
   return (
     data && (
-      <main className="min-h-[calc(100vh-280px)]">
+      <main className="mt-6 min-h-[calc(100vh-280px)]">
         <ul
           id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
           role="tabpanel"
@@ -58,7 +58,7 @@ function FeedList() {
                           ]}
                         />
 
-                        <figcaption className="flex gap-x-1">
+                        <figcaption className="flex items-start gap-x-2">
                           <div className="flex flex-col">
                             <p className="font-bold text-lionly-black">
                               {content.expand.author.nickname}
@@ -68,15 +68,10 @@ function FeedList() {
                             </p>
                           </div>
                           <div className="flex h-fit items-center gap-x-2 py-6">
-                            <span className="text-lionly-sm text-lionly-gray-2">
-                              {content.created !== content.updated
-                                ? '수정됨'
-                                : null}
-                            </span>
                             <div className="flex items-center gap-x-1">
                               <Comment
                                 aria-hidden
-                                className="h-fit w-3 items-center fill-lionly-black"
+                                className="mb-0.5 h-fit w-3 items-center fill-lionly-black"
                               />
                               <span
                                 aria-label="댓글 수"
@@ -123,16 +118,16 @@ function FeedList() {
               )}
             </Fragment>
           ))}
-          {!hasNextPage && data.pages[0].totalPages !== 0 ? (
-            <p
-              id="lastContent"
-              role="status"
-              className="pt-6 text-center text-lionly-base text-lionly-red"
-            >
-              마지막 게시글입니다.
-            </p>
-          ) : null}
         </ul>
+        {!hasNextPage && data.pages[0].totalPages !== 0 ? (
+          <p
+            id="lastContent"
+            role="status"
+            className="text-center text-lionly-base text-lionly-red"
+          >
+            마지막 게시글입니다.
+          </p>
+        ) : null}
       </main>
     )
   );
