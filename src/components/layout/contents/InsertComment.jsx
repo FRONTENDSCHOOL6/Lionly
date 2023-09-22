@@ -1,14 +1,16 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ProfileImage } from '@/components/button';
-import { useContent, useCreateComment } from '@/hooks';
+import { useCreateComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
+import { useRef } from 'react';
 
 function InsertComment() {
+  const commentInputRef = useRef();
+
   const storageData = useStorageData();
-  const { contentData } = useContent();
   const { id, nickname, profile_image } = storageData;
-  const { commentInputRef, handleSubmitComment } =
-    useCreateComment(contentData);
+  const { handleSubmitComment } = useCreateComment();
+
   const handleInputComment = (e) => {
     const textarea = e.currentTarget;
     textarea.style.height = '';
@@ -20,11 +22,12 @@ function InsertComment() {
       ? (e.target.value = e.target.value.slice(0, e.target.maxLength))
       : null;
   };
+
   return (
     <section className="sticky bottom-0 bg-lionly-white px-4 py-[18px]">
       <form
         id="insertCommentForm"
-        onSubmit={(e) => handleSubmitComment(e, 'comments')}
+        onSubmit={(e) => handleSubmitComment(e, 'comments', commentInputRef)}
         className="flex justify-center gap-x-2"
       >
         <label htmlFor="insertComment">

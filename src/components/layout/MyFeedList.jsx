@@ -82,8 +82,7 @@ function MyFeedList() {
                                 />
                                 <span
                                   aria-label="댓글 수"
-                                  className="text-lionly-sm
-                                 text-lionly-black"
+                                  className="text-lionly-sm text-lionly-black"
                                 >
                                   {item.expand.comments
                                     ? item.expand.comments
