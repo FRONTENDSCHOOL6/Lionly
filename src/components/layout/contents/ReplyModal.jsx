@@ -1,10 +1,12 @@
 import { useCreateComment } from '@/hooks';
 import { handlePreventTabControl } from '@/utils';
-import { bool, func, object } from 'prop-types';
+import { bool, func } from 'prop-types';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 
-function ReplyModal({ data, openModal, setOpenModal }) {
-  const { replyInputRef, handleSubmitComment } = useCreateComment(data);
+function ReplyModal({ openModal, setOpenModal }) {
+  const { handleSubmitComment } = useCreateComment();
+  const replyInputRef = useRef(null);
   const handleInputReply = (e) => {
     const textarea = e.currentTarget;
     textarea.style.height = '';
@@ -20,7 +22,8 @@ function ReplyModal({ data, openModal, setOpenModal }) {
       replyInputRef.current.focus();
       replyInputRef.current.style.height = '';
     }
-  }, [openModal, replyInputRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openModal]);
 
   return (
     <div
@@ -29,16 +32,16 @@ function ReplyModal({ data, openModal, setOpenModal }) {
       aria-labelledby="replyModal"
       className={`${
         openModal ? 'block w-2/3' : 'hidden w-0'
-      } absolute bottom-[25%] left-1/2 z-10 -translate-x-[50%] border-2 border-lionly-gray-2`}
+      } fixed bottom-1/3 left-1/2 z-10 -translate-x-[50%] border-2 border-lionly-gray-2`}
     >
       <form
         id="insertReplyForm"
-        onSubmit={(e) => handleSubmitComment(e, 'reply')}
+        onSubmit={(e) => handleSubmitComment(e, 'reply', replyInputRef)}
         className="flex h-full flex-col"
       >
         <label id="replyModal" htmlFor="insertReply"></label>
         <textarea
-          tabIndex={0}
+          tabIndex="0"
           ref={replyInputRef}
           id="insertReply"
           name="reply"
@@ -52,7 +55,6 @@ function ReplyModal({ data, openModal, setOpenModal }) {
         />
         <div className="z-10 flex justify-around bg-lionly-gray-1 py-3">
           <button
-            role="button"
             aria-label="답글 달기"
             type="submit"
             onClick={() => setOpenModal(false)}
@@ -61,9 +63,7 @@ function ReplyModal({ data, openModal, setOpenModal }) {
             작성하기
           </button>
           <button
-            role="button"
-            aria-label="취소 달기"
-            type="reset"
+            type="button"
             onKeyDown={(e) => handlePreventTabControl(e)}
             onClick={() => {
               setOpenModal(false);
@@ -79,7 +79,6 @@ function ReplyModal({ data, openModal, setOpenModal }) {
 }
 
 ReplyModal.propTypes = {
-  data: object,
   openModal: bool,
   setOpenModal: func,
 };

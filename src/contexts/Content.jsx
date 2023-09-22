@@ -4,15 +4,23 @@ import { createContext, useState } from 'react';
 export const ContentContext = createContext({});
 
 function ContentProvider({ displayName = 'ContentContext', children }) {
-  const [contentData, setContentData] = useState({});
+  const [content, setContent] = useState({});
+  const [comments, setComments] = useState([]);
   const [selectedComment, setSelectedComment] = useState({});
+  // const start = performance.now();
+  // console.log('시작');
 
+  // const end = performance.now();
+  // console.log('끝');
+  // console.log(`${end - start}`);
   return (
     <ContentContext.Provider
       displayName={displayName}
       value={{
-        contentData,
-        setContentData,
+        content,
+        setContent,
+        comments,
+        setComments,
         selectedComment,
         setSelectedComment,
       }}

@@ -28,7 +28,7 @@ function Feed() {
         <title>Feed - {activatedChannel}</title>
       </Helmet>
       <motion.div
-        className="z-10 h-full bg-lionly-white pb-6"
+        className="z-10 min-h-screen bg-lionly-white pb-4"
         initial={{
           opacity: 0,
           y: -50,
