@@ -40,14 +40,14 @@ function MyPage() {
       </header>
       <div className="z-10 h-full bg-lionly-white">
         {showScrollTopButton ? (
-          <div className="sticky left-[100%] top-[370px] inline pr-6">
+          <div className="sticky left-[100%] top-[370px] z-10 inline pr-6">
             <button
               role="button"
               aria-label="상단으로 이동"
               tabIndex="0"
               type="button"
               onClick={handleScrollTop}
-              className="rounded-full transition-all hover:scale-125 focus:scale-125"
+              className="rounded-full border-2 border-lionly-white transition-all hover:scale-125 focus:scale-125"
             >
               <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
             </button>

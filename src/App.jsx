@@ -22,15 +22,15 @@ function App() {
                   <div className="App">
                     <Suspense
                       fallback={
-                        <>
-                          <Spinner size={300} />
+                        <div className="h-screen">
+                          <Spinner size={'50%'} />
                           <p
                             role="status"
-                            className="text-center text-lionly-lg text-lionly-red"
+                            className="text-center text-lionly-lg text-lionly-black"
                           >
-                            페이지를 불러오는 중입니다.
+                            페이지 이동 중입니다.
                           </p>
-                        </>
+                        </div>
                       }
                     >
                       <RouterProvider router={router} />
