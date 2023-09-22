@@ -1,8 +1,8 @@
 import pb from '@/api/pocketbase';
-import useContent from './useContent';
+import useContentData from './useContentData';
 
-function useDeleteComment() {
-  const { comments, setComments } = useContent();
+function useDeleteComment(comments) {
+  const { refetch } = useContentData();
 
   const handleDeleteComment = async (collection, recordId) => {
     if (
@@ -33,8 +33,11 @@ function useDeleteComment() {
           : null
       );
 
+      await refetch();
+
       return;
     }
+
     return;
   };
   return { handleDeleteComment };

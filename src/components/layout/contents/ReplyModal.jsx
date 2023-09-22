@@ -31,7 +31,7 @@ function ReplyModal({ openModal, setOpenModal }) {
       role="dialog"
       aria-labelledby="replyModal"
       className={`${
-        openModal ? 'block w-2/3' : 'hidden w-0'
+        openModal ? 'block w-2/3 max-w-[600px]' : 'hidden w-0'
       } fixed bottom-1/3 left-1/2 z-10 -translate-x-[50%] border-2 border-lionly-gray-2`}
     >
       <form

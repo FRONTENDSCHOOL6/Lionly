@@ -2,17 +2,17 @@ import { ProfileImage } from '@/components/button';
 import { useContent, useDeleteComment } from '@/hooks';
 import useStorageData from '@/hooks/useStorageData';
 import { calcTimeDifference } from '@/utils';
+import { array } from 'prop-types';
 import { useState } from 'react';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
-import { useEffect } from 'react';
 
-function Comments() {
+function Comments({ comments }) {
   const [openModal, setOpenModal] = useState(false);
 
   const storageData = useStorageData();
-  const { comments, setSelectedComment } = useContent();
-  const { handleDeleteComment } = useDeleteComment();
+  const { setSelectedComment } = useContent();
+  const { handleDeleteComment } = useDeleteComment(comments);
 
   const handleOpenModal = (e) => {
     if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
@@ -29,15 +29,11 @@ function Comments() {
     return;
   };
 
-  useEffect(() => {
-    console.log(comments);
-  }, [comments]);
   return (
     <section className="px-4">
       <h4 className="sr-only">Comments</h4>
+      <ReplyModal openModal={openModal} setOpenModal={setOpenModal} />
       <ul className="relative flex flex-col gap-y-3">
-        <ReplyModal openModal={openModal} setOpenModal={setOpenModal} />
-
         {comments &&
           comments?.map((comment, index) => (
             <li key={comment.id} className="relative flex flex-col">
@@ -131,5 +127,9 @@ function Comments() {
     </section>
   );
 }
+
+Comments.propTypes = {
+  comments: array,
+};
 
 export default Comments;
