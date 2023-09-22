@@ -151,6 +151,7 @@ function ProfileEdit({ onClose }) {
             <input
               type="file"
               id="profileImage"
+              accept=".jpg,.png"
               className="hidden"
               ref={profileImageFile}
               onChange={handleFileUpload}

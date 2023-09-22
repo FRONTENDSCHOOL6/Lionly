@@ -69,11 +69,11 @@ function MyFeedList() {
                             <p className="text-lionly-sm text-lionly-gray-1">
                               {getDate(item.created)}
                             </p>
-                            <div className="mt-px flex h-full items-end">
+                            <div className="flex h-full items-end">
                               <div className="flex items-center gap-x-1">
                                 <Comment
                                   aria-hidden
-                                  className="mb-0.5 h-fit w-3 items-center fill-lionly-black"
+                                  className="w-4 items-center fill-lionly-black"
                                 />
                                 <span
                                   aria-label="댓글 수"

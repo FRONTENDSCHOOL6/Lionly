@@ -59,10 +59,8 @@ function Edit() {
     fileInputRef.current.click();
   }, []);
 
-
   const handleFileUpload = useCallback(async (e) => {
     const renderfile = e.target.files[0];
-
 
     if (renderfile) {
       try {
@@ -78,7 +76,6 @@ function Edit() {
         console.error('Failed to optimize image', err);
       }
     }
- 
   }, []);
 
   const handleUpdateClick = useCallback(async () => {
@@ -176,8 +173,9 @@ function Edit() {
             </div>
             <input
               type="file"
-              className=" hidden"
+              className="hidden"
               ref={fileInputRef}
+              accept=".jpg,.png"
               onChange={handleFileUpload}
             />
           </main>
