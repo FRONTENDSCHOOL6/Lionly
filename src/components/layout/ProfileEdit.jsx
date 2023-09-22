@@ -6,7 +6,6 @@ import { useRef, useState } from 'react';
 import renderImg from '@/utils/getImageData';
 import pb from '@/api/pocketbase';
 import toast from 'react-hot-toast';
-import useDropDown from '@/hooks/useDropDown';
 import FormInput from '../input/FormInput';
 import { nickNameReg } from '@/utils/validation';
 import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
@@ -14,7 +13,6 @@ import { handlePreventTabControl } from '@/utils';
 
 function ProfileEdit({ onClose }) {
   const { profile_image, id, nickname } = useStorageData();
-  const modalRef = useDropDown();
   const [profileImage, setProfileImage] = useState();
   const profileImageFile = useRef(null);
   const [uploadImage, setUploadImage] = useState(null);
@@ -89,7 +87,6 @@ function ProfileEdit({ onClose }) {
         role="dialog"
         aria-labelledby="ProfileEdit"
         aria-modal="true"
-        ref={modalRef}
         className="absolute left-1/2 top-1/2 z-50
         mx-auto h-[320px]
       w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-lionly-white pt-1"
