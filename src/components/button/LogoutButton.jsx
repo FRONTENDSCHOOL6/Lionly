@@ -1,5 +1,5 @@
 import pb from '@/api/pocketbase';
-import useChannel from '@/hooks/useChannel';
+import { useChannel } from '@/hooks';
 import { handleKeyboardArrowControl } from '@/utils';
 
 function LogoutButton() {

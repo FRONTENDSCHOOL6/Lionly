@@ -1,16 +1,16 @@
-import useStorageData from '@/hooks/useStorageData';
-import { shape, string } from 'prop-types';
-import { ReactComponent as DeleteSVG } from '@/assets/delete_Feed.svg';
-import { ReactComponent as LionLogoSVG } from '@/assets/lionLogo_common.svg';
-import { useRef, useState } from 'react';
-import renderImg from '@/utils/getImageData';
 import pb from '@/api/pocketbase';
+import { ReactComponent as DeleteSVG } from '@/assets/delete_Feed.svg';
+import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
+import { ReactComponent as LionLogoSVG } from '@/assets/lionLogo_common.svg';
+import useStorageData from '@/hooks/useStorageData';
+import { handlePreventTabControl } from '@/utils';
+import renderImg from '@/utils/renderImg';
+import { nickNameReg } from '@/utils/validation';
+import { readAndCompressImage } from 'browser-image-resizer';
+import { func } from 'prop-types';
+import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import FormInput from '../input/FormInput';
-import { nickNameReg } from '@/utils/validation';
-import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
-import { handlePreventTabControl } from '@/utils';
-import { readAndCompressImage } from 'browser-image-resizer';
 
 function ProfileEdit({ onClose }) {
   const { profile_image, id, nickname } = useStorageData();
@@ -151,6 +151,7 @@ function ProfileEdit({ onClose }) {
             <input
               type="file"
               id="profileImage"
+              accept=".jpg,.png"
               className="hidden"
               ref={profileImageFile}
               onChange={handleFileUpload}
@@ -189,10 +190,7 @@ function ProfileEdit({ onClose }) {
 }
 
 ProfileEdit.propTypes = {
-  item: shape({
-    id: string,
-    profile_image: string,
-  }),
+  onClose: func,
 };
 
 export default ProfileEdit;

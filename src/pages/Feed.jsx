@@ -58,7 +58,7 @@ function Feed() {
               tabIndex="0"
               type="button"
               onClick={handleScrollTop}
-              className="rounded-full transition-all hover:scale-125 focus:scale-125"
+              className="rounded-full border-2 border-lionly-white transition-all hover:scale-125 focus:scale-125"
             >
               <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
             </button>
