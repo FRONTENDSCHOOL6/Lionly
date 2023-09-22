@@ -6,6 +6,7 @@ import useStorageData from '@/hooks/useStorageData';
 import { handlePreventTabControl } from '@/utils';
 import renderImg from '@/utils/renderImg';
 import { nickNameReg } from '@/utils/validation';
+import { readAndCompressImage } from 'browser-image-resizer';
 import { func } from 'prop-types';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -17,17 +18,37 @@ function ProfileEdit({ onClose }) {
   const profileImageFile = useRef(null);
   const [uploadImage, setUploadImage] = useState(null);
   const [changeNickName, setChangeNickName] = useState(null);
+  const config = {
+    quality: 0.5,
+    maxWidth: 1000,
+    maxHeight: 1000,
+  };
 
   function handleButtonClick() {
     profileImageFile.current.click();
   }
 
-  function handleFileUpload(e) {
-    const renderFile = e.target.files[0];
-    setUploadImage(renderFile);
-    if (renderFile) {
-      setProfileImage(URL.createObjectURL(renderFile));
+  async function handleFileUpload(e) {
+    const file = e.target.files[0];
+
+    if (file) {
+      try {
+        // 이미지 리사이징 및 압축
+        const optimizedImage = await readAndCompressImage(file, config);
+
+        // 선택된 이미지의 URL 생성
+        setProfileImage(URL.createObjectURL(optimizedImage));
+
+        // 최적화된 이미지 파일 저장
+        setUploadImage(optimizedImage);
+      } catch (err) {
+        console.error('Failed to optimize image', err);
+      }
     }
+    // setUploadImage(renderFile);
+    // if (renderFile) {
+    //   setProfileImage(URL.createObjectURL(renderFile));
+    // }
   }
 
   function handleNickName(e) {

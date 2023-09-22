@@ -12,6 +12,7 @@ import useTextarea from '@/hooks/useTextarea';
 import { motion } from 'framer-motion';
 import useInfiniteFeed from '@/hooks/useInfiniteFeed';
 import useIsLogin from '@/contexts/AuthProvider';
+import { readAndCompressImage } from 'browser-image-resizer';
 
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
@@ -20,7 +21,11 @@ function Writing() {
     useTextarea();
   const { refetch } = useInfiniteFeed();
   useIsLogin();
-
+  const config = {
+    quality: 0.5,
+    maxWidth: 1000,
+    maxHeight: 1000,
+  };
   const textareaMaxLength = 200;
 
   const channelsRef = useRef(null);
@@ -37,37 +42,45 @@ function Writing() {
   const handleRegisterData = async (e) => {
     e.preventDefault();
 
-    const imageValue = imageInput.current.files[0];
-    const textValue = textareaRef.current.value;
-    const channelsValue = channelsRef.current.value;
-    const authorValue = id;
-
-    if (!textValue.trim()) {
-      toast.error('글을 작성해주세요.', { icon: '✏️' });
-      return;
-    }
-    if (!imageValue) {
-      toast.error('이미지를 선택해주세요.', { icon: '🖼️' });
-      return;
-    }
-
-    const uploadConfirm = confirm('게시물을 업로드 하시겠습니까?');
-
-    if (uploadConfirm) {
+    const file = imageInput.current.files[0];
+    if (file) {
       try {
-        const formData = new FormData();
-        formData.append('feed_image', imageValue);
-        formData.append('text', textValue);
-        formData.append('channels', channelsValue);
-        formData.append('author', authorValue);
+        // 이미지 리사이징 및 압축
+        const imageValue = await readAndCompressImage(file, config);
+        const textValue = textareaRef.current.value;
+        const channelsValue = channelsRef.current.value;
+        const authorValue = id;
 
-        await createFeedData(formData);
+        if (!textValue.trim()) {
+          toast.error('글을 작성해주세요.', { icon: '✏️' });
+          return;
+        }
+        if (!file) {
+          toast.error('이미지를 선택해주세요.', { icon: '🖼️' });
+          return;
+        }
 
-        await refetch();
-        toast.success('게시물이 업로드 되었습니다.');
-        navigate('/feed');
-      } catch (error) {
-        console.error(error);
+        const uploadConfirm = confirm('게시물을 업로드 하시겠습니까?');
+
+        if (uploadConfirm) {
+          try {
+            const formData = new FormData();
+            formData.append('feed_image', imageValue);
+            formData.append('text', textValue);
+            formData.append('channels', channelsValue);
+            formData.append('author', authorValue);
+
+            await createFeedData(formData);
+
+            await refetch();
+            toast.success('게시물이 업로드 되었습니다.');
+            navigate('/feed');
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to optimize image', err);
       }
     }
   };

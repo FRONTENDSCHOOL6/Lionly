@@ -5,7 +5,7 @@ import { handleKeyboardArrowControl } from '@/utils';
 import { shape, string } from 'prop-types';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LinkButton from '../Button/LinkButton';
+import LinkButton from '../button/LinkButton';
 import { ProfileImage } from '../button';
 import pb from './../../api/pocketbase';
 import ProfileEdit from './ProfileEdit';
