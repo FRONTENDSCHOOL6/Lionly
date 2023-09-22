@@ -14,6 +14,7 @@ import { useCallback } from 'react';
 import useIsLogin from '@/contexts/AuthProvider';
 import { motion } from 'framer-motion';
 import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
+import { readAndCompressImage } from 'browser-image-resizer';
 
 function Edit() {
   useIsLogin();
@@ -40,7 +41,11 @@ function Edit() {
     }
     fetchData();
   }, []);
-
+  const config = {
+    quality: 0.5,
+    maxWidth: 1000,
+    maxHeight: 1000,
+  };
   useEffect(() => {
     // text 없을 시 select 만 랜더링 되게 만들기.
     if (data && channelsRef.current) {
@@ -54,13 +59,26 @@ function Edit() {
     fileInputRef.current.click();
   }, []);
 
+
   const handleFileUpload = useCallback(async (e) => {
     const renderfile = e.target.files[0];
-    setChangeImage(renderfile);
+
 
     if (renderfile) {
-      setSelectedImage(URL.createObjectURL(renderfile)); // 선택된 이미지의 URL 생성
+      try {
+        // 이미지 리사이징 및 압축
+        const optimizedImage = await readAndCompressImage(renderfile, config);
+
+        // 선택된 이미지의 URL 생성
+        setSelectedImage(URL.createObjectURL(optimizedImage));
+
+        // 최적화된 이미지 파일 저장
+        setChangeImage(optimizedImage);
+      } catch (err) {
+        console.error('Failed to optimize image', err);
+      }
     }
+ 
   }, []);
 
   const handleUpdateClick = useCallback(async () => {
