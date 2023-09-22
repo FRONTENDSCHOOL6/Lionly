@@ -11,7 +11,7 @@ import {
   SignUp,
   Writing,
 } from './pages';
-import ProtectedRoute from './components/ProtecteRoute.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Edit from './pages/Edit.jsx';
 import FeedList from './components/layout/feed/FeedList.jsx';
 

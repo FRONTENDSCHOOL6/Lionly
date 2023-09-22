@@ -70,11 +70,6 @@ function MyFeedList() {
                               {getDate(item.created)}
                             </p>
                             <div className="ml-1 flex items-center gap-x-2 ">
-                              <span className="text-lionly-sm text-lionly-gray-2">
-                                {item.created !== item.updated
-                                  ? '수정됨'
-                                  : null}
-                              </span>
                               <div className="flex items-center gap-x-1">
                                 <Comment
                                   aria-hidden

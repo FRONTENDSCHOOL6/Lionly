@@ -1,6 +1,6 @@
 import getContent from '@/api/getContent';
 import { useQuery } from '@tanstack/react-query';
-import useChannel from './useChannel';
+import useChannel from '../contexts/useChannel';
 
 function useFeed(feedId) {
   const { status, data } = useQuery({

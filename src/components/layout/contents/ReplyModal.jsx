@@ -22,7 +22,6 @@ function ReplyModal({ openModal, setOpenModal }) {
       replyInputRef.current.focus();
       replyInputRef.current.style.height = '';
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openModal]);
 
   return (

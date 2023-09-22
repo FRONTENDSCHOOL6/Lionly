@@ -1,6 +1,6 @@
 import pb from '@/api/pocketbase';
 import Spinner from '@/components/Spinner';
-import renderImg from '@/utils/getImageData';
+import renderImg from '@/utils/renderImg';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';

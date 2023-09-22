@@ -5,8 +5,8 @@ import useStorageData from './useStorageData';
 
 function useCreateComment() {
   const storageData = useStorageData();
-  const { content, selectedComment } = useContent();
-  const { refetch } = useContentData();
+  const { selectedComment } = useContent();
+  const { refetch, data } = useContentData();
 
   const handleSubmitComment = async (e, collection, ref) => {
     e.preventDefault();
@@ -26,15 +26,15 @@ function useCreateComment() {
     ref.current.value = '';
 
     (collection === 'comments'
-      ? content.commentArray
+      ? data[0].commentArray
       : selectedComment.reply
     )?.push(commentId);
 
     await updateComment(
       collection === 'comments' ? 'feeds' : 'comments',
-      collection === 'comments' ? content?.id : selectedComment?.id,
+      collection === 'comments' ? data[0]?.id : selectedComment?.id,
       collection === 'comments'
-        ? { comments: content.commentArray }
+        ? { comments: data[0].commentArray }
         : { reply: selectedComment?.reply }
     );
 
@@ -45,7 +45,9 @@ function useCreateComment() {
     }
 
     await refetch();
-
+    scrollTo({
+      top: 100000,
+    });
     return;
   };
 

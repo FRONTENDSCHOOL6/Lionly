@@ -8,12 +8,10 @@ import {
 import { useContentData } from '@/hooks';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
 
 function Contents() {
-  const { contentId } = useParams();
   const { isLoading, data } = useContentData();
-  console.log(data);
+
   if (isLoading) {
     return (
       <div className="h-screen">

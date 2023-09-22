@@ -1,5 +1,4 @@
 export { default as useChannel } from './useChannel';
-export { default as useModal } from './useModal';
 export { default as useCreateComment } from './useCreateComment';
 export { default as useDeleteComment } from './useDeleteComment';
 export { default as useInfiniteFeed } from './useInfiniteFeed';
@@ -7,5 +6,4 @@ export { default as useObserveScroll } from './useObserveScroll';
 export { default as useContent } from './useContent';
 export { default as useScroll } from './useScroll';
 export { default as useContentData } from './useContentData';
-export { default as useSubscribe } from './useSubscribe';
 export { default as useTitle } from './useTitle';
