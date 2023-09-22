@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 
 function Contents() {
   const { contentId } = useParams();
-  const { isLoading, data } = useContentData(contentId);
+  const { isLoading, data } = useContentData();
 
   if (isLoading) {
     return (
@@ -55,7 +55,7 @@ function Contents() {
             <>
               <Header contentData={data[0]} />
               <Content contentData={data[0]} />
-              <Comments />
+              <Comments comments={data[1]} />
             </>
           }
         </div>

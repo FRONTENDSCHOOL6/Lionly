@@ -189,7 +189,7 @@ function Writing() {
           <textarea
             name="content"
             placeholder="글을 작성해주세요.✏️"
-            className="w-full flex-1 resize-none rounded-xl border-none placeholder:pt-[10%] placeholder:text-center focus:outline-none"
+            className="w-full flex-1 resize-none border-none placeholder:pt-[10%] placeholder:text-center focus:outline-none"
             maxLength={textareaMaxLength}
             onChange={handleInputCount}
             ref={textareaRef}

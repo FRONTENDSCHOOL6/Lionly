@@ -1,8 +1,8 @@
 import pb from '@/api/pocketbase';
-import useContent from './useContent';
+import useContentData from './useContentData';
 
-function useDeleteComment() {
-  const { comments, setComments } = useContent();
+function useDeleteComment(comments) {
+  const { refetch } = useContentData();
 
   const handleDeleteComment = async (collection, recordId) => {
     if (
@@ -10,19 +10,6 @@ function useDeleteComment() {
         `${collection === 'comments' ? '댓글' : '답글'}을 삭제하시겠습니까?`
       )
     ) {
-      collection === 'comments'
-        ? setComments((comments) =>
-            comments.filter((comment) => comment.id !== recordId)
-          )
-        : setComments((comments) =>
-            comments.map(
-              (comment) =>
-                (comment.reply = comment.reply.filter(
-                  (replyId) => replyId !== recordId
-                ))
-            )
-          );
-
       await pb.collection(collection).delete(recordId);
 
       comments.forEach((comment) =>
@@ -33,8 +20,11 @@ function useDeleteComment() {
           : null
       );
 
+      await refetch();
+
       return;
     }
+
     return;
   };
   return { handleDeleteComment };
