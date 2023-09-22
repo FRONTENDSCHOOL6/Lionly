@@ -1,62 +1,55 @@
 import createComment from '@/api/createComment';
 import updateComment from '@/api/updateComment';
-import { useContent } from '@/hooks';
-import { useRef } from 'react';
+import { useContent, useContentData } from '@/hooks';
 import useStorageData from './useStorageData';
 
 function useCreateComment() {
   const storageData = useStorageData();
-  const commentInputRef = useRef(null);
-  const replyInputRef = useRef(null);
-  const { contentData, selectedComment } = useContent();
-  const commentArray = contentData?.comments;
+  const { content, comments, selectedComment } = useContent();
+  const { refetch, data } = useContentData();
 
-  const handleSubmitComment = async (e, collection) => {
+  const handleSubmitComment = async (e, collection, ref) => {
     e.preventDefault();
-
-    if (
-      !(collection === 'comments' ? commentInputRef : replyInputRef).current
-        .value
-    ) {
-      alert(`${collection === 'comments' ? '댓글' : '답글'}을 입력해주세요.`);
-
-      return;
-    }
 
     const commentId = crypto.randomUUID().replaceAll('-', '').slice(0, 15);
 
+    if (!ref.current.value) {
+      alert(`${collection === 'comments' ? '댓글' : '답글'}을 입력해주세요.`);
+      return;
+    }
+
     await createComment(collection === 'comments' ? 'comments' : 'reply', {
       id: commentId,
-      comment: (collection === 'comments' ? commentInputRef : replyInputRef)
-        .current?.value,
+      comment: ref.current.value,
       commenter: storageData.id,
     });
+    ref.current.value = '';
 
-    (collection === 'comments' ? commentArray : selectedComment.reply)?.push(
-      commentId
-    );
+    (collection === 'comments'
+      ? content.commentArray
+      : selectedComment.reply
+    )?.push(commentId);
+
     await updateComment(
       collection === 'comments' ? 'feeds' : 'comments',
-      collection === 'comments' ? contentData?.id : selectedComment?.id,
+      collection === 'comments' ? content?.id : selectedComment?.id,
       collection === 'comments'
-        ? { comments: commentArray }
+        ? { comments: content.commentArray }
         : { reply: selectedComment?.reply }
     );
-    (collection === 'comments'
-      ? commentInputRef
-      : replyInputRef
-    ).current.value = '';
 
     if (collection === 'comments') {
-      commentInputRef.current.style.height = '40px';
-      commentInputRef.current.style.transform = 'translateY(0px)';
-      commentInputRef.current.style.marginTop = '0px';
+      ref.current.style.height = '40px';
+      ref.current.style.transform = 'translateY(0px)';
+      ref.current.style.marginTop = '0px';
     }
+
+    await refetch();
 
     return;
   };
 
-  return { commentInputRef, replyInputRef, handleSubmitComment };
+  return { handleSubmitComment };
 }
 
 export default useCreateComment;

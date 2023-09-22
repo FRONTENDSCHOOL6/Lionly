@@ -1,4 +1,3 @@
-import getContent from '@/api/getContent';
 import Spinner from '@/components/Spinner';
 import {
   Comments,
@@ -6,23 +5,14 @@ import {
   Header,
   InsertComment,
 } from '@/components/layout/contents';
-import { useContent } from '@/hooks';
-import { useQuery } from '@tanstack/react-query';
+import { useContentData } from '@/hooks';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 function Contents() {
-  const { contentData, setContentData } = useContent();
   const { contentId } = useParams();
-  const { isLoading } = useQuery({
-    queryKey: ['content', contentId],
-    queryFn: () => getContent(contentId),
-
-    onSuccess: (data) => {
-      setContentData(data);
-    },
-  });
+  const { isLoading, data } = useContentData(contentId);
 
   if (isLoading) {
     return (
@@ -39,37 +29,39 @@ function Contents() {
   }
 
   return (
-    contentData && (
-      <>
-        <Helmet>
-          <title>{`${contentData.expand?.author.nickname}`}의 게시글</title>
-        </Helmet>
+    <>
+      <Helmet>
+        <title>{`${data[0].authorNickname}`}의 게시글</title>
+      </Helmet>
 
-        <h1 className="sr-only">Lionly</h1>
+      <h1 className="sr-only">Lionly</h1>
 
-        <motion.div
-          className="flex min-h-[calc(100vh)] flex-col justify-between bg-lionly-white"
-          initial={{
-            opacity: 0,
-            y: -50,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-          }}
-        >
-          <div>
-            <Header />
-            <Content />
-            <Comments />
-          </div>
-          <InsertComment />
-        </motion.div>
-      </>
-    )
+      <motion.div
+        className="flex min-h-[calc(100vh)] flex-col justify-between bg-lionly-white"
+        initial={{
+          opacity: 0,
+          y: -50,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+      >
+        <div>
+          {
+            <>
+              <Header contentData={data[0]} />
+              <Content contentData={data[0]} />
+              <Comments />
+            </>
+          }
+        </div>
+        <InsertComment />
+      </motion.div>
+    </>
   );
 }
 
