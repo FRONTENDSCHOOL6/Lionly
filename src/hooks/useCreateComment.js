@@ -5,8 +5,8 @@ import useStorageData from './useStorageData';
 
 function useCreateComment() {
   const storageData = useStorageData();
-  const { content, comments, selectedComment } = useContent();
-  const { refetch, data } = useContentData();
+  const { content, selectedComment } = useContent();
+  const { refetch } = useContentData();
 
   const handleSubmitComment = async (e, collection, ref) => {
     e.preventDefault();

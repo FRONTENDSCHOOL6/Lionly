@@ -69,7 +69,7 @@ function Edit() {
       return;
     }
     const updateData = { channels: channelsRef.current.value };
-  
+
     if (changeImage !== null) {
       updateData.feed_image = changeImage;
     }
@@ -78,11 +78,10 @@ function Edit() {
     }
 
     await pb.collection('feeds').update(data.id, updateData);
-  
+
     await refetch();
     toast.success('게시글이 성공적으로 수정 되었습니다!');
     navigate('/mypage');
-    window.location.reload(); //리로드 직접 안해주면 feed가서 사용자가 다시 새로고침 해야함
   }, [navigate, textValue, changeImage]);
 
   const handleTextChange = useCallback((e) => {
@@ -146,7 +145,7 @@ function Edit() {
             >
               <h3 className="sr-only">로그인 된 사용자 게시물</h3>
               <button
-                className="mx-auto mb-4 h-10 w-[130px] rounded-full border  border-lionly-white text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color max-[365px]:w-[100px] max-[365px]:text-lionly-xs max-[365px]:h-8"
+                className="mx-auto mb-4 h-10 w-[130px] rounded-full border  border-lionly-white text-lionly-sm-bold text-lionly-white hover:bg-lionly-secondary-color max-[365px]:h-8 max-[365px]:w-[100px] max-[365px]:text-lionly-xs"
                 onClick={handleButtonClick}
               >
                 <img
@@ -166,8 +165,8 @@ function Edit() {
           </main>
           <footer className="flex  w-full flex-grow flex-col">
             <div className="w-full rounded-t-xl bg-lionly-white ">
-              <div className=" flex justify-between p-6 max-[365px]:text-[12px] max-[365px]:p-4">
-                <div >
+              <div className=" flex justify-between p-6 max-[365px]:p-4 max-[365px]:text-[12px]">
+                <div>
                   <h2 className="inline" tabIndex="0">
                     게시물 수정
                   </h2>
@@ -187,9 +186,9 @@ function Edit() {
                     </span>
                   </div>
                 </div>
-                <div className=''>
+                <div className="">
                   <select
-                    className="mr-10 w-[100px] pl-4 text-sm max-[365px]:text-[12px] max-[365px]:pt-1 max-[365px]:pr-0 max-[365px]:mt-1 max-[365px]:w-[85px] max-[365px]:mr-3"
+                    className="mr-10 w-[100px] pl-4 text-sm max-[365px]:mr-3 max-[365px]:mt-1 max-[365px]:w-[85px] max-[365px]:pr-0 max-[365px]:pt-1 max-[365px]:text-[12px]"
                     ref={channelsRef}
                     tabIndex="0"
                     aria-label="게시글 채널 선택"
@@ -203,7 +202,7 @@ function Edit() {
                     className="text-lionly-sm-bold text-lionly-gray-3 hover:text-lionly-black max-[365px]:text-[12px] "
                     onClick={handleDeleteAllClick}
                   >
-                    <span className=''>전체 삭제</span>
+                    <span className="">전체 삭제</span>
                   </button>
                 </div>
               </div>

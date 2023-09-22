@@ -5,7 +5,6 @@ export const ContentContext = createContext({});
 
 function ContentProvider({ displayName = 'ContentContext', children }) {
   const [content, setContent] = useState({});
-  const [comments, setComments] = useState([]);
   const [selectedComment, setSelectedComment] = useState({});
   // const start = performance.now();
   // console.log('시작');
@@ -19,8 +18,6 @@ function ContentProvider({ displayName = 'ContentContext', children }) {
       value={{
         content,
         setContent,
-        comments,
-        setComments,
         selectedComment,
         setSelectedComment,
       }}
