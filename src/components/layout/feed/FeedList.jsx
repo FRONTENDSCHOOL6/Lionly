@@ -52,10 +52,10 @@ function FeedList() {
                     id={content.id}
                     onKeyDown={(e) => {
                       e.key === 'Enter'
-                        ? handleNavigate(content)
+                        ? () => handleNavigate(content)
                         : handleKeyboardArrowControl(e);
                     }}
-                    onClick={handleNavigate(content)}
+                    onClick={() => handleNavigate(content)}
                     className="cursor-pointer"
                   >
                     <div className="flex flex-col gap-y-2.5 px-4 py-3">
