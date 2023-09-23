@@ -12,6 +12,12 @@ function FeedList() {
   const { isLoading, data, hasNextPage } = useInfiniteFeed();
   const { channelList } = useChannel();
   const { showScrollTopButton, handleScrollTop } = useScroll();
+  const handleNavigate = (content) => {
+    navigate(`/feed/contents/${content.id}`);
+    scrollTo({
+      top: 0,
+    });
+  };
 
   if (isLoading) {
     return (
@@ -46,12 +52,10 @@ function FeedList() {
                     id={content.id}
                     onKeyDown={(e) => {
                       e.key === 'Enter'
-                        ? navigate(`/feed/contents/${content.id}`)
+                        ? handleNavigate(content)
                         : handleKeyboardArrowControl(e);
                     }}
-                    onClick={() => {
-                      navigate(`/feed/contents/${content.id}`);
-                    }}
+                    onClick={handleNavigate(content)}
                     className="cursor-pointer"
                   >
                     <div className="flex flex-col gap-y-2.5 px-4 py-3">

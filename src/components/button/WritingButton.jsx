@@ -11,6 +11,9 @@ function WritingButton() {
       onKeyDown={handleKeyboardArrowControl}
       onClick={() => {
         navigate('/writing');
+        scrollTo({
+          top: 0,
+        });
       }}
       className="flex h-[34px] w-[88px] items-center justify-center gap-2 rounded-lg bg-lionly-secondary-color text-lionly-md text-lionly-white shadow-lg transition-all hover:scale-110"
     >

@@ -36,6 +36,9 @@ function Login() {
 
       if (pb.authStore.isValid) {
         navigate('/feed');
+        scrollTo({
+          top: 0,
+        });
         toast.success(`안녕하세요! ${pb.authStore.model.name}님`, {
           icon: '👏',
         });
@@ -103,6 +106,9 @@ function Login() {
             text={'회원가입'}
             onClick={() => {
               navigate('/signup');
+              scrollTo({
+                top: 0,
+              });
             }}
           />
         </div>
