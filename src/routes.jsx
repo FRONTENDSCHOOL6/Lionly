@@ -1,9 +1,5 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import Feed from './pages/Feed.jsx';
-import MyPage from './pages/MyPage.jsx';
-import FeedList from './components/layout/feed/FeedList.jsx';
-import Contents from './pages/Contents.jsx';
 
 const RootLayout = lazy(() => import('./components/layout/RootLayout.jsx'));
 const ErrorPage = lazy(() => import('./pages/ErrorPage.jsx'));
@@ -16,10 +12,10 @@ const SignUp = lazy(() => import('./pages/SignUp.jsx'));
 const ProtectedRoute = lazy(() => import('./components/ProtectedRoute.jsx'));
 const Writing = lazy(() => import('./pages/Writing.jsx'));
 const Edit = lazy(() => import('./pages/Edit.jsx'));
-// const MyPage = lazy(() => import('./pages/MyPage.jsx'));
-// const Feed = lazy(() => import('./pages/Feed.jsx'));
-// const FeedList = lazy(() => import('./components/layout/feed/FeedList.jsx'));
-// const Contents = lazy(() => import('./pages/Contents.jsx'));
+const MyPage = lazy(() => import('./pages/MyPage.jsx'));
+const Feed = lazy(() => import('./pages/Feed.jsx'));
+const FeedList = lazy(() => import('./components/layout/feed/FeedList.jsx'));
+const Contents = lazy(() => import('./pages/Contents.jsx'));
 
 const router = createBrowserRouter([
   {
