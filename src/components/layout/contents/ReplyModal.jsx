@@ -65,6 +65,7 @@ function ReplyModal({ openModal, setOpenModal }) {
             type="button"
             onKeyDown={(e) => handlePreventTabControl(e)}
             onClick={() => {
+              replyInputRef.current.value = '';
               setOpenModal(false);
             }}
             className="w-1/3 self-center rounded-full border bg-lionly-gray-3 p-2 text-lionly-sm-bold text-lionly-white"
