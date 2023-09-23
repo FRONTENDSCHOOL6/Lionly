@@ -1,7 +1,7 @@
 import pb from '@/api/pocketbase';
 import useContentData from './useContentData';
 
-function useDeleteComment(comments) {
+function useDeleteComment(data) {
   const { refetch } = useContentData();
 
   const handleDeleteComment = async (collection, recordId) => {
@@ -12,7 +12,7 @@ function useDeleteComment(comments) {
     ) {
       await pb.collection(collection).delete(recordId);
 
-      comments.forEach((comment) =>
+      data.expand.comments.forEach((comment) =>
         comment.id === recordId && comment.reply.length > 0
           ? comment.reply.forEach(
               async (reply) => await pb.collection('reply').delete(reply)

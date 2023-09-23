@@ -2,10 +2,8 @@ import pb from '@/api/pocketbase';
 import { ReactComponent as DeleteSVG } from '@/assets/delete_Feed.svg';
 import lionHeadLogo from '@/assets/lionHeadLogo_common.svg';
 import { ReactComponent as LionLogoSVG } from '@/assets/lionLogo_common.svg';
-import useStorageData from '@/hooks/useStorageData';
-import { handlePreventTabControl } from '@/utils';
-import renderImg from '@/utils/renderImg';
-import { nickNameReg } from '@/utils/validation';
+import { useStorageData } from '@/hooks';
+import { handlePreventTabControl, nickNameReg, renderImg } from '@/utils';
 import { readAndCompressImage } from 'browser-image-resizer';
 import { func } from 'prop-types';
 import { useRef, useState } from 'react';
@@ -54,7 +52,7 @@ function ProfileEdit({ onClose }) {
   function handleNickName(e) {
     const nickName = e.target.value;
     setChangeNickName(nickName);
-    console.log(changeNickName);
+    // console.log(changeNickName);
   }
 
   async function handleUpdate() {

@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import debounce from '@/utils/debounce';
 import pb from '@/api/pocketbase';
-import { useEffect, useState } from 'react';
-import { useRef } from 'react';
-import LinkButton from '../button/LinkButton';
+import { debounce } from '@/utils';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAnimation, motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { LinkButton } from '../button';
+
 function Login() {
   const navigate = useNavigate();
   const emailRef = useRef();

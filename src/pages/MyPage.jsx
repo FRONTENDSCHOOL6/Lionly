@@ -1,11 +1,9 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
-import MyFeedList from '@/components/layout/MyFeedList';
-import MyPageHeader from '@/components/layout/MyPageHeader';
+import { MyFeedList, MyPageHeader } from '@/components/layout';
 import useIsLogin from '@/contexts/AuthProvider';
-import { useObserveScroll, useScroll } from '@/hooks';
-import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
-import { Helmet } from 'react-helmet-async';
+import { useInfiniteMyFeed, useObserveScroll, useScroll } from '@/hooks';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 
 function MyPage() {
   useIsLogin();
@@ -30,6 +28,7 @@ function MyPage() {
       <Helmet>
         <title>Lionly - MyPage</title>
       </Helmet>
+
       <header className="sticky top-0 z-10">
         <MyPageHeader />
         <div className=" bg-lionly-white">
@@ -39,8 +38,10 @@ function MyPage() {
         </div>
       </header>
       <div className="z-10 h-full bg-lionly-white">
+        <MyFeedList />
+
         {showScrollTopButton ? (
-          <div className="sticky left-[100%] top-[370px] z-10 inline pr-6">
+          <div className="fixed top-[320px] block w-full max-w-3xl p-8 text-right">
             <button
               role="button"
               aria-label="상단으로 이동"
@@ -53,8 +54,6 @@ function MyPage() {
             </button>
           </div>
         ) : null}
-
-        <MyFeedList />
 
         {!hasNextPage ? (
           <p

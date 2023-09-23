@@ -1,9 +1,10 @@
-import useStorageData from '@/hooks/useStorageData';
+import { LogoutButton, WritingButton } from '@/components/button';
+import { useStorageData } from '@/hooks';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { LogoutButton, ProfileImage, WritingButton } from '../../button';
+import { ProfileImage } from '..';
 import { ReactComponent as LionHeadLogoSVG } from '/src/assets/lionHeadLogo_common.svg';
 import { ReactComponent as ProfileEditSVG } from '/src/assets/profileEdit_Feed.svg';
-import { motion } from 'framer-motion';
 
 function FeedHeader() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ function FeedHeader() {
           }}
         >
           <LionHeadLogoSVG aria-hidden />
-          <h1 className="text-lionly-xl text-white">Lionly</h1>
+          <span className="text-lionly-xl text-white">Lionly</span>
         </motion.div>
         <ProfileEditSVG
           aria-label="마이 페이지"
@@ -39,6 +40,7 @@ function FeedHeader() {
           tabIndex="0"
           width={24}
           height={24}
+          onKeyDown={(e) => (e.key === 'Enter' ? navigate('/mypage') : null)}
           onClick={() => {
             navigate('/mypage');
           }}

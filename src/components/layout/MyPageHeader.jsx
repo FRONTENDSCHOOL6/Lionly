@@ -1,15 +1,13 @@
+import pb from '@/api/pocketbase';
 import { ReactComponent as ButtonPrevSVG } from '@/assets/buttonPrev_MyPage.svg';
 import { ReactComponent as SignOutSVG } from '@/assets/signOut_MyPage.svg';
-import useStorageData from '@/hooks/useStorageData';
+import { useActivateChannel, useStorageData } from '@/hooks';
 import { handleKeyboardArrowControl } from '@/utils';
 import { shape, string } from 'prop-types';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LinkButton from '../button/LinkButton';
-import { ProfileImage } from '../button';
-import pb from './../../api/pocketbase';
-import ProfileEdit from './ProfileEdit';
-import { useChannel } from '@/hooks';
+import { ProfileEdit, ProfileImage } from '.';
+import { LinkButton } from '../button';
 
 function MyPageHeader() {
   const navigate = useNavigate();
@@ -27,31 +25,7 @@ function MyPageHeader() {
     }
   };
 
-  const { channelList } = useChannel();
-  const activatedChannelIndex = Object.values(channelList).indexOf(true);
-  let pathname;
-
-  switch (activatedChannelIndex) {
-    case 0:
-      pathname = '/feed';
-      break;
-
-    case 1:
-      pathname = '/feed/daily';
-      break;
-
-    case 2:
-      pathname = '/feed/food';
-      break;
-
-    case 3:
-      pathname = '/feed/job';
-      break;
-
-    case 4:
-      pathname = '/feed/healing';
-      break;
-  }
+  const { pathname } = useActivateChannel();
 
   return (
     <>
@@ -70,12 +44,12 @@ function MyPageHeader() {
               className=" fill-lionly-primary-color hover:scale-125"
             />
           </button>
-          <h1
+          <h2
             className="text-lionly-lg text-lionly-white"
             aria-label="마이페이지"
           >
             마이페이지
-          </h1>
+          </h2>
           <button type="button" aria-label="로그아웃" onClick={handleSignOut}>
             <SignOutSVG
               aria-hidden

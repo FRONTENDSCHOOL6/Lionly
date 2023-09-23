@@ -1,41 +1,40 @@
-import { ProfileImage } from '@/components/button';
-import { useContent, useDeleteComment } from '@/hooks';
-import useStorageData from '@/hooks/useStorageData';
+import { useContent } from '@/contexts/Content';
+import { useDeleteComment, useStorageData } from '@/hooks';
 import { calcTimeDifference } from '@/utils';
-import { array } from 'prop-types';
+import { object } from 'prop-types';
 import { useState } from 'react';
+import { ProfileImage } from '..';
 import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
-function Comments({ comments }) {
+function Comments({ data }) {
+  const { handleDeleteComment } = useDeleteComment(data);
+
   const [openModal, setOpenModal] = useState(false);
-
-  const storageData = useStorageData();
   const { setSelectedComment } = useContent();
-  const { handleDeleteComment } = useDeleteComment(comments);
-
   const handleOpenModal = (e) => {
     if (openModal === false && (e.key === 'Enter' || e.type === 'click')) {
       const targetIndex = e.target.id.slice(-1);
 
       setSelectedComment({
-        id: comments[targetIndex].id,
-        nickname: comments[targetIndex].commenterNickname,
-        reply: comments[targetIndex].reply,
+        id: data.expand.comments[targetIndex].id,
+        nickname: data.expand.comments[targetIndex].commenterNickname,
+        reply: data.expand.comments[targetIndex].reply,
       });
 
       setOpenModal(true);
     }
     return;
   };
+  const storageData = useStorageData();
 
   return (
     <section className="px-4">
       <h4 className="sr-only">Comments</h4>
       <ReplyModal openModal={openModal} setOpenModal={setOpenModal} />
       <ul className="relative flex flex-col gap-y-3">
-        {comments &&
-          comments?.map((comment, index) => (
+        {data.expand.comments &&
+          data.expand.comments?.map((comment, index) => (
             <li key={comment.id} className="relative flex flex-col">
               <div className="flex gap-x-3">
                 <ProfileImage
@@ -129,7 +128,7 @@ function Comments({ comments }) {
 }
 
 Comments.propTypes = {
-  comments: array,
+  data: object,
 };
 
 export default Comments;

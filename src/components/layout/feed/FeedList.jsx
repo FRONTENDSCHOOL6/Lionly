@@ -1,15 +1,17 @@
-import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
-import { useChannel, useInfiniteFeed } from '@/hooks';
-import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
+import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
+import Spinner from '@/components/Spinner';
+import { useChannel } from '@/contexts/Channel';
+import { useInfiniteFeed, useScroll } from '@/hooks';
+import { handleKeyboardArrowControl } from '@/utils';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../../Spinner';
-import { ProfileImage } from '@/components/button';
+import Content from './../contents/Content';
 
 function FeedList() {
   const navigate = useNavigate();
   const { isLoading, data, hasNextPage } = useInfiniteFeed();
   const { channelList } = useChannel();
+  const { showScrollTopButton, handleScrollTop } = useScroll();
 
   if (isLoading) {
     return (
@@ -24,14 +26,14 @@ function FeedList() {
 
   return (
     data && (
-      <main className="mt-6 min-h-[calc(100vh-280px)]">
+      <main className="min-h-[calc(100vh-280px)]">
         <ul
           id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
           role="tabpanel"
           aria-labelledby={`tab-${
             Object.values(channelList).indexOf(true) + 1
           }`}
-          className="mx-auto flex flex-col gap-y-6 px-2"
+          className="mx-auto flex flex-col gap-y-6"
         >
           <h4 className="sr-only">피드 리스트</h4>
           {data.pages.map((feed, index) => (
@@ -42,67 +44,18 @@ function FeedList() {
                     tabIndex={0}
                     key={content.id}
                     id={content.id}
-                    onKeyDown={handleKeyboardArrowControl}
+                    onKeyDown={(e) => {
+                      e.key === 'Enter'
+                        ? navigate(`/feed/contents/${content.id}`)
+                        : handleKeyboardArrowControl(e);
+                    }}
                     onClick={() => {
                       navigate(`/feed/contents/${content.id}`);
                     }}
                     className="cursor-pointer"
                   >
-                    <div className="flex flex-col gap-y-2.5">
-                      <figure className="flex h-10 w-full gap-x-3">
-                        <ProfileImage
-                          size={40}
-                          imageName={[
-                            content.expand.author.id,
-                            content.expand.author.profile_image,
-                          ]}
-                        />
-
-                        <figcaption className="flex w-full gap-x-2">
-                          <div className="flex flex-col">
-                            <p className="font-bold text-lionly-black">
-                              {content.expand.author.nickname}
-                            </p>
-                            <p className="text-lionly-sm text-lionly-gray-1">
-                              {`${getDate(content.created)}`}
-                            </p>
-                          </div>
-                          <div className="flex h-full items-end">
-                            <div className="flex items-center gap-x-1">
-                              <Comment
-                                aria-hidden
-                                className="w-4 items-center fill-lionly-black"
-                              />
-                              <span
-                                aria-label="댓글 수"
-                                className="text-lionly-sm text-lionly-black"
-                              >
-                                {content.expand.comments
-                                  ? content.expand.comments
-                                      .map(
-                                        (comment) => 1 + comment.reply?.length
-                                      )
-                                      .reduce((acc, cur) => acc + cur)
-                                  : 0}
-                              </span>
-                            </div>
-                          </div>
-                        </figcaption>
-                      </figure>
-
-                      <figure className="flex w-full flex-col gap-y-[14px]">
-                        <img
-                          alt={`${content.expand.author.nickname}의 피드 이미지`}
-                          src={getPbImageURL(content, 'feed_image')}
-                          className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
-                        />
-
-                        <figcaption>
-                          <p className="w-full text-lionly-md text-lionly-gray-1">
-                            {content.text}
-                          </p>
-                        </figcaption>
-                      </figure>
+                    <div className="flex flex-col gap-y-2.5 px-4 py-3">
+                      <Content data={content} />
                     </div>
                   </li>
                 ))
@@ -119,6 +72,22 @@ function FeedList() {
             </Fragment>
           ))}
         </ul>
+
+        {showScrollTopButton ? (
+          <div className="fixed top-[240px] block w-full max-w-3xl p-8 text-right">
+            <button
+              role="button"
+              aria-label="상단으로 이동"
+              tabIndex="0"
+              type="button"
+              onClick={handleScrollTop}
+              className="rounded-full border-2 border-lionly-white transition-all hover:scale-125 focus:scale-125"
+            >
+              <UpArrowSVG className="h-7 w-7 rounded-full shadow-2xl" />
+            </button>
+          </div>
+        ) : null}
+
         {!hasNextPage && data.pages[0].totalPages !== 0 ? (
           <p
             id="lastContent"

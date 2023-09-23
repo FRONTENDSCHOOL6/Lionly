@@ -1,6 +1,6 @@
-import useTitle from '@/hooks/useTitle';
-import MainLogo from '../MainLogo';
+import { useTitle } from '@/hooks';
 import { Outlet } from 'react-router-dom';
+import MainLogo from '../MainLogo';
 
 function BeforeLogin() {
   const { logoStyle, headingStyle } = useTitle();
@@ -13,9 +13,9 @@ function BeforeLogin() {
         className={`flex flex-col items-center transition-all ${gap} ${pt} ${pr} ${absolute}`}
       >
         <MainLogo size={size} />
-        <h1 className={`text-lionly-2xl text-lionly-white ${hidden}`}>
+        <span className={`text-lionly-2xl text-lionly-white ${hidden}`}>
           Lionly
-        </h1>
+        </span>
       </div>
       <div className="flex w-full flex-col justify-center">
         <Outlet />

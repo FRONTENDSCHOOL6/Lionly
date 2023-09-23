@@ -1,15 +1,12 @@
-import getDate from '@/utils/getDate';
-import { getPbImageURL, handleKeyboardArrowControl } from '@/utils';
-import { shape, string } from 'prop-types';
-import { useState, Fragment } from 'react';
-import { ReactComponent as KebabButtonSVG } from '/src/assets/kebabMenuButton_FeedList.svg';
-import { useCallback } from 'react';
-import deleteMyFeed from '@/api/deleteMyFeed';
-import useInfiniteMyFeed from '@/hooks/useInfiniteMyFeed';
-import Spinner from '../Spinner';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { deleteMyFeed } from '@/api';
 import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
+import { useInfiniteMyFeed } from '@/hooks';
+import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
+import { shape, string } from 'prop-types';
+import { Fragment, useCallback, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Spinner from '../Spinner';
+import { ReactComponent as KebabButtonSVG } from '/src/assets/kebabMenuButton_FeedList.svg';
 
 function MyFeedList() {
   const [drop, setDrop] = useState(null);
@@ -116,7 +113,7 @@ function MyFeedList() {
                       <KebabButtonSVG aria-hidden />
                     </button>
                     {drop == item.id && (
-                      <ul className="absolute right-0 top-[60px]  rounded-md border border-gray-300 bg-white p-2 shadow-lg">
+                      <ul className="absolute right-0 top-[60px] rounded-md border border-gray-300 bg-white p-2 shadow-lg">
                         <li className="cursor-pointer rounded-md p-2 duration-300 hover:bg-gray-200/80">
                           <button
                             type="button"

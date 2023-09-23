@@ -1,7 +1,7 @@
-import { oneOf, string, func } from 'prop-types';
-import { useRef, useId, useState } from 'react';
-import { nameReg, idReg, nickNameReg, passWordReg } from '@/utils/validation';
-import { maxLengthCheck } from '@/utils/maxLengthCheck';
+import { maxLengthCheck } from '@/utils';
+import { idReg, nameReg, nickNameReg, passWordReg } from '@/utils';
+import { func, oneOf, string } from 'prop-types';
+import { useId, useRef, useState } from 'react';
 
 function FormInput({
   type,
@@ -18,7 +18,6 @@ function FormInput({
   const inputRef = useRef(null);
 
   const [isErrorShow, setIsErrorShow] = useState(false);
-
   let password;
 
   if (name === 'userpasswordcheck') {

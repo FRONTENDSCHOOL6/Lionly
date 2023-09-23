@@ -5,11 +5,13 @@ import {
   Header,
   InsertComment,
 } from '@/components/layout/contents';
+import useIsLogin from '@/contexts/AuthProvider';
 import { useContentData } from '@/hooks';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 
 function Contents() {
+  useIsLogin();
   const { isLoading, data } = useContentData();
 
   if (isLoading) {
@@ -30,10 +32,8 @@ function Contents() {
     data && (
       <>
         <Helmet>
-          <title>{`${data[0].authorNickname}`}의 게시글</title>
+          <title>{`${data.expand.author.nickname}`}의 게시글</title>
         </Helmet>
-
-        <h1 className="sr-only">Lionly</h1>
 
         <motion.div
           className="flex min-h-[calc(100vh)] flex-col justify-between bg-lionly-white"
@@ -52,9 +52,11 @@ function Contents() {
           <div>
             {
               <>
-                <Header contentData={data[0]} />
-                <Content contentData={data[0]} />
-                <Comments comments={data[1]} />
+                <Header data={data} />
+                <div className="px-4">
+                  <Content data={data} />
+                </div>
+                <Comments data={data} />
               </>
             }
           </div>

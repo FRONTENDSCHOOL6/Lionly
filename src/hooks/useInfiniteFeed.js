@@ -1,4 +1,4 @@
-import getFeedList from '@/api/getFeedList';
+import { getFeedList } from '@/api';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 function useInfiniteFeed() {
