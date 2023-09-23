@@ -73,7 +73,7 @@ function Writing() {
           formData.append('channels', channelsValue);
           formData.append('author', authorValue);
 
-          await createData(formData);
+          await createData('feeds', formData);
 
           await refetch();
           toast.success('게시물이 업로드 되었습니다.');
