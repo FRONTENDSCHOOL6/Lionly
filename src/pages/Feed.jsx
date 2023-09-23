@@ -2,7 +2,7 @@ import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
 import { ChannelTab, FeedHeader } from '@/components/layout/feed';
 import useIsLogin from '@/contexts/AuthProvider';
 import {
-  useChannel,
+  useActivateChannel,
   useInfiniteFeed,
   useObserveScroll,
   useScroll,
@@ -13,19 +13,15 @@ import { Outlet } from 'react-router-dom';
 
 function Feed() {
   useIsLogin();
+  const { selectedChannel } = useActivateChannel();
+  const { showScrollTopButton, handleScrollTop } = useScroll();
   const { fetchNextPage } = useInfiniteFeed();
   const { listEndRef } = useObserveScroll(fetchNextPage);
-  const { showScrollTopButton, handleScrollTop } = useScroll();
-  const { channelList } = useChannel();
-
-  const channelArray = Object.keys(channelList);
-  const activatedChannel =
-    channelArray[Object.values(channelList).indexOf(true)];
 
   return (
     <>
       <Helmet>
-        <title>Feed - {activatedChannel}</title>
+        <title>Feed - {selectedChannel}</title>
       </Helmet>
       <motion.div
         className="z-10 min-h-screen bg-lionly-white pb-4"
@@ -44,15 +40,16 @@ function Feed() {
         <div className="sticky top-0 z-10">
           <FeedHeader />
 
-          <h2 className="sr-only">피드 페이지</h2>
+          <h2 className="sr-only">피드 - {selectedChannel}</h2>
 
           <ChannelTab />
         </div>
 
+        <Outlet />
+
         {showScrollTopButton ? (
-          <div className="sticky left-[100%] top-[265px] inline pr-6">
+          <div className="fixed right-[13%] top-[265px] inline pr-6">
             <button
-              id="scrollTobButton"
               role="button"
               aria-label="상단으로 이동"
               tabIndex="0"
@@ -64,8 +61,6 @@ function Feed() {
             </button>
           </div>
         ) : null}
-
-        <Outlet />
 
         <div ref={listEndRef} className="absolute bottom-[300px]"></div>
       </motion.div>

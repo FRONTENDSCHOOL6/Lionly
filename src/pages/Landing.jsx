@@ -1,4 +1,4 @@
-import LinkButton from '@/components/button/LinkButton';
+import { LinkButton } from '@/components/button';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 

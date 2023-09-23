@@ -2,11 +2,11 @@ import { ReactComponent as LeftArrow } from '@/assets/arrow_common_left.svg';
 import { object } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function Header({ contentData }) {
+function Header({ data }) {
   const navigate = useNavigate();
 
   return (
-    contentData && (
+    data && (
       <header className="sticky top-0 z-10 flex justify-center bg-lionly-primary-color px-4 py-3">
         <LeftArrow
           aria-label="뒤로 가기"
@@ -17,12 +17,10 @@ function Header({ contentData }) {
         />
 
         <div className="flex flex-col items-center">
-          <h2 className="text-lionly-sm text-lionly-white">
-            {contentData.channel}
-          </h2>
+          <h2 className="text-lionly-sm text-lionly-white">{data.channel}</h2>
 
           <h3 className="w-full text-center text-lionly-base font-bold text-lionly-black">
-            {contentData.authorNickname}의 게시글
+            {data.expand.author.nickname}의 게시글
           </h3>
         </div>
       </header>
@@ -31,7 +29,7 @@ function Header({ contentData }) {
 }
 
 Header.propTypes = {
-  contentData: object,
+  data: object,
 };
 
 export default Header;

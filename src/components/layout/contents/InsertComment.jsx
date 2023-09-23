@@ -1,8 +1,7 @@
 import { ReactComponent as UpArrowSVG } from '@/assets/arrow_Feed_up.svg';
-import { ProfileImage } from '@/components/button';
-import { useCreateComment } from '@/hooks';
-import useStorageData from '@/hooks/useStorageData';
+import { useCreateComment, useStorageData } from '@/hooks';
 import { useRef } from 'react';
+import { ProfileImage } from '..';
 
 function InsertComment() {
   const commentInputRef = useRef();

@@ -1,13 +1,13 @@
-import createUserInfo from '@/api/createUserInfo';
-import LinkButton from '@/components/button/LinkButton';
+import { createData } from '@/api';
+import { LinkButton } from '@/components/button';
 import FormInput from '@/components/input/FormInput';
-import { nameReg, idReg, nickNameReg, passWordReg } from '@/utils/validation';
+import { idReg, nameReg, nickNameReg, passWordReg } from '@/utils';
+import { motion } from 'framer-motion';
 import { ClientResponseError } from 'pocketbase';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -89,7 +89,7 @@ function SignUp() {
         return;
       }
 
-      const record = await createUserInfo(newUser);
+      const record = await createData('users', newUser);
       // console.log(record);
       if (record?.id) {
         toast.success('회원가입이 완료됐습니다.');

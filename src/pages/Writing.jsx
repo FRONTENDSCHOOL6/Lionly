@@ -1,22 +1,24 @@
-import { ReactComponent as LeftArrow } from '@/assets/leftarrow.svg';
-import { Helmet } from 'react-helmet-async';
-import { useRef } from 'react';
+import { createData } from '@/api';
 import check from '@/assets/check.svg';
+import { ReactComponent as LeftArrow } from '@/assets/leftarrow.svg';
 import plus from '@/assets/plus.svg';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import createFeedData from '@/api/createFeedData';
-import useStorageData from '@/hooks/useStorageData';
-import useUpLoadImage from '@/hooks/useUploadImage';
-import useTextarea from '@/hooks/useTextarea';
-import { motion } from 'framer-motion';
-import useInfiniteFeed from '@/hooks/useInfiniteFeed';
 import useIsLogin from '@/contexts/AuthProvider';
+import {
+  useInfiniteFeed,
+  useStorageData,
+  useTextarea,
+  useUploadImage,
+} from '@/hooks';
 import { readAndCompressImage } from 'browser-image-resizer';
+import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function Writing() {
   const { handleUploadImg, handleImageUpload, imageInput, uploadImageRef } =
-    useUpLoadImage();
+    useUploadImage();
   const { handleInputCount, handleTextDelete, inputCount, textareaRef } =
     useTextarea();
   const { refetch } = useInfiniteFeed();
@@ -70,7 +72,7 @@ function Writing() {
             formData.append('channels', channelsValue);
             formData.append('author', authorValue);
 
-            await createFeedData(formData);
+            await createData('feeds', formData);
 
             await refetch();
             toast.success('게시물이 업로드 되었습니다.');

@@ -1,6 +1,6 @@
-import { oneOf, string, func } from 'prop-types';
+import { nickNameReg } from '@/utils';
+import { func, oneOf, string } from 'prop-types';
 import { useId, useRef, useState } from 'react';
-import { nickNameReg } from '@/utils/validation';
 
 function NicknameInput({
   type,
@@ -22,10 +22,10 @@ function NicknameInput({
     const isValid = nickNameReg(inputValue);
 
     if (isValid || inputValue === '') {
-      console.log('유효한 닉네임입니다.', inputValue);
+      // console.log('유효한 닉네임입니다.', inputValue);
       setIsErrorShow(false);
     } else {
-      console.error('유효하지 않은 닉네임입니다.', inputValue);
+      // console.error('유효하지 않은 닉네임입니다.', inputValue);
       setIsErrorShow(true);
     }
   };

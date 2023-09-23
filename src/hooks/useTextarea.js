@@ -1,5 +1,5 @@
+import { maxLengthCheck } from '@/utils';
 import { useRef, useState } from 'react';
-import { maxLengthCheck } from '@/utils/maxLengthCheck';
 
 function useTextarea() {
   const [inputCount, setInputCount] = useState(0);

@@ -1,10 +1,11 @@
 import { ReactComponent as Comment } from '@/assets/comment_Feed.svg';
-import { useChannel, useInfiniteFeed } from '@/hooks';
+import Spinner from '@/components/Spinner';
+import { useChannel } from '@/contexts/Channel';
+import { useInfiniteFeed } from '@/hooks';
 import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../../Spinner';
-import { ProfileImage } from '@/components/button';
+import { ProfileImage } from '..';
 
 function FeedList() {
   const navigate = useNavigate();
@@ -42,7 +43,11 @@ function FeedList() {
                     tabIndex={0}
                     key={content.id}
                     id={content.id}
-                    onKeyDown={handleKeyboardArrowControl}
+                    onKeyDown={(e) => {
+                      e.key === 'Enter'
+                        ? navigate(`/feed/contents/${content.id}`)
+                        : handleKeyboardArrowControl(e);
+                    }}
                     onClick={() => {
                       navigate(`/feed/contents/${content.id}`);
                     }}
@@ -92,8 +97,8 @@ function FeedList() {
 
                       <figure className="flex w-full flex-col gap-y-[14px]">
                         <img
-                          alt={`${content.expand.author.nickname}의 피드 이미지`}
                           src={getPbImageURL(content, 'feed_image')}
+                          alt=""
                           className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
                         />
 
@@ -119,6 +124,7 @@ function FeedList() {
             </Fragment>
           ))}
         </ul>
+
         {!hasNextPage && data.pages[0].totalPages !== 0 ? (
           <p
             id="lastContent"
