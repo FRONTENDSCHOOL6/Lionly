@@ -33,6 +33,7 @@ function FeedList() {
   return (
     data && (
       <main className="min-h-[calc(100vh-280px)]">
+        <h4 className="sr-only">피드 리스트</h4>
         <ul
           id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
           role="tabpanel"
@@ -41,13 +42,13 @@ function FeedList() {
           }`}
           className="mx-auto flex flex-col gap-y-6"
         >
-          <h4 className="sr-only">피드 리스트</h4>
           {data.pages.map((feed, index) => (
             <Fragment key={index}>
               {feed.totalPages !== 0 ? (
                 feed.items.map((content) => (
                   <li
                     tabIndex={0}
+                    role="tabpanel"
                     key={content.id}
                     id={content.id}
                     onKeyDown={(e) => {
