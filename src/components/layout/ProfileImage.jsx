@@ -4,7 +4,6 @@ import { array, number } from 'prop-types';
 function ProfileImage({ size = 40, imageName = [] }) {
   const imageURL = `https://lionly.pockethost.io/api/files/users/${imageName[0]}/${imageName[1]}`;
 
-  console.log(imageName);
   return (
     <img
       src={imageName[1] === '' ? lionHeadLogo : imageURL}
