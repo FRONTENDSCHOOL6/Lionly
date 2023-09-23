@@ -81,7 +81,7 @@ function FormInput({
           id={id}
           name={name}
           placeholder={placeholder}
-          className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
+          className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-base outline-none placeholder:text-lionly-white"
           ref={inputRef}
           autoComplete="off"
           minLength={minLength}

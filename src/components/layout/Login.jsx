@@ -69,7 +69,7 @@ function Login() {
         </label>
         <motion.input
           animate={controls}
-          className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
+          className="h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-base outline-none placeholder:text-lionly-white"
           placeholder="아이디를 입력해주세요"
           ref={emailRef}
           type="email"
@@ -86,7 +86,7 @@ function Login() {
         </label>
         <motion.input
           animate={controls}
-          className="mb-1 h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-sm outline-none placeholder:text-lionly-white"
+          className="mb-1 h-11 w-full rounded border border-lionly-white bg-transparent px-5 py-3 text-lionly-base outline-none placeholder:text-lionly-white"
           ref={passwordRef}
           placeholder="비밀번호를 입력해주세요"
           type="password"

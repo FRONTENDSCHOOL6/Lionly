@@ -161,7 +161,7 @@ function ProfileEdit({ onClose }) {
               name="usernickname"
               placeholder={nickname}
               errorMessage="한글 3~8자로 입력해주세요."
-              className="h-9 w-52 gap-2 rounded-lg border bg-lionly-gray-4 px-3 py-3 text-center text-lionly-sm  outline-none  placeholder:text-lionly-gray-2"
+              className="h-9 w-52 gap-2 rounded-lg border bg-lionly-gray-4 px-3 py-3 text-center text-lionly-base  outline-none  placeholder:text-lionly-gray-2"
               minLength="3"
               maxLength="8"
               onChange={handleNickName}
