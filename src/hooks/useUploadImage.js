@@ -1,7 +1,6 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
-
-function useUpLoadImage() {
+function useUploadImage() {
   const imageInput = useRef(null);
   const uploadImageRef = useRef(null);
 
@@ -13,9 +12,7 @@ function useUpLoadImage() {
     const imgUrl = URL.createObjectURL(imgFile);
     uploadImageRef.current.style.backgroundImage = `url('${imgUrl}')`;
   };
-  return (
-    { imageInput, uploadImageRef, handleImageUpload, handleUploadImg }
-  )
+  return { imageInput, uploadImageRef, handleImageUpload, handleUploadImg };
 }
 
-export default useUpLoadImage;
+export default useUploadImage;

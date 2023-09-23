@@ -53,7 +53,9 @@ function Contents() {
             {
               <>
                 <Header data={data} />
-                <Content data={data} />
+                <div className="px-4">
+                  <Content data={data} />
+                </div>
                 <Comments data={data} />
               </>
             }

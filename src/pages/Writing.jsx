@@ -45,45 +45,45 @@ function Writing() {
     e.preventDefault();
 
     const file = imageInput.current.files[0];
-    if (file) {
-      try {
-        // 이미지 리사이징 및 압축
-        const imageValue = await readAndCompressImage(file, config);
-        const textValue = textareaRef.current.value;
-        const channelsValue = channelsRef.current.value;
-        const authorValue = id;
+    const textValue = textareaRef.current.value;
+    const channelsValue = channelsRef.current.value;
+    const authorValue = id;
 
-        if (!textValue.trim()) {
-          toast.error('글을 작성해주세요.', { icon: '✏️' });
-          return;
+    if (!textValue.trim()) {
+      toast.error('글을 작성해주세요.', { icon: '✏️' });
+      return;
+    }
+
+    if (!file) {
+      toast.error('이미지를 선택해주세요.', { icon: '🖼️' });
+      return;
+    }
+
+    // 이미지 리사이징 및 압축
+    try {
+      const imageValue = await readAndCompressImage(file, config);
+
+      const uploadConfirm = confirm('게시물을 업로드 하시겠습니까?');
+
+      if (uploadConfirm) {
+        try {
+          const formData = new FormData();
+          formData.append('feed_image', imageValue);
+          formData.append('text', textValue);
+          formData.append('channels', channelsValue);
+          formData.append('author', authorValue);
+
+          await createData(formData);
+
+          await refetch();
+          toast.success('게시물이 업로드 되었습니다.');
+          navigate('/feed');
+        } catch (error) {
+          console.error(error);
         }
-        if (!file) {
-          toast.error('이미지를 선택해주세요.', { icon: '🖼️' });
-          return;
-        }
-
-        const uploadConfirm = confirm('게시물을 업로드 하시겠습니까?');
-
-        if (uploadConfirm) {
-          try {
-            const formData = new FormData();
-            formData.append('feed_image', imageValue);
-            formData.append('text', textValue);
-            formData.append('channels', channelsValue);
-            formData.append('author', authorValue);
-
-            await createData('feeds', formData);
-
-            await refetch();
-            toast.success('게시물이 업로드 되었습니다.');
-            navigate('/feed');
-          } catch (error) {
-            console.error(error);
-          }
-        }
-      } catch (err) {
-        console.error('Failed to optimize image', err);
       }
+    } catch (err) {
+      console.error('Failed to optimize image', err);
     }
   };
 
