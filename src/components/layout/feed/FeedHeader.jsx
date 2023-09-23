@@ -40,6 +40,7 @@ function FeedHeader() {
           tabIndex="0"
           width={24}
           height={24}
+          onKeyDown={(e) => (e.key === 'Enter' ? navigate('/mypage') : null)}
           onClick={() => {
             navigate('/mypage');
           }}

@@ -17,9 +17,9 @@ function Comments({ data }) {
       const targetIndex = e.target.id.slice(-1);
 
       setSelectedComment({
-        id: data[targetIndex].id,
-        nickname: data[targetIndex].commenterNickname,
-        reply: data[targetIndex].reply,
+        id: data.expand.comments[targetIndex].id,
+        nickname: data.expand.comments[targetIndex].commenterNickname,
+        reply: data.expand.comments[targetIndex].reply,
       });
 
       setOpenModal(true);

@@ -41,7 +41,7 @@ function MyPage() {
         <MyFeedList />
 
         {showScrollTopButton ? (
-          <div className="fixed right-[13%] top-[370px] z-10 inline pr-6">
+          <div className="fixed top-[320px] block w-full max-w-3xl p-8 text-right">
             <button
               role="button"
               aria-label="상단으로 이동"

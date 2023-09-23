@@ -13,7 +13,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
-    username: '',
+    name: '',
     userid: '',
     usernickname: '',
     userpassword: '',

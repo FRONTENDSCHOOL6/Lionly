@@ -4,7 +4,7 @@ import { useInfiniteMyFeed } from '@/hooks';
 import { getDate, getPbImageURL, handleKeyboardArrowControl } from '@/utils';
 import { shape, string } from 'prop-types';
 import { Fragment, useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../Spinner';
 import { ReactComponent as KebabButtonSVG } from '/src/assets/kebabMenuButton_FeedList.svg';
 
@@ -40,69 +40,70 @@ function MyFeedList() {
             <Fragment key={index}>
               {feed?.items.map((item) => (
                 <li
-                  tabIndex={0}
                   key={item.id}
                   id={item.id}
-                  onKeyDown={(e) => {
-                    e.key === 'Enter'
-                      ? navigate(`/feed/contents/${item.id}`)
-                      : handleKeyboardArrowControl(e);
-                  }}
-                  onClick={() => navigate(`/feed/contents/${item.id}`)}
                   className="relative mb-[22px] cursor-pointer"
                 >
-                  <div className="div">
-                    <figure className=" my-[10px] flex h-10 w-full">
-                      <img
-                        src={getPbImageURL(item.expand.author, 'profile_image')}
-                        aria-hidden
-                        className="h-[40px] min-h-[40px] w-[40px] min-w-[40px] rounded-full"
-                      />
-                      <figcaption className="ml-3 w-full">
-                        <p className="font-bold text-lionly-black">
-                          {item.expand.author.nickname}
-                        </p>
-                        <div className="flex items-center gap-x-2">
-                          <p className="text-lionly-sm text-lionly-gray-1">
-                            {getDate(item.created)}
+                  <Link
+                    to={`/feed/contents/${item.id}`}
+                    onKeyDown={handleKeyboardArrowControl}
+                  >
+                    <div className="div">
+                      <figure className=" my-[10px] flex h-10 w-full">
+                        <img
+                          src={getPbImageURL(
+                            item.expand.author,
+                            'profile_image'
+                          )}
+                          aria-hidden
+                          className="h-[40px] min-h-[40px] w-[40px] min-w-[40px] rounded-full"
+                        />
+                        <figcaption className="ml-3 w-full">
+                          <p className="font-bold text-lionly-black">
+                            {item.expand.author.nickname}
                           </p>
-                          <div className="flex h-full items-end">
-                            <div className="flex items-center gap-x-1">
-                              <Comment
-                                aria-hidden
-                                className="w-4 items-center fill-lionly-black"
-                              />
-                              <span
-                                aria-label="댓글 수"
-                                className="text-lionly-sm text-lionly-black"
-                              >
-                                {item.expand.comments
-                                  ? item.expand.comments
-                                      .map(
-                                        (comment) => 1 + comment.reply?.length
-                                      )
-                                      .reduce((acc, cur) => acc + cur)
-                                  : 0}
-                              </span>
+                          <div className="flex items-center gap-x-2">
+                            <p className="text-lionly-sm text-lionly-gray-1">
+                              {getDate(item.created)}
+                            </p>
+                            <div className="flex h-full items-end">
+                              <div className="flex items-center gap-x-1">
+                                <Comment
+                                  aria-hidden
+                                  className="w-4 items-center fill-lionly-black"
+                                />
+                                <span
+                                  aria-label="댓글 수"
+                                  className="text-lionly-sm text-lionly-black"
+                                >
+                                  {item.expand.comments
+                                    ? item.expand.comments
+                                        .map(
+                                          (comment) => 1 + comment.reply?.length
+                                        )
+                                        .reduce((acc, cur) => acc + cur)
+                                    : 0}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </figcaption>
-                    </figure>
-                    <figure className="w-full ">
-                      <img
-                        src={getPbImageURL(item, 'feed_image')}
-                        alt="피드 이미지"
-                        aria-hidden
-                        className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
-                      />
-                      <figcaption className="mt-[14px]">
-                        <p className="w-full text-lionly-md text-lionly-gray-1">
-                          {item.text}
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
+                        </figcaption>
+                      </figure>
+                      <figure className="w-full ">
+                        <img
+                          src={getPbImageURL(item, 'feed_image')}
+                          alt="피드 이미지"
+                          aria-hidden
+                          className="aspect-[4/3] w-full self-center rounded-2xl object-cover"
+                        />
+                        <figcaption className="mt-[14px]">
+                          <p className="w-full text-lionly-md text-lionly-gray-1">
+                            {item.text}
+                          </p>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </Link>
                   <div>
                     <button
                       type="button"
@@ -112,7 +113,7 @@ function MyFeedList() {
                       <KebabButtonSVG aria-hidden />
                     </button>
                     {drop == item.id && (
-                      <ul className="absolute right-0 top-[60px]  rounded-md border border-gray-300 bg-white p-2 shadow-lg">
+                      <ul className="absolute right-0 top-[60px] rounded-md border border-gray-300 bg-white p-2 shadow-lg">
                         <li className="cursor-pointer rounded-md p-2 duration-300 hover:bg-gray-200/80">
                           <button
                             type="button"

@@ -12,6 +12,7 @@ function Header({ data }) {
           aria-label="뒤로 가기"
           role="button"
           tabIndex="0"
+          onKeyDown={(e) => (e.key === 'Enter' ? navigate(-1) : null)}
           onClick={() => navigate(-1)}
           className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer fill-lionly-primary-color transition-all hover:scale-125"
         />

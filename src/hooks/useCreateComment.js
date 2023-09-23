@@ -27,17 +27,16 @@ function useCreateComment() {
 
     ref.current.value = '';
 
-    (collection === 'comments'
-      ? data[0].commentArray
-      : selectedComment.reply
-    )?.push(commentId);
+    (collection === 'comments' ? data.comments : selectedComment.reply)?.push(
+      commentId
+    );
 
     await pb
       .collection(collection === 'comments' ? 'feeds' : 'comments')
       .update(
-        collection === 'comments' ? data[0]?.id : selectedComment?.id,
+        collection === 'comments' ? data?.id : selectedComment?.id,
         collection === 'comments'
-          ? { comments: data[0].commentArray }
+          ? { comments: data.comments }
           : { reply: selectedComment?.reply }
       );
 
@@ -48,9 +47,13 @@ function useCreateComment() {
     }
 
     await refetch();
-    scrollTo({
-      top: 100000,
-    });
+
+    setTimeout(() => {
+      scrollTo({
+        top: 100000,
+      });
+    }, 100);
+
     return;
   };
 
