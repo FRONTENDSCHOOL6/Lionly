@@ -38,7 +38,7 @@
       - <a href="#signUp">회원가입</a>
       - <a href="#writing">글 쓰기</a>
 
-- 기간 : 2023 / 08 / 30 ~ 2023 / 09 / 26
+- 기간 : 2023 / 08 / 30 ~ 2023 / 09 / 24
 
 <h2 id='aboutTeam'>🚀 팀 구성</h2>
 
@@ -67,6 +67,7 @@
 - API 데이터 모델링 (팀 별, PocketBase 계정 생성 후 업로드)
 
 <h2 id='skills'>📚 기술 스택</h2>
+
 ### 환경
 
 <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
@@ -149,6 +150,8 @@
 - `pockethost`의 `feeds` 컬렉션에서 `getList` 로 게시글 2개씩 보여질 수 있도록 나열함.
 - `localstorage`에 저장된 로그인한 해당 사용자의 글만 불러오도록 `filter`로 조건 처리하여 데이터 불러옴.
 
+---
+
 2. 프로필 편집
 
 <div align="center"><img src="https://github.com/FRONTENDSCHOOL6/Lionly/assets/127176650/6ac45290-77b9-4e69-b8dc-d52112412eff" width="800px"/></div>
@@ -161,6 +164,8 @@
 - 닉네임 유효성 검사를 통과하지 못할 경우, 서버에 중복된 닉네임이 있을 경우 각각의 경고창을 띄워주며 서버로 전송이 불가합니다.
 - 닉네임만 변경하는 경우, 이미지만 변경하는 경우 또는 이미지/닉네임 둘 다 변경하는 세 가지 경우가 모두 가능하도록 조건 처리하여 `update`하고 서버로 전송되며 정보가 변경됩니다.
 
+---
+
 3. 게시글 삭제
 
 <div align="center"><img src="https://github.com/FRONTENDSCHOOL6/Lionly/assets/127176650/f19ab97c-1a12-400b-aeec-5ce03e47000e" width="800px"/></div>
@@ -171,6 +176,8 @@
 - `pockethost`의 `delete`를 이용하여 삭제 기능 구현
 - ‘삭제하기’ 를 클릭하면 `pockethost` 내에서의 게시글, 댓글, 답글의 데이터가 삭제되며 UI에서도 게시글이 사라지고 삭제되었다는 알림창이 보여집니다.
 - `deleteMyFeed`에서 `‘item, id, commentArray’` 를 매개변수로 넘겨주어 `onClick`이 발생했을 때 삭제 기능을 수행합니다.
+
+---
 
 4. 성능 검사
 
@@ -211,6 +218,7 @@ aria-modal="true" // dialog 영역 이외의 본문이 선택되지 않도록
 - `nav` 영역에는 채널 목록이 구현되어 있으며, 기본으로는 `전체 게시글` 채널이 활성화됩니다.
 
 - `main` 영역에는 `useInfiniteQuery`로 불러와진 게시글들이 렌더링됩니다.
+  - 게시글은 `Component`로 구성하여 게시글 페이지에서도 재사용하였습니다.
   - 게시글에는 작성자의 `닉네임`, `작성 시간`, `댓글 수`의 정보가 렌더링됩니다.
   - 게시글은 키보드로 컨트롤하여 선택이 가능합니다.
 
@@ -278,7 +286,22 @@ aria-modal="true" // dialog 영역 이외의 본문이 선택되지 않도록
 - 로그인한 사용자의 댓글 | 답글에만 삭제할 수 있는 버튼이 렌더링되며, 해당 버튼을 클릭하면 댓글 | 답글을 삭제할 수 있습니다.
   - 댓글에 답글들이 달린 경우에도, 댓글을 삭제하면 관계된 모든 답글의 데이터가 삭제됩니다.
 
----
+<h4>프로젝트 후기</h4>
+
+이번에는 프로젝트의 기간이 더 길어진 만큼 전 프로젝트에서는 신경쓰지 못했던 디렉토리 구성에 대한 부분이나, 네이밍, 웹 접근성에 대해서도 더 많이 고민해봤다.
+
+대부분 수업시간의 디렉토리 구성을 참고하긴 했지만, 나름대로 더 좋겠다는 방향으로 구성해봤고,
+네이밍에 대해서는 네이밍의 길이를 신경쓰지 않고, 어떤 동작을 하는지 이름으로 보다 더 알 수 있도록 고민했다.
+HTML/CSS와 JavaScript 프로젝트에서는 웹 접근성에 대해서는 많이 신경쓰지 못했는데, 이번에는 키보드 컨트롤도
+신경써보고, 스크린 리더를 사용해 음성도 들어보며 접근성이 좋아지도록 노력했다.
+
+이번에 배운 React를 사용하며, Side Effect를 최소화하려고 노력했고, 커스텀 훅에 대해서 조금은 더 이해한 것 같다. 하지만 아직도 상태를 누가 가지고, 어디로 넘겨줘야 하는지가 어려웠다. 굳이 context를 쓰지 않아도 될 것 같은 부분에서, 달리 방법을 찾지 못해 context를 구성한 것이 아쉽다.
+
+Tanstack Query를 사용할 때, 공식문서를 읽어보려고 노력했지만 공식문서의 내용이 단조로운 것 같아 공식문서만 참고하여 사용하는 것이 어려웠다.
+
+팀원과 시안을 만드는 것에 어려움이 있어서, 만든 서비스의 디자인이 단조로운 것 같아 아쉽고, 애니메이션을 사용해보지 못한 점이 아쉽다.
+
+그래도, 처음에 가졌던 목표인, '완성도 있게 만들기'는 만족할 만큼 달성한 것 같다.
 
 ### 박지함
 
