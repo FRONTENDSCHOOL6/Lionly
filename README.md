@@ -206,7 +206,8 @@ aria-modal="true" // dialog 영역 이외의 본문이 선택되지 않도록
 ### 김태일
 
 <h4 id="feed">피드</h4>
-1. 유저 정보와 채널 목록, 게시글
+
+<div align="center"><img width="400" alt="feed" src="https://github.com/FRONTENDSCHOOL6/Lionly/assets/127176650/5ed22d82-8ea6-47d5-8948-340d49a1336d"></div>
 
 <div align="center"><img src="https://github.com/FRONTENDSCHOOL6/Lionly/assets/127176650/f3d1ad9a-4fc2-47f3-a3d5-373cdb81ef40" width="800px"/></div>
 
@@ -251,6 +252,8 @@ aria-modal="true" // dialog 영역 이외의 본문이 선택되지 않도록
 - `useInfiniteScroll`을 사용해, 한 페이지에 4개의 게시글들이 출력되며, `IntersectionObserver`을 사용하여 하단으로 일정 부분 이상 스크롤할 경우 다음 페이지의 게시글들을 불러와 화면에 렌더링됩니다.
 
 <h4 id="contents">게시글</h4>
+
+<div align="center"><img width="400" alt="feed" src="https://github.com/FRONTENDSCHOOL6/Lionly/assets/127176650/4788d5c3-c318-4a4f-bbca-6dead5330952"></div>
 
 1. 게시글의 정보와 댓글 영역
 
