@@ -50,7 +50,7 @@ function ReplyModal({ openModal, setOpenModal }) {
           onInput={handleInputReply}
           placeholder="답글을 입력해주세요."
           onKeyDown={(e) => handlePreventTabControl(e, true)}
-          className="w-full resize-none overflow-hidden p-2 text-lionly-md"
+          className="w-full resize-none overflow-hidden p-2 text-lionly-base"
         />
         <div className="z-10 flex justify-around bg-lionly-gray-1 py-3">
           <button
@@ -65,6 +65,7 @@ function ReplyModal({ openModal, setOpenModal }) {
             type="button"
             onKeyDown={(e) => handlePreventTabControl(e)}
             onClick={() => {
+              replyInputRef.current.value = '';
               setOpenModal(false);
             }}
             className="w-1/3 self-center rounded-full border bg-lionly-gray-3 p-2 text-lionly-sm-bold text-lionly-white"

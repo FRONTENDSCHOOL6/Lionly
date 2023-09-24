@@ -12,6 +12,12 @@ function FeedList() {
   const { isLoading, data, hasNextPage } = useInfiniteFeed();
   const { channelList } = useChannel();
   const { showScrollTopButton, handleScrollTop } = useScroll();
+  const handleNavigate = (content) => {
+    navigate(`/feed/contents/${content.id}`);
+    scrollTo({
+      top: 0,
+    });
+  };
 
   if (isLoading) {
     return (
@@ -27,6 +33,7 @@ function FeedList() {
   return (
     data && (
       <main className="min-h-[calc(100vh-280px)]">
+        <h4 className="sr-only">피드 리스트</h4>
         <ul
           id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
           role="tabpanel"
@@ -35,23 +42,21 @@ function FeedList() {
           }`}
           className="mx-auto flex flex-col gap-y-6"
         >
-          <h4 className="sr-only">피드 리스트</h4>
           {data.pages.map((feed, index) => (
             <Fragment key={index}>
               {feed.totalPages !== 0 ? (
                 feed.items.map((content) => (
                   <li
                     tabIndex={0}
+                    role="tabpanel"
                     key={content.id}
                     id={content.id}
                     onKeyDown={(e) => {
                       e.key === 'Enter'
-                        ? navigate(`/feed/contents/${content.id}`)
+                        ? () => handleNavigate(content)
                         : handleKeyboardArrowControl(e);
                     }}
-                    onClick={() => {
-                      navigate(`/feed/contents/${content.id}`);
-                    }}
+                    onClick={() => handleNavigate(content)}
                     className="cursor-pointer"
                   >
                     <div className="flex flex-col gap-y-2.5 px-4 py-3">
