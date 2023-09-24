@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 
 function MyPage() {
   useIsLogin();
-  const { hasNextPage, fetchNextPage } = useInfiniteMyFeed();
+  const { data, hasNextPage, fetchNextPage } = useInfiniteMyFeed();
   const { listEndRef } = useObserveScroll(fetchNextPage);
   const { showScrollTopButton, handleScrollTop } = useScroll();
 
@@ -55,7 +55,7 @@ function MyPage() {
           </div>
         ) : null}
 
-        {!hasNextPage ? (
+        {!hasNextPage && data?.pages[0].totalPages !== 0 ? (
           <p
             role="status"
             className="pt-6 text-center text-lionly-base text-lionly-red"
