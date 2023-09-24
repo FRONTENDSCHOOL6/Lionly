@@ -7,8 +7,6 @@ function Content({ data }) {
   return (
     data && (
       <main className="flex flex-col gap-y-2.5 py-3">
-        <h4 className="sr-only">Content</h4>
-
         <figure className="flex w-full gap-x-3">
           <ProfileImage
             size={40}

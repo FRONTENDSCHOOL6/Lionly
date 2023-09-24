@@ -8,9 +8,9 @@ function ChannelTab() {
 
   return (
     <nav>
-      <h3 className="sr-only" id="channelList">
+      <p className="sr-only" id="channelList">
         채널 리스트
-      </h3>
+      </p>
       <div className="flex h-[60px] min-w-[320px] overflow-hidden bg-[#f5f5f5]">
         <ul
           className="mx-[3px] my-[14px] flex gap-x-1.5 px-2"

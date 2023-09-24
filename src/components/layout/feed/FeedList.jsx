@@ -14,9 +14,9 @@ function FeedList() {
   const { showScrollTopButton, handleScrollTop } = useScroll();
   const handleNavigate = (content) => {
     navigate(`/feed/contents/${content.id}`);
-    scrollTo({
-      top: 0,
-    });
+    // scrollTo({
+    //   top: 0,
+    // });
   };
 
   if (isLoading) {

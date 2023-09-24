@@ -43,9 +43,9 @@ function FeedHeader() {
           onKeyDown={(e) => (e.key === 'Enter' ? navigate('/mypage') : null)}
           onClick={() => {
             navigate('/mypage');
-            scrollTo({
-              top: 0,
-            });
+            // scrollTo({
+            //   top: 0,
+            // });
           }}
           className="cursor-pointer bg-lionly-primary-color fill-lionly-white transition-all hover:scale-125"
         />
