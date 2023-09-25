@@ -53,7 +53,7 @@ function FeedList() {
                     id={content.id}
                     onKeyDown={(e) => {
                       e.key === 'Enter'
-                        ? () => handleNavigate(content)
+                        ? handleNavigate(content)
                         : handleKeyboardArrowControl(e);
                     }}
                     onClick={() => handleNavigate(content)}
