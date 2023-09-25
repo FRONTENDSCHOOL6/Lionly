@@ -2,11 +2,10 @@ import pb from '@/api/pocketbase';
 import { useContent } from '@/contexts/Content';
 import { useContentData, useStorageData } from '@/hooks';
 
-function useCreateComment() {
+function useCreateComment(setOpenModal) {
   const storageData = useStorageData();
   const { selectedComment } = useContent();
   const { refetch, data } = useContentData();
-
   const handleSubmitComment = async (e, collection, ref) => {
     e.preventDefault();
 
@@ -14,7 +13,7 @@ function useCreateComment() {
       alert(`${collection === 'comments' ? '댓글' : '답글'}을 입력해주세요.`);
       return;
     }
-
+    const defaultPlaceholder = ref.current.placeholder;
     const commentId = crypto.randomUUID().replaceAll('-', '').slice(0, 15);
 
     await pb
@@ -26,6 +25,13 @@ function useCreateComment() {
       });
 
     ref.current.value = '';
+    ref.current.style.backgroundColor = '#d9d9d9';
+    ref.current.placeholder = '댓글을 입력 중입니다...';
+    ref.current.disabled = true;
+
+    collection === 'comments'
+      ? (document.querySelector('#submitButton').disabled = true)
+      : (document.querySelector('#dialog__submitButton').disabled = true);
 
     (collection === 'comments' ? data.comments : selectedComment.reply)?.push(
       commentId
@@ -48,11 +54,16 @@ function useCreateComment() {
 
     await refetch();
 
-    setTimeout(() => {
-      scrollTo({
-        top: 100000,
-      });
-    }, 100);
+    ref.current.style.backgroundColor = 'white';
+    ref.current.placeholder = defaultPlaceholder;
+    ref.current.disabled = false;
+
+    if (collection === 'reply') {
+      setOpenModal(false);
+      document.querySelector('#dialog__submitButton').disabled = false;
+    } else {
+      document.querySelector('#submitButton').disabled = false;
+    }
 
     return;
   };

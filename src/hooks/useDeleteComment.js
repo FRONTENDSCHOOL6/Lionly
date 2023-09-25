@@ -27,6 +27,7 @@ function useDeleteComment(data) {
 
     return;
   };
+
   return { handleDeleteComment };
 }
 
