@@ -26,7 +26,9 @@ function useCreateComment(setOpenModal) {
 
     ref.current.value = '';
     ref.current.style.backgroundColor = '#d9d9d9';
-    ref.current.placeholder = '댓글을 입력 중입니다...';
+    ref.current.placeholder = `${
+      collection === 'comments' ? '댓글' : '답글'
+    }을 입력 중입니다...`;
     ref.current.disabled = true;
 
     collection === 'comments'
