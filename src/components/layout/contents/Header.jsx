@@ -18,7 +18,7 @@ function Header({ data }) {
         />
 
         <div className="flex flex-col items-center">
-          <h2 className="text-lionly-sm text-lionly-white">{data.channel}</h2>
+          <h2 className="text-lionly-sm text-lionly-white">{data.channels}</h2>
 
           <h3 className="w-full text-center text-lionly-base font-bold text-lionly-black">
             {data.expand.author.nickname}의 게시글
