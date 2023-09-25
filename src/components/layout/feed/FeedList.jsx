@@ -33,7 +33,7 @@ function FeedList() {
   return (
     data && (
       <main className="min-h-[calc(100vh-280px)]">
-        <h4 className="sr-only">피드 리스트</h4>
+        <h3 className="sr-only">피드 리스트</h3>
         <ul
           id={`tabpanel-${Object.values(channelList).indexOf(true) + 1}`}
           role="tabpanel"

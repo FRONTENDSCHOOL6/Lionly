@@ -33,7 +33,7 @@ function Feed() {
         <div className="sticky top-0 z-10">
           <FeedHeader />
 
-          <h3 className="sr-only">피드 - {selectedChannel}</h3>
+          <h2 className="sr-only">{selectedChannel}</h2>
 
           <ChannelTab />
         </div>
