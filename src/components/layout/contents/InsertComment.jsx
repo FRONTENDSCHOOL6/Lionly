@@ -45,6 +45,7 @@ function InsertComment() {
           className="peer h-10 w-full resize-none overflow-hidden rounded-3xl border border-lionly-gray-3 px-5 py-2 placeholder:text-center"
         />
         <button
+          id="submitButton"
           role="button"
           aria-label="댓글 쓰기"
           type="submit"

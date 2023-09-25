@@ -8,8 +8,6 @@ import ReplyModal from './ReplyModal';
 import { ReactComponent as TrashCan } from '/src/assets/trashCan_Contents.svg';
 
 function Comments({ data }) {
-  const { handleDeleteComment } = useDeleteComment(data);
-
   const [openModal, setOpenModal] = useState(false);
   const { setSelectedComment } = useContent();
   const handleOpenModal = (e) => {
@@ -26,6 +24,8 @@ function Comments({ data }) {
     }
     return;
   };
+
+  const { handleDeleteComment } = useDeleteComment(data);
   const storageData = useStorageData();
 
   return (
@@ -107,9 +107,9 @@ function Comments({ data }) {
                             tabIndex="0"
                             role="button"
                             type="button"
-                            onClick={() =>
-                              handleDeleteComment('reply', reply.id)
-                            }
+                            onClick={() => {
+                              handleDeleteComment('reply', reply.id);
+                            }}
                             className="w-3 fill-lionly-primary-color transition-all hover:scale-125"
                           />
                         ) : null}

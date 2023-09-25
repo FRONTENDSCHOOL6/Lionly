@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 
 function ReplyModal({ openModal, setOpenModal }) {
-  const { handleSubmitComment } = useCreateComment();
+  const { handleSubmitComment } = useCreateComment(setOpenModal);
   const replyInputRef = useRef(null);
   const handleInputReply = (e) => {
     const textarea = e.currentTarget;
@@ -54,9 +54,9 @@ function ReplyModal({ openModal, setOpenModal }) {
         />
         <div className="z-10 flex justify-around bg-lionly-gray-1 py-3">
           <button
+            id="dialog__submitButton"
             aria-label="답글 달기"
             type="submit"
-            onClick={() => setOpenModal(false)}
             className="w-1/3 self-center rounded-full border bg-lionly-gray-3 p-2 text-lionly-sm-bold text-lionly-white"
           >
             작성하기
